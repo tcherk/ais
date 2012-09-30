@@ -4,3 +4,7 @@
 *.log
 *.dvi
 *.toc
+/book
+*.out
+*.run.xml
+*-blx.bib
