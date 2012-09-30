@@ -1,0 +1,3 @@
+#!/bin/bash
+
+latex atd.tex && dvips -f atd.dvi -o atd.ps -t a5 && ggv atd.ps
