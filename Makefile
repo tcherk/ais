@@ -3,7 +3,8 @@
 #PICS=pics/AnBase.eps pics/Chunk2.eps pics/Chunk.eps pics/logics_schema_1.eps \
 #	pics/Parallel.eps pics/PST2.eps pics/PST.eps
 TEXS=main.tex
-DVIPS_ARGS=-t a5 -O0in,3.2in
+# DVIPS_ARGS=-t a5 -O0in,3.2in
+DVIPS_ARGS=-t a5
 
 all: main book
 
@@ -12,7 +13,7 @@ main: main.pdf
 main.pdf: main.ps
 	epstopdf main.ps > main.pdf
 
-main_book: main_book.ps
+main_book.pdf: main_book.ps
 	epstopdf main_book.ps > main_book.pdf
 
 main.ps: main.dvi $(PICS)
@@ -28,7 +29,7 @@ view:	main.dvi
 pdf:	main.pdf
 	evince main.pdf
 
-pdf_book: main_book
+pdf_book: main_book.pdf
 	evince main_book.pdf
 
 main_book.ps:main.ps
@@ -40,3 +41,5 @@ main_book.ps:main.ps
 
 clean:
 	rm -f *.aux *.toc *.log *.pdf main.ps main_book.ps *.dvi _TZ* *.out *.run.xml *.bib
+
+book:	main_book.pdf
