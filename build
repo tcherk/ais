@@ -1,3 +1,3 @@
 #!/bin/bash
 
-latex atd.tex && dvips -f atd.dvi -o atd.ps -t a5 && ggv atd.ps
+latex main.tex && dvips -f main.dvi -o main.ps -t a5 && evince main.ps
