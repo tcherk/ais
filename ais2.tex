@@ -9,6 +9,7 @@
 \usepackage{longtable}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
+\usepackage[14pt]{extsizes}
 \usepackage{fancyhdr}
 \usepackage{pstricks}
 \usepackage{pst-all}
@@ -22,6 +23,8 @@ centering, right=2.7cm, bindingoffset=1mm, }}
 %Основные требования для макетов в редакторе Тех
 %Поля: верхнее – 1,8 см, нижнее – 2,8, левое и правое – 2,7
 %Расстояние от края страницы до колонтитула – 2,1 см
+
+\def\normalsize{\fontsize{15}{18}\selectfont{}}
 
 \newenvironment{PP}{%
     \begin{quote}\tt}{%
@@ -65,6 +68,8 @@ centering, right=2.7cm, bindingoffset=1mm, }}
     \vskip 7\p@
   }}
 \makeatother
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \def\chaptername{Тема}
