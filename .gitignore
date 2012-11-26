@@ -4,3 +4,4 @@
 *.log
 *.dvi
 *.toc
+/ais2.fdb_latexmk

@@ -1,6 +1,6 @@
 \documentclass[12pt, openany, twoside]{book} % Computer Modern font calls
-%\usepackage[paper=a5paper, twoside, includehead]{geometry}
-\usepackage[paper=a5paper, twoside]{geometry}
+\usepackage[paper=a4paper, twoside, includehead]{geometry}
+%\usepackage[paper=a4paper, twoside]{geometry}
 
 \usepackage[T1]{fontenc}
 %\usepackage{literat}
@@ -10,14 +10,18 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 \usepackage{fancyhdr}
-%\usepackage{pstricks}
+\usepackage{pstricks}
 \usepackage{pst-all}
 \usepackage{pst-poly}
 %\def\defgeom{\geometry{paper=a5paper, left=1.4142cm, top=1.4142cm, bottom=1.4142cm,
 %centering, right=1.4142cm, bindingoffset=0mm, }}
-\def\defgeom{\geometry{paper=a5paper, left=1.4142cm, top=1.6142cm, bottom=1.8142cm,
-centering, right=1.4142cm, bindingoffset=1mm, }}
+\def\defgeom{\geometry{paper=a4paper, left=2.7cm, top=1.8cm, bottom=2.8cm,
+centering, right=2.7cm, bindingoffset=1mm, }}
 %\tolerance=10000
+
+%Основные требования для макетов в редакторе Тех
+%Поля: верхнее – 1,8 см, нижнее – 2,8, левое и правое – 2,7
+%Расстояние от края страницы до колонтитула – 2,1 см
 
 \newenvironment{PP}{%
     \begin{quote}\tt}{%
@@ -10373,4 +10377,3 @@ Intelligence Artificielle): Translation from French - Moscow: Mir,
      Например, ПЕРЕВОД([3,4,8],["три","четыре","восемь"])
 
 \end{verbatim}
-
