@@ -5,3 +5,4 @@
 *.dvi
 *.toc
 /ais2.fdb_latexmk
+/ais2.fls

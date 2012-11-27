@@ -16,6 +16,10 @@
 \usepackage{pstricks}
 \usepackage{pst-all}
 \usepackage{pst-poly}
+\usepackage{indentfirst}
+\usepackage{pscyr}
+%\usepackage{times}
+%\usepackage{pslatex}
 %\def\defgeom{\geometry{paper=a5paper, left=1.4142cm, top=1.4142cm, bottom=1.4142cm,
 %centering, right=1.4142cm, bindingoffset=0mm, }}
 \def\defgeom{\geometry{paper=a4paper, left=2.7cm, top=1.8cm, bottom=2.8cm,
@@ -971,7 +975,7 @@ $\lambda$--исчислении Чёрча. В г.Иркутске в
 \subsection{Prolog}
 
 Большинство классических реализаций Пролога --- либо интерпретаторы, либо трансляторы в
-коды виртуальной машины, называемой {\em машиной Уоррена} (Warren). Но в данный момент существует множество реализаций Prolog, которые поддерживают компиляцию в машинный код. Из известных - SWI-Prolog, GNU-Prolog, Visual Prolog(бывший Turbo Prolog). Большинство реализаций опираются на стандарт ISO PROLOG, но некоторые, например Visual Prolog - нет. 
+коды виртуальной машины, называемой {\em машиной Уоррена} (Warren). Но в данный момент существует множество реализаций Prolog, которые поддерживают компиляцию в машинный код. Из известных - SWI-Prolog, GNU-Prolog, Visual Prolog(бывший Turbo Prolog). Большинство реализаций опираются на стандарт ISO PROLOG, но некоторые, например Visual Prolog - нет.
 
 {\bf В этом учебном пособии будем использовать преимущественно синтаксис и
 семантику языка ISO-PROLOG, а реализацию - GNU-Prolog(????)}
@@ -1278,7 +1282,7 @@ $$
 \end{verbatim}}
 
 \paragraph{ВВОД ПРОГРАММ.} Ввод программ в систему GNU-Prolog
-осуществляется во встроенном простом редакторе, который встроен интепретатор GNU-Prolog. 
+осуществляется во встроенном простом редакторе, который встроен интепретатор GNU-Prolog.
 
 В классических реализациях языка Пролог введение списка утверждений
 в Пролог-систему осуществляется с
@@ -10373,4 +10377,3 @@ Intelligence Artificielle): Translation from French - Moscow: Mir,
      Например, ПЕРЕВОД([3,4,8],["три","четыре","восемь"])
 
 \end{verbatim}
-
