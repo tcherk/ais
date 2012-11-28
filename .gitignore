@@ -4,5 +4,9 @@
 *.log
 *.dvi
 *.toc
-/ais2.fdb_latexmk
-/ais2.fls
+ais2.fdb_latexmk
+ais2.fls
+_TZ_*.tex
+*~
+*.bak
+
