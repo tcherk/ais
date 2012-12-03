@@ -19,7 +19,7 @@
 \usepackage{pst-all}
 \usepackage{pst-poly}
 \usepackage{indentfirst}
-\usepackage{pscyr}
+%\usepackage{pscyr}
 \usepackage{blindtext}
 
 %\usepackage{times}
@@ -2361,56 +2361,17 @@ yes.
 
 Иногда приходится сталкиваться с задачами, эффективный алгоритм решения которых очевидным образом реализовать не удается, либо нет достаточно времени на анализ свойств задачи и поиск подходящего алгоритма. К таким задачам относятся, например, \emph{задачи с удовлетворением ограничений}\footnote{Англ. \emph{Constraint satisfaction problems, CSP.}}. Такие задачи являются математическими проблемами, определенными над конечным набором объектов, чьи значения должны удовлетворять ряду ограничений, выраженных в виде неравенств и логических выражений. Исследования в области решения задач CSP ведутся достаточно давно и по сей день актуальность этих исследований только повышается.
 
-К задачам CSP сводятся многие задачи искусственного интеллекта, в частности, планирование действий. Задачи удовлетворения ограничений довольно часто демонстрируют большую комбинаторную сложность, и практически для каждой индивидуальной задачи строятся собственные варианты эвристических алгоритмов\footnote{Алгоритмов, где на этапах выбора очередного направления поиска решения из нескольких альтернатив используется дополнительная (по отношению к исходной) информация для задания этим альтернативам некоторого предпочтения.} их решения.
+К задачам CSP сводятся многие задачи искусственного интеллекта, в частности, планирование действий. Задачи удовлетворения ограничений довольно часто демонстрируют большую комбинаторную сложность, и практически для каждой индивидуальной задачи строятся собственные варианты эвристических алгоритмов\footnote{Алгоритмов, где на этапах выбора очередного направления поиска решения из нескольких альтернатив используется дополнительная (по отношению к исходной) информация для задания этим альтернативам некоторого предпочтения.} их решения. Примеры известных задач --- ``Восемь ферзей'', ``Раскраска карты'', ``Судоку'', ``Поиск выполняющего набора'', ``Составление расписания вуза''.
 
-
- CSPs often exhibit high complexity, requiring a combination of heuristics and combinatorial search methods to be solved in a reasonable time. The boolean satisfiability problem (SAT), the Satisfiability Modulo Theories (SMT) and answer set programming (ASP) can be roughly thought of as certain forms of the constraint satisfaction problem.
-Examples of simple problems that can be modeled as a constraint satisfaction problem
-Eight queens puzzle
-Map coloring problem
-Sudoku
-Examples demonstrating the above are often provided with tutorials of ASP, boolean SAT and SMT solvers. In the general case, constraint problems can be much harder, and may not be expressible in some of these simpler systems.
-Contents  [hide]
-1 Formal definition
-2 Resolution of CSPs
-3 Theoretical aspects of CSPs
-3.1 Decision problems
-3.2 Function problems
-4 Variants of CSPs
-4.1 Dynamic CSPs
-4.2 Flexible CSPs
-5 See also
-6 References
-7 Further reading
-8 External links
-[edit]Formal definition
-
-Formally, a constraint satisfaction problem is defined as a triple , where  is a set of variables,  is a domain of values, and  is a set of constraints. Every constraint is in turn a pair (usually represented as a matrix), where  is an -tuple of variables and  is an -ary relation on . An evaluation of the variables is a function from the set of variables to the domain of values, . An evaluation  satisfies a constraint  if . A solution is an evaluation that satisfies all constraints.
-
+Формально задачи CSP определяются следующим образом. Заданы вектор переменных $\vec{V}=\langle v_1, v_2, \ldots, v_n\rangle$, где $n$ --- количество переменных (натуральное); множество множеств $D=\{ d_1, d_2, \ldots, d_n\}$, где $d_i$ --- непустое множество значений (домен), которые может принимать переменная $v_i$, $i=1,2,\ldots,n$. Задается, также, логическое условие $P(\vec{V})=P(v_1,v_2,\ldots,v_n)$, которое истинно, если значения, присвоенные переменным $v_i$, соответствуют условиям правильной комбинации. Например, для задачи ``Восемь ферзей'' $P(\vec{V})$ истинно, если все ферзи, расставленные на доске, не бьют друг друга. Иногда говорят о системе ограничений, и о таких значениях переменных, при которых все ограничения выполняются (истинны). Систему ограничений можно записать как конъюнкцию индивидуальных ограничений, т.е. свести опять же к единому логическому условию $P(\vec{V})$.
 
 \section{Алгоритм ``Британского музея''}
 
-Алгоритм ``Британского музея''
-British Museum algorithm
-From Wikipedia, the free encyclopedia
-Graph and tree
-search algorithms
-The British Museum algorithm is a general approach to find a solution by checking all possibilities one by one, beginning with the smallest. The term refers to a conceptual, not a practical, technique where the number of possibilities is enormous.
-For instance, one may, in theory, find the smallest program that solves a particular problem in the following way: Generate all possible source codes of length one character. Check each one to see if it solves the problem. (Note: the halting problem makes this check troublesome.) If not, generate and check all programs of two characters, three characters, etc. Conceptually, this finds the smallest program, but in practice it tends to take an unacceptable amount of time (more than the lifetime of the universe, in many instances).
-Similar arguments can be made to show that optimizations, theorem proving, language recognition, etc. is possible or impossible.
-Newell, Shaw, and Simon [1] called this procedure the British Museum algorithm
-"... since it seemed to them as sensible as placing monkeys in front of typewriters in order to reproduce all the books in the British Museum." [1]
-[edit]See also
+Одним из простых алгоритмов, решающих задачи CSP является алгоритм ``Британского музея''\footnote{В советской литературе вариант этого подхода известен как метод ``Отобразить и проверить'' (источник информации, к сожалению, потерян).}. Алгоритм реализует самый общий подход в задачах поиска решения на основе последовательной проверки всех возможностей (одну за одной), начиная с самых простых решений.
 
-Branch and bound
-Breadth-first search
-Brute-force search
-[edit]Sources
+Алгоритм реализует концептуальный, а не практический подход, оперируя огромным количеством возможных альтернатив. В частности, в теории, он представляет способ найти самую короткую программу, которая решает конкретную задачу. Например, можно сгенерировать все возможные программы длиной в один символ. Проверить каждую программу, решает ли она эту задачу\footnote{Существует фундаментальная проблема остановки, которая делает такую проверку, в общем случае, невозможной.}. Если среди односимвольных программ не найдено программы, решающей задачу, перейти к просмотру программ длиной в два символа, затем в три и т.д. В теории, такой подход позволяет найти самую короткую программу, однако на практике такой перебор занимает недопустимо большое время вычислений (для многих задач больше, чем возраст вселенной).
 
-Original text by Paul E. Black, British Museum technique at the NIST Dictionary of Algorithms and Data Structures..
-[edit]References
-
-Allen Newell, J.C. Shaw and Herbert A. Simon (May 1958). "Elements of a theory of human problem solving". Psychological Review 65 (3): pp. 151-166.
+Название данный алгоритм получил ввиду высказывания Аллена Ньювэлла, Дж.С. Шоу и Герберта А. Симона в 1958 году: ``... вполне уместно предположить, что если посадить обезьян за печатные машинки можно серез некоторе время воспроизвести все книги в известном Британском музее'' в Лондоне.
 
 
 \chapter*{Контрольный список вопросов}
