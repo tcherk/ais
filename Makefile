@@ -10,7 +10,7 @@ all: $(NAME).pdf
 
 clean:
 	BIBINPUTS=$(BIBROOT) latexmk -C
-	rm -f $(NAME).{bbl,aux,ps)
+	rm -f $(NAME).{bbl,aux,ps}
 
 view: all
 	evince $(NAME).pdf
