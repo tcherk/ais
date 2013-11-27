@@ -12,3 +12,5 @@ _TZ_*.tex
 *.out
 
 #UMU-poly
+*.wbk
+~*
