@@ -10,3 +10,6 @@ _TZ_*.tex
 *~
 *.bak
 *.out
+#UMU-poly
+*.wbk
+~*
