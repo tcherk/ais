@@ -3,32 +3,19 @@
 %\mag 1250
 %\mag 1071
 \documentclass[12pt, openany, twoside]{book} % Computer Modern font calls
-\usepackage[paper=a4paper, twoside, includehead]{geometry}
-%\usepackage[paper=a4paper, twoside]{geometry}
-
-\usepackage[T2A]{fontenc}
-%\usepackage{literat}
-%\usepackage[pdftex,unicode]{hyperref}
-\usepackage[dvips]{graphicx}
-\usepackage{longtable}
+\usepackage{isu-book}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
-\usepackage[unicode=true,colorlinks=true,pdfstartview=FitH,pdfpagemode=UseOutlines,linkcolor=black,citecolor=black,urlcolor=black,pdftitle={dis},pdfauthor={steve},pdfkeywords={},pdfproducer={LaTeX},pdfcreator={LaTeX}]{hyperref}
-%\usepackage[14pt]{extsizes}
-\usepackage{fancyhdr}
-\usepackage{pstricks}
-\usepackage{pst-all}
-\usepackage{pst-poly}
-\usepackage{indentfirst}
-\usepackage{pscyr}
-\usepackage{blindtext}
-\usepackage{caption}
-\usepackage{isu-book}
+\usepackage[T2A]{fontenc}
+\usepackage[dvips]{graphicx}
+
 %\usepackage{times}
 %\usepackage{pslatex}
 
 \def\rem#1{}
 %\def\AR{{\em Прим.~автора~пособия}}
+\def\emphbib#1{#1}
+\newenvironment{questions}{\subsubsection*{Вопросы для самопроверки}\begin{enumerate}}{\end{enumerate}}
 
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
@@ -37,12 +24,12 @@
     pdfmenubar=true,        % show Acrobat’s menu?
     pdffitwindow=false,     % window fit to page when opened
     pdfstartview={FitH},    % fits the width of the page to the window
-    pdftitle={Рек-Лог Прог},    % title
-    pdfauthor={Alexander Larionov},     % author
-    pdfsubject={Dissertation 05.13.17},   % subject of the document
+    pdftitle={Рекурсивно-Логическое Программирование},    % title
+    pdfauthor={Евгений Александрович Черкашин},     % author
+    pdfsubject={Методическое пособие по теме},   % subject of the document
     pdfcreator={LaTeX},   % creator of the document
     pdfproducer={LaTeX}, % producer of the document
-    pdfkeywords={ATP} {Logics} {Artificial Intelligence}, % list of keywords
+    pdfkeywords={Пролог} {Искусственный интеллект} {Планирование действий}, % list of keywords
     pdfnewwindow=true,      % links in new window
     colorlinks=true,       % false: boxed links; true: colored links
     linkcolor=black, %[rgb]{0 0.4 0.1},          % color of internal links

@@ -1,5 +1,21 @@
 
-\def\defgeom{\geometry{papersize={17.5cm,24.75cm}, left=2.25cm, right=2.25cm, top=1.5cm, bottom=2.33cm, centering, bindingoffset=1mm}}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{isu-book}[2014/03/15 Irkutsk State University Book]
+
+\RequirePackage[paper=a4paper, twoside, includehead]{geometry}
+\RequirePackage{longtable}
+\RequirePackage{hyperref}
+\RequirePackage{fancyhdr}
+\RequirePackage{pstricks}
+\RequirePackage{pst-all}
+\RequirePackage{pst-poly}
+\RequirePackage{indentfirst}
+\RequirePackage{pscyr}
+\RequirePackage{blindtext}
+\RequirePackage{caption}
+
+
+\def\isu@defgeom{\geometry{papersize={17.5cm,24.75cm}, left=2.25cm, right=2.25cm, top=1.5cm, bottom=2.33cm, centering, bindingoffset=1mm}}
 
 %Основные требования для макетов в редакторе Тех
 %Поля: верхнее – 1,8 см, нижнее – 2,8, левое и правое – 2,7
@@ -18,8 +34,6 @@
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 
-\defgeom{}
-\makeatletter
 \def\@makechapterhead#1{%
   %\vspace*{10\p@}%
   {\parindent \z@ \raggedright \normalfont
@@ -58,8 +72,6 @@
                                      {1.5ex \@plus .2ex}%
                                      {\normalfont\normalsize\bfseries}}
 
-\makeatother
-
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
     unicode=true,          % non-Latin characters in Acrobat’s bookmarks
@@ -81,8 +93,6 @@
     urlcolor=black % [rgb]{0.3 0.0 0.3}           % color of external links
 }
 
-\newenvironment{questions}{\subsubsection*{Вопросы для самопроверки}\begin{enumerate}}{\end{enumerate}}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\chaptername{}
 \def\thechapter{\arabic{chapter}.}
@@ -91,8 +101,6 @@
 \def\thesubsubsection{\thesubsection\arabic{subsubsection}.}
 \def\thefigure{\thechapter\arabic{figure}.}
 \def\thetable{\thechapter\arabic{table}.}
-\def\emphbib#1{#1}
-
 
 %\fancypagestyle{plain}{%
 \fancyhf{} % clear all header and footer fields
@@ -103,7 +111,12 @@
 \renewcommand{\headrulewidth}{1pt}
 \renewcommand{\footrulewidth}{0pt}%}
 \pagestyle{fancy}
+
+\AtBeginDocument{
+  \captionsetup[figure]{labelformat=simple,labelsep=space}
+\captionsetup[table]{labelformat=simple,labelsep=newline,singlelinecheck=off,justification=raggedleft}
 \renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter\ #1}}{}}
 \renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{\thesection\ #1}}{}}
-\captionsetup[figure]{labelformat=simple,labelsep=space}
-\captionsetup[table]{labelformat=simple,labelsep=newline,singlelinecheck=off,justification=raggedleft}
+}
+
+\isu@defgeom{}
