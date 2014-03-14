@@ -1,0 +1,109 @@
+
+\def\defgeom{\geometry{papersize={17.5cm,24.75cm}, left=2.25cm, right=2.25cm, top=1.5cm, bottom=2.33cm, centering, bindingoffset=1mm}}
+
+%Основные требования для макетов в редакторе Тех
+%Поля: верхнее – 1,8 см, нижнее – 2,8, левое и правое – 2,7
+%Расстояние от края страницы до колонтитула – 2,1 см
+
+%\def\normalsize{\fontsize{15}{18}\selectfont{}}
+
+%\renewcommand{\publishername}{Иркутский государственный технический университет}
+%\renewcommand{\locationname}{Иркутск}
+ \def\baselinestretch{1}
+
+\newtheorem{example}{Пример}[chapter]
+\def\theexample{\thechapter\arabic{example}}
+\newenvironment{mygroup}{}{}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\defgeom{}
+\makeatletter
+\def\@makechapterhead#1{%
+  %\vspace*{10\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \large\bfseries \@chapapp\space \thechapter \hbox to 0.3em {}
+        %\par\nobreak
+        %\vskip 5\p@
+      \fi
+    \fi
+    \interlinepenalty\@M
+    % \Large \bfseries #1\par\nobreak
+    \large \bfseries #1\par\nobreak
+    \vskip 7\p@
+  }}
+\def\@makeschapterhead#1{%
+  %\vspace*{50\p@}%
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \large \bfseries  #1\par\nobreak
+    \vskip 7\p@
+  }}
+
+
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.25ex \@plus -1ex \@minus -.2ex}%
+                                   {1.5ex \@plus.2ex}%
+                                   {\normalfont\large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+
+\makeatother
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=true,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={Irkutsk State University Work},    % title
+    pdfauthor={Some Outstanding ISU.RU Professor},     % author
+    pdfsubject={The Subject},   % subject of the document
+    pdfcreator={LaTeX},   % creator of the document
+    pdfproducer={LaTeX}, % producer of the document
+    pdfkeywords={Irkutsk State University}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=black, %[rgb]{0 0.4 0.1},          % color of internal links
+    citecolor=black, %blue,        % color of links to bibliography
+    filecolor=black,      % color of file links
+    urlcolor=black % [rgb]{0.3 0.0 0.3}           % color of external links
+}
+
+\newenvironment{questions}{\subsubsection*{Вопросы для самопроверки}\begin{enumerate}}{\end{enumerate}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\chaptername{}
+\def\thechapter{\arabic{chapter}.}
+\def\thesection{\thechapter\arabic{section}.}
+\def\thesubsection{\thesection\arabic{subsection}.}
+\def\thesubsubsection{\thesubsection\arabic{subsubsection}.}
+\def\thefigure{\thechapter\arabic{figure}.}
+\def\thetable{\thechapter\arabic{table}.}
+\def\emphbib#1{#1}
+
+
+%\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+%\fancyfoot[C]{\bfseries \thepage} % except the center
+\fancyhead[RE]{\small \nouppercase{\leftmark}}
+\fancyhead[LO]{\small \nouppercase{\rightmark}}
+\fancyhead[RO,LE]{\small \thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{0pt}%}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter\ #1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{\thesection\ #1}}{}}
+\captionsetup[figure]{labelformat=simple,labelsep=space}
+\captionsetup[table]{labelformat=simple,labelsep=newline,singlelinecheck=off,justification=raggedleft}
