@@ -1,7 +1,8 @@
-
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{isu-book}[2014/03/15 Irkutsk State University Book]
+\ProvidesPackage{subook}[2014/03/28 State University (Soviet Union) Book]
 
+\RequirePackage{amssymb,amsmath,amsfonts}
+\RequirePackage{ntheorem}
 \RequirePackage[paper=a4paper, twoside, includehead]{geometry}
 \RequirePackage{longtable}
 \RequirePackage{hyperref}
@@ -10,10 +11,49 @@
 \RequirePackage{pst-all}
 \RequirePackage{pst-poly}
 \RequirePackage{indentfirst}
-%\RequirePackage{pscyr}
-\RequirePackage{blindtext}
+%\RequirePackage{blindtext}
 \RequirePackage{caption}
+\RequirePackage{pageslts}
+\RequirePackage{tocloft}
+\RequirePackage{secdot}
+\RequirePackage{cmap}
+\RequirePackage[sort&compress]{natbib} % Adjusting \cite's
+\RequirePackage[11pt]{extsizes}
 
+
+\DeclareOption{monograph}{
+\setcitestyle{numbers,square,semicolon}
+}
+\DeclareOption{handbook}{
+%\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+%\fancyfoot[C]{\bfseries \thepage} % except the center
+\fancyhead[RE]{\small \nouppercase{\leftmark}}
+\fancyhead[LO]{\small \nouppercase{\rightmark}}
+\fancyhead[RO,LE]{\small \thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{0pt}%}
+\pagestyle{fancy}
+\setcitestyle{numbers,square,comma}
+}
+\DeclareOption{mag}{
+\mag 1200
+}
+\DeclareOption{times}{
+\renewcommand{\rmdefault}{ftm}
+}
+\ProcessOptions\relax
+
+
+%microtype, flafter
+% использовать Times New Roman (checked)
+
+%Например, команда \enlargethispage{2\baselineskip} позволит текущей странице стать длиннее (выше) на две строчки. Вариант команды «со звёздочкой», \enlargethispage*{длина}, попытается сжать страницу насколько это возможно.
+
+
+% модуль для вставки рыбы
+% \usepackage{blindtext}
+% \RequirePackage{listings} % Не работает с русскими комментариями.
 
 \def\isu@defgeom{\geometry{papersize={17.5cm,24.75cm}, left=2.25cm, right=2.25cm, top=1.5cm, bottom=2.33cm, centering, bindingoffset=1mm}}
 
@@ -25,52 +65,76 @@
 
 %\renewcommand{\publishername}{Иркутский государственный технический университет}
 %\renewcommand{\locationname}{Иркутск}
- \def\baselinestretch{1}
+\def\baselinestretch{1.0}
 
-\newtheorem{example}{Пример}[chapter]
-\def\theexample{\thechapter\arabic{example}}
+
+\theoremseparator{.}
+
 \newenvironment{mygroup}{}{}
 
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
+% - ISDCT SB RAS Dissertation package -----
+\renewcommand{\baselinestretch}{1.0}
+\renewcommand\contentsname{Оглавление}
+\floatname{algorithm}{Процедура}
+\renewcommand{\listalgorithmname}{Список процедур}
+
+% adjustenment of the title sizes.
+\renewcommand\cftpartaftersnum{.}
+\renewcommand\cftchapaftersnum{.}
+\renewcommand\cftsecaftersnum{.}
+\renewcommand\cftsubsecaftersnum{.}
+\renewcommand\cftsubsubsecaftersnum{.}
+%\renewcommand\ctfchapfont{\large\bf}
+
+\sectiondot{section}
+\sectiondot{subsection}
+\sectiondot{subsubsection}
+\sectiondot{subsubsubsection}
 
 \def\@makechapterhead#1{%
-  %\vspace*{10\p@}%
+  %\vspace*{30\p@}%
   {\parindent \z@ \raggedright \normalfont
+    \@hangfrom{%
     \ifnum \c@secnumdepth >\m@ne
-      \if@mainmatter
-        \large\bfseries \@chapapp\space \thechapter \hbox to 0.3em {}
-        %\par\nobreak
-        %\vskip 5\p@
-      \fi
+        \LARGE\bfseries \@chapapp\space \thechapter.\hbox to 0.3em {}  % Trimmed here
+        \nobreak
     \fi
-    \interlinepenalty\@M
-    % \Large \bfseries #1\par\nobreak
-    \large \bfseries #1\par\nobreak
-    \vskip 7\p@
+    }%
+    {\interlinepenalty\@M
+    \LARGE \bfseries #1\par\nobreak
+    }
+    \vskip 15\p@
   }}
+
+\def\@schapter#1{\if@twocolumn
+                   \@topnewpage[\@makeschapterhead{#1}]%
+                 \else
+                   \@makeschapterhead{#1}%
+                   \@afterheading
+                 \fi
+                 \addcontentsline{toc}{chapter}{#1}% Added here
+}
+
+% This is for the following table of contents printing
+\def\@sschapter#1{\if@twocolumn
+                   \@topnewpage[\@makeschapterhead{#1}]%
+                 \else
+                   \@makeschapterhead{#1}%
+                   \@afterheading
+                 \fi
+}
+
 \def\@makeschapterhead#1{%
-  %\vspace*{50\p@}%
+  %\vspace*{30\p@}%
   {\parindent \z@ \raggedright
     \normalfont
     \interlinepenalty\@M
-    \large \bfseries  #1\par\nobreak
-    \vskip 7\p@
+    \LARGE \bfseries  #1\par\nobreak
+    \vskip 15\p@ %% Here
   }}
 
-
-\renewcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-3.25ex \@plus -1ex \@minus -.2ex}%
-                                   {1.5ex \@plus.2ex}%
-                                   {\normalfont\large\bfseries}}
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\normalsize\bfseries}}
-\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\normalsize\bfseries}}
 
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
@@ -93,30 +157,40 @@
     urlcolor=black % [rgb]{0.3 0.0 0.3}           % color of external links
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\chaptername{}
-\def\thechapter{\arabic{chapter}.}
-\def\thesection{\thechapter\arabic{section}.}
-\def\thesubsection{\thesection\arabic{subsection}.}
-\def\thesubsubsection{\thesubsection\arabic{subsubsection}.}
-\def\thefigure{\thechapter\arabic{figure}.}
-\def\thetable{\thechapter\arabic{table}.}
-
-%\fancypagestyle{plain}{%
-\fancyhf{} % clear all header and footer fields
-%\fancyfoot[C]{\bfseries \thepage} % except the center
-\fancyhead[RE]{\small \nouppercase{\leftmark}}
-\fancyhead[LO]{\small \nouppercase{\rightmark}}
-\fancyhead[RO,LE]{\small \thepage}
-\renewcommand{\headrulewidth}{1pt}
-\renewcommand{\footrulewidth}{0pt}%}
-\pagestyle{fancy}
+%\renewcommand{\@biblabel}[1]{#1.}
+\setcounter{tocdepth}{3}  % Точность представления содержания
+\renewcommand{\baselinestretch}{1.0}
+\renewcommand\contentsname{Оглавление}
+\floatname{algorithm}{Процедура}
+\renewcommand{\listalgorithmname}{Список процедур}
+\tolerance=5000
+\DeclareCaptionLabelSeparator{dotnewline}{.\\}
+\DeclareCaptionFormat{rightcenter}{\parbox{\linewidth}{{\raggedleft #1#2}\par {\centering #3}}}
 
 \AtBeginDocument{
-  \captionsetup[figure]{labelformat=simple,labelsep=space}
-\captionsetup[table]{labelformat=simple,labelsep=newline,singlelinecheck=off,justification=raggedleft}
+\pagenumbering{arabic}
+\captionsetup[figure]{labelformat=simple,labelsep=period}
+\captionsetup[table]{format=rightcenter,labelsep=newline,singlelinecheck=off}
+%\captionsetup[table]{format=plain,labelsep=newline,singlelinecheck=off,justification=Centering} %%%% THIS IS just CENTERED
 \renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter\ #1}}{}}
 \renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{\thesection\ #1}}{}}
+\renewcommand\tableofcontents{%
+    \if@twocolumn
+      \@restonecoltrue\onecolumn
+    \else
+      \@restonecolfalse
+    \fi
+    \@sschapter{\contentsname % Here the changes are
+        \@mkboth{%
+           \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+    \@starttoc{toc}%
+    \if@restonecol\twocolumn\fi
+    }
 }
 
 \isu@defgeom{}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "dis"
+%%% End:
