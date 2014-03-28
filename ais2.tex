@@ -3,13 +3,14 @@
 %\mag 1250
 %\mag 1071
 \documentclass[12pt, openany, twoside]{book} % Computer Modern font calls
-\usepackage{isu-book}
+\usepackage[handbook,mag]{subook}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 \usepackage[T2A]{fontenc}
 %\usepackage[T1]{fontenc}
 %\usepackage{ae,aecompl}
 \usepackage[dvips]{graphicx}
+\usepackage{algorithm}
 
 %  times, palatino, newcent and bookman
 
@@ -22,9 +23,10 @@
 \def\emphbib#1{#1}
 \newenvironment{questions}{\subsubsection*{Вопросы для самопроверки}\begin{enumerate}}{\end{enumerate}}
 
+\newtheorem{example}{Пример}[chapter]
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
-    unicode=true,          % non-Latin characters in Acrobat’s bookmarks
+    unicode=true,           % non-Latin characters in Acrobat’s bookmarks
     pdftoolbar=true,        % show Acrobat’s toolbar?
     pdfmenubar=true,        % show Acrobat’s menu?
     pdffitwindow=false,     % window fit to page when opened
@@ -115,13 +117,12 @@
 \end{itemize}
 \end{minipage}
 \end{mygroup}
+\clearpage
 \tableofcontents
 \clearpage
 
 \newpage
 \section*{Предисловие}
-\addcontentsline{toc}{section}{Предисловие}
-\thispagestyle{empty}
 
 Предлагаемое учебное пособие разрабатывалось для студентов специальности <<инженер-программист>>, <<инженер\,{}---\,{}системный программист>>, однако может быть использовано всеми заинтересованными программистами, желающими овладеть некоторыми методами искусственного интеллекта. Пособие подборку материала по курсу <<Рекурсивно-логическое программирование>>, а также варианты лабораторных работ и методические указания по их выполнению. Оно никоим образом не претендует на полноту излагаемого материала и базируется на личном опыте преподавания. Пособие следует воспринимать как путеводитель, и учащиеся в процессе обучения должны активно использовать литературу, на которую в тексте указаны ссылки. В цитируемом тексте в виде сносок автор позволяет себе высказывать то или иное отношение к изложенному.
 
@@ -2597,7 +2598,6 @@ N = 55252
 %% \end{enumerate}
 
 \chapter*{Заключение}
-\addcontentsline{toc}{chapter}{Заключение}
 
 
 Изучение логического программирования полезно для понимания того, что любая правильная\footnote{Под {\em правильностью} программы подразумевается, что (а)~будучи запущенной, программа рано или поздно остановится, и (б)~что для всех корректных входных данных выходные данные будут тоже корректны. Ознакомиться с основными принципами {\bf доказательства правильности} программ можно в книге \cite{Anderson}.} программа <<устроена логично>>. Исследование правильности программы позволяет создавать логичный (т.~к. изучение, как правило, всегда позволяет найти <<дыры в логике>> в плохой программе), короткий (чем длиннее код программы, тем длиннее его доказательство) и эффективный (изучение способствует пониманию того, как  функционируют реализованные в программе алгоритмы) программный код.

@@ -76,9 +76,6 @@
 \setcounter{tocdepth}{3}
 % - ISDCT SB RAS Dissertation package -----
 \renewcommand{\baselinestretch}{1.0}
-\renewcommand\contentsname{Оглавление}
-\floatname{algorithm}{Процедура}
-\renewcommand{\listalgorithmname}{Список процедур}
 
 % adjustenment of the title sizes.
 \renewcommand\cftpartaftersnum{.}
@@ -106,6 +103,7 @@
     \LARGE \bfseries #1\par\nobreak
     }
     \vskip 15\p@
+    \thispagestyle{empty}
   }}
 
 \def\@schapter#1{\if@twocolumn
@@ -115,6 +113,7 @@
                    \@afterheading
                  \fi
                  \addcontentsline{toc}{chapter}{#1}% Added here
+    \thispagestyle{empty}
 }
 
 % This is for the following table of contents printing
@@ -124,6 +123,7 @@
                    \@makeschapterhead{#1}%
                    \@afterheading
                  \fi
+    \thispagestyle{empty}
 }
 
 \def\@makeschapterhead#1{%
@@ -159,11 +159,7 @@
 
 %\renewcommand{\@biblabel}[1]{#1.}
 \setcounter{tocdepth}{3}  % Точность представления содержания
-\renewcommand{\baselinestretch}{1.0}
-\renewcommand\contentsname{Оглавление}
-\floatname{algorithm}{Процедура}
-\renewcommand{\listalgorithmname}{Список процедур}
-\tolerance=5000
+
 \DeclareCaptionLabelSeparator{dotnewline}{.\\}
 \DeclareCaptionFormat{rightcenter}{\parbox{\linewidth}{{\raggedleft #1#2}\par {\centering #3}}}
 
