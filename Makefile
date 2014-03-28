@@ -1,12 +1,16 @@
 NAME=ais2
 # BIBROOT=$(PWD)/../..
+#	BIBINPUTS=$(BIBROOT) latexmk -pdfps -dvi- -ps- $(NAME)
 
 .PHONY: FORCE_MAKE clean view all emacs edit
 
 all: $(NAME).pdf
 
-%.pdf: %.tex FORCE_MAKE
-	BIBINPUTS=$(BIBROOT) latexmk -pdfps -dvi- -ps- $<
+%.ps: %.tex FORCE_MAKE
+	BIBINPUTS=$(BIBROOT) latexmk -ps $(NAME)
+
+%.pdf:%.ps
+	BIBINPUTS=$(BIBROOT) latexmk -pdfps $(NAME)
 
 clean:
 	BIBINPUTS=$(BIBROOT) latexmk -C
@@ -18,4 +22,4 @@ view: all
 edit: emacs
 
 emacs:
-	(emacsclient -c $(NAME).tex || emacs $(NAME).tex) &
+	emacsclient -c $(NAME).tex --alternate-editor emacs  &
