@@ -25,6 +25,9 @@
 \setcitestyle{numbers,square,semicolon}
 }
 \DeclareOption{handbook}{
+\setcitestyle{numbers,square,comma}
+}
+\DeclareOption{fancyhdr}{
 %\fancypagestyle{plain}{%
 \fancyhf{} % clear all header and footer fields
 %\fancyfoot[C]{\bfseries \thepage} % except the center
@@ -34,7 +37,6 @@
 \renewcommand{\headrulewidth}{1pt}
 \renewcommand{\footrulewidth}{0pt}%}
 \pagestyle{fancy}
-\setcitestyle{numbers,square,comma}
 }
 \DeclareOption{mag}{
 \mag 1200
