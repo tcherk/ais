@@ -1,9 +1,5 @@
-\mag 1200
-%\mag 1150
-%\mag 1250
-%\mag 1071
 \documentclass[12pt, openany, twoside]{book} % Computer Modern font calls
-\usepackage[handbook,mag]{subook}
+%\usepackage[monograph,mag,times]{subook}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 \usepackage[T2A]{fontenc}
@@ -11,6 +7,7 @@
 %\usepackage{ae,aecompl}
 \usepackage[dvips]{graphicx}
 \usepackage{algorithm}
+\usepackage[handbook,mag,fancyhdr]{subook}
 
 %  times, palatino, newcent and bookman
 
@@ -33,7 +30,7 @@
     pdfstartview={FitH},    % fits the width of the page to the window
     pdftitle={Рекурсивно-Логическое Программирование},    % title
     pdfauthor={Евгений Александрович Черкашин},     % author
-    pdfsubject={Методическое пособие по теме},   % subject of the document
+    pdfsubject={Методическое пособие},   % subject of the document
     pdfcreator={LaTeX},   % creator of the document
     pdfproducer={LaTeX}, % producer of the document
     pdfkeywords={Пролог} {Искусственный интеллект} {Планирование действий}, % list of keywords
@@ -45,10 +42,8 @@
     urlcolor=black % [rgb]{0.3 0.0 0.3}           % color of external links
 }
 
-
-%\lhead{\thepage} \chead{}
-%\rhead{Предисловие} \lfoot{} \cfoot{} \rfoot{}
 %\renewcommand{\headrulewidth}{1pt}
+\def\chaptername{EEEEE}
 \begin{document}
 \begin{titlepage}
 \thispagestyle{empty}
@@ -88,7 +83,7 @@
 \noindentЧ-48
 
 {~Е.~А.~Черкашин.} {\bf Рекурсивно-логическое программирование}: Учеб.~пособие\,/~Е.~А.~Черкашин.~---
-Иркутск\,: Изд-во. ИГУ, 2013. --- \pageref{pg:lastpage}~c.
+Иркутск\,: Изд-во. ИГУ, 2013. --- \pageref{LastPage}~c.
 \vspace{1ex}
 \begin{center}
 \textbf{Рецензенты:} \\
@@ -122,7 +117,7 @@
 \clearpage
 
 \newpage
-\section*{Предисловие}
+\chapter*{Предисловие}
 
 Предлагаемое учебное пособие разрабатывалось для студентов специальности <<инженер-программист>>, <<инженер\,{}---\,{}системный программист>>, однако может быть использовано всеми заинтересованными программистами, желающими овладеть некоторыми методами искусственного интеллекта. Пособие подборку материала по курсу <<Рекурсивно-логическое программирование>>, а также варианты лабораторных работ и методические указания по их выполнению. Оно никоим образом не претендует на полноту излагаемого материала и базируется на личном опыте преподавания. Пособие следует воспринимать как путеводитель, и учащиеся в процессе обучения должны активно использовать литературу, на которую в тексте указаны ссылки. В цитируемом тексте в виде сносок автор позволяет себе высказывать то или иное отношение к изложенному.
 
@@ -2633,7 +2628,6 @@ Process programming}} \\
 %\listoftables
 %\addcontentsline{toc}{section}{Список таблиц}
 \begin{thebibliography}{99}
-\addcontentsline{toc}{chapter}{Список литературы}
 \bibitem{Anderson} Андерсон~Р. \emphbib{Доказательство правильности программ}\,{}: пер. с англ. / Р.~Андерсон. --- М.\,:\,Мир, 1982. --- 168 с.: ил.
 \bibitem{Bratko} Братко~И. \emphbib{\href{http://royallib.ru/book/bratko_ivan/programmirovanie_na_yazike_prolog_dlya_iskusstvennogo_intellekta.html}{Программирование на языке ПРОЛОГ для искус-} ственного интеллекта}\,{}: пер. с англ./ И.~Братко. --- М.\,:~Мир, 1990. --- 560 с.: ил.
 \bibitem{Vass:2000} Васильев~С.~Н. \emphbib{\href{http://bookfi.org/book/616050}{Интеллектное управление динамическими сис-}} темами/ С.~Н.~Васильев, А.~К.~Жерлов, Е.~А.~Федосов, Б.~Е.~Федунов. --- М.\,:~Физматлит, 2000. --- 352~с: ил.
@@ -2648,7 +2642,6 @@ Process programming}} \\
 \bibitem{GNUP} \emphbib{\href{http://www.gprolog.org/}{The GNU Prolog web site [Электронный ресурс]\,{}: сайт}}. URL:\url{http://www.gprolog.org/}. (дата обращения: 28.11.2013).
 \bibitem{SWIP} \emphbib{\href{http://www.swi-prolog.org/}{SWI-Prolog's home [Электронный ресурс]\,{}: сайт}}. URL:\url{http://www.swi-prolog.org/}. (дата обращения: 28.11.2013).
 \end{thebibliography}
-\label{pg:lastpage}
 
 \newpage
 \thispagestyle{empty}
