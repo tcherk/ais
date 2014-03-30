@@ -1,31 +1,36 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{subook}[2014/03/28 State University (Soviet Union) Book]
 
+\RequirePackage[utf8]{inputenc}
 \RequirePackage{amssymb,amsmath,amsfonts}
 \RequirePackage{ntheorem}
 \RequirePackage[paper=a4paper, twoside, includehead]{geometry}
 \RequirePackage{longtable}
-\RequirePackage{hyperref}
 \RequirePackage{fancyhdr}
 \RequirePackage{pstricks}
 \RequirePackage{pst-all}
 \RequirePackage{pst-poly}
 \RequirePackage{indentfirst}
-%\RequirePackage{blindtext}
 \RequirePackage{caption}
 \RequirePackage{pageslts}
 \RequirePackage{tocloft}
 \RequirePackage{secdot}
 \RequirePackage{cmap}
+\RequirePackage{hyperref}
 \RequirePackage[sort&compress]{natbib} % Adjusting \cite's
+\RequirePackage{hypernat}
 \RequirePackage[11pt]{extsizes}
 
+\setcitestyle{numbers,square}
+\def\isu@defgeom{}
 
+\let\chapter@su@name=\chaptername
 \DeclareOption{monograph}{
 \setcitestyle{numbers,square,semicolon}
 }
 \DeclareOption{handbook}{
 \setcitestyle{numbers,square,comma}
+\renewcommand{\chapter@su@name}{}
 }
 \DeclareOption{fancyhdr}{
 %\fancypagestyle{plain}{%
@@ -40,9 +45,13 @@
 }
 \DeclareOption{mag}{
 \mag 1200
+\def\isu@defgeom{\geometry{papersize={17.5cm,24.75cm}, left=2.25cm, right=2.25cm, top=1.5cm, bottom=2.33cm, centering, bindingoffset=1mm}}
 }
 \DeclareOption{times}{
 \renewcommand{\rmdefault}{ftm}
+}
+\DeclareOption{listbib}{
+\renewcommand{\@biblabel}[1]{#1.}
 }
 \ProcessOptions\relax
 
@@ -53,11 +62,8 @@
 %Например, команда \enlargethispage{2\baselineskip} позволит текущей странице стать длиннее (выше) на две строчки. Вариант команды «со звёздочкой», \enlargethispage*{длина}, попытается сжать страницу насколько это возможно.
 
 
-% модуль для вставки рыбы
-% \usepackage{blindtext}
-% \RequirePackage{listings} % Не работает с русскими комментариями.
+%\RequirePackage{listings} % Не работает с русскими комментариями.
 
-\def\isu@defgeom{\geometry{papersize={17.5cm,24.75cm}, left=2.25cm, right=2.25cm, top=1.5cm, bottom=2.33cm, centering, bindingoffset=1mm}}
 
 %Основные требования для макетов в редакторе Тех
 %Поля: верхнее – 1,8 см, нижнее – 2,8, левое и правое – 2,7
@@ -70,7 +76,7 @@
 \def\baselinestretch{1.0}
 
 
-\theoremseparator{.}
+%\theoremseparator{.}
 
 \newenvironment{mygroup}{}{}
 
@@ -97,7 +103,15 @@
   {\parindent \z@ \raggedright \normalfont
     \@hangfrom{%
     \ifnum \c@secnumdepth >\m@ne
-        \LARGE\bfseries \@chapapp\space \thechapter.\hbox to 0.3em {}  % Trimmed here
+        \LARGE\bfseries%
+         %\ifx\@chapapp\empty
+         \setbox0=\hbox{\@chapapp\unskip}%
+         \ifdim\wd0=0pt
+           \relax
+         \else
+           \@chapapp\space
+         \fi
+         \thechapter.\hbox to 0.3em {}  % Trimmed here
         \nobreak
     \fi
     }%
@@ -115,8 +129,15 @@
                    \@afterheading
                  \fi
                  \addcontentsline{toc}{chapter}{#1}% Added here
-    \thispagestyle{empty}
+    \thispagestyle{empty}%
+        \@mkboth{%
+           \MakeUppercase{#1}}{\MakeUppercase{#1}}%
 }
+
+\renewcommand\bibsection{%
+\chapter*{\bibname}%
+\@mkboth{\MakeUppercase{\bibname}}{\MakeUppercase{\bibname}}%
+}%
 
 % This is for the following table of contents printing
 \def\@sschapter#1{\if@twocolumn
@@ -159,7 +180,6 @@
     urlcolor=black % [rgb]{0.3 0.0 0.3}           % color of external links
 }
 
-%\renewcommand{\@biblabel}[1]{#1.}
 \setcounter{tocdepth}{3}  % Точность представления содержания
 
 \DeclareCaptionLabelSeparator{dotnewline}{.\\}
@@ -170,8 +190,8 @@
 \captionsetup[figure]{labelformat=simple,labelsep=period}
 \captionsetup[table]{format=rightcenter,labelsep=newline,singlelinecheck=off}
 %\captionsetup[table]{format=plain,labelsep=newline,singlelinecheck=off,justification=Centering} %%%% THIS IS just CENTERED
-\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter\ #1}}{}}
-\renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{\thesection\ #1}}{}}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter.\ #1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{\thesection.\ #1}}{}}
 \renewcommand\tableofcontents{%
     \if@twocolumn
       \@restonecoltrue\onecolumn
@@ -184,9 +204,11 @@
     \@starttoc{toc}%
     \if@restonecol\twocolumn\fi
     }
+\let\chaptername=\chapter@su@name
 }
 
 \isu@defgeom{}
+
 
 %%% Local Variables:
 %%% mode: latex
