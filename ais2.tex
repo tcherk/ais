@@ -1,4 +1,4 @@
-\documentclass[12pt, openany, twoside]{book} % Computer Modern font calls
+\documentclass[14pt, openany, twoside]{extbook} % Computer Modern font calls
 %\usepackage[monograph,mag,times]{subook}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
@@ -7,7 +7,8 @@
 %\usepackage{ae,aecompl}
 \usepackage[dvips]{graphicx}
 \usepackage{algorithm}
-\usepackage[handbook,mag,fancyhdr]{subook}
+%\usepackage[handbook,mag,fancyhdr]{subook}
+\usepackage[handbook,fancyhdr, mag]{subook}
 
 %  times, palatino, newcent and bookman
 
@@ -15,7 +16,7 @@
 %\usepackage{pslatex}
 \usepackage{pscyr}
 
-\def\rem#1{}
+\long\def\rem#1{}
 %\def\AR{{\em Прим.~автора~пособия}}
 \def\emphbib#1{#1}
 \newenvironment{questions}{\subsubsection*{Вопросы для самопроверки}\begin{enumerate}}{\end{enumerate}}
@@ -141,7 +142,8 @@
 Автор благодарит канд.~геол.-минерал.~наук Т.~Ю.~Черкашину, канд.~техн.~наук  А.~К.~Попову за помощь в подготовке данного учебного пособия.
 
 \medskip
-\noindent\hbox to \linewidth{\hfill\sf Ст.~научный сотрудник ИДСТУ СО РАН, доцент кафедры ИТ ИМЭИ ИГУ}
+\noindent\hbox to \linewidth{\hfill\sf Ст.~научный сотрудник ИДСТУ СО РАН,}
+\noindent\hbox to \linewidth{\hfill\sf доцент кафедры ИТ ИМЭИ ИГУ}
 \noindent\hbox to \linewidth{\hfill\sf канд.~техн.~наук Е.~А.~Черкашин}
 %\noindent\hbox to \linewidth{\hfill\sf аспирант кафедры ИТ ИМЭИ ИГУ}
 %\noindent\hbox to \linewidth{\hfill\sf И.~Н.~Терехин}
