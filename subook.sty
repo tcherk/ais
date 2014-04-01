@@ -23,7 +23,7 @@
 \RequirePackage[11pt]{extsizes}
 
 \setcitestyle{numbers,square}
-\def\isu@defgeom{}
+\def\isu@defgeom{\geometry{}}
 
 \let\chapter@su@name=\chaptername
 \DeclareOption{monograph}{
@@ -33,15 +33,27 @@
 \setcitestyle{numbers,square,comma}
 \renewcommand{\chapter@su@name}{}
 }
-\DeclareOption{fancyhdr}{
+\DeclareOption{fancytop}{
 %\fancypagestyle{plain}{%
 \fancyhf{} % clear all header and footer fields
 %\fancyfoot[C]{\bfseries \thepage} % except the center
 \fancyhead[RE]{\normalsize\it \nouppercase{\leftmark}}
 \fancyhead[LO]{\normalsize\it \nouppercase{\rightmark}}
-\fancyhead[RO,LE]{\small \thepage}
-\renewcommand{\headrulewidth}{0pt}
-%\renewcommand{\headrulewidth}{1pt}
+\fancyhead[RO,LE]{\normalsize \thepage}
+%\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{0pt}%}
+\pagestyle{fancy}
+}
+\DeclareOption{fancybot}{
+%\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+%\fancyfoot[C]{\bfseries \thepage} % except the center
+\fancyhead[LE]{\normalsize\it \nouppercase{\leftmark}}
+\fancyhead[RO]{\normalsize\it \nouppercase{\rightmark}}
+\fancyfoot[RO,LE]{\normalsize \thepage}
+%\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\headrulewidth}{1pt}
 \renewcommand{\footrulewidth}{0pt}%}
 \pagestyle{fancy}
 }
@@ -122,7 +134,7 @@
     \LARGE \bfseries #1\par\nobreak
     }
     \vskip 15\p@
-    \thispagestyle{empty}
+    %\thispagestyle{empty}
   }}
 
 \def\@schapter#1{\if@twocolumn
@@ -132,7 +144,7 @@
                    \@afterheading
                  \fi
                  \addcontentsline{toc}{chapter}{#1}% Added here
-    \thispagestyle{empty}%
+    %\thispagestyle{plain}%
         \@mkboth{%
            \MakeUppercase{#1}}{\MakeUppercase{#1}}%
 }
@@ -149,7 +161,6 @@
                    \@makeschapterhead{#1}%
                    \@afterheading
                  \fi
-    \thispagestyle{empty}
 }
 
 \def\@makeschapterhead#1{%
@@ -201,9 +212,11 @@
     \else
       \@restonecolfalse
     \fi
-    \@sschapter{\contentsname % Here the changes are
+    \@sschapter{\contentsname% Here the changes are
         \@mkboth{%
-           \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+           \MakeUppercase\contentsname}{\MakeUppercase\contentsname}%
+    \thispagestyle{plain}%
+    }%
     \@starttoc{toc}%
     \if@restonecol\twocolumn\fi
     }
