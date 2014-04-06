@@ -26,6 +26,9 @@
 \defaultfontfeatures{Ligatures={TeX,Required}}
 \newcommand\su@scale{1.0}
 \newcommand\su@LARGE{\LARGE}
+\newcommand\sutypeface{Computer Modern}
+\newcommand\sufontfamily{\sutypeface}
+
 
 \setcitestyle{numbers,square}
 \def\isu@defgeom{\geometry{}}
@@ -77,6 +80,7 @@
 \setmainfont[Scale=\su@scale]{Times New Roman}
 \setmonofont[Ligatures=TeX,Scale=MatchLowercase,Numbers=SlashedZero]{Courier New}
 \setsansfont{Calibri}
+\renewcommand\sutypeface{Таймс}
 }
 \DeclareOption{lit}{
 \setmainfont[
@@ -85,6 +89,7 @@ BoldFont=quantantiquabold.ttf,
 ItalicFont=quantantiquaitalic.ttf,
 BoldItalicFont=quantantiquabolditalic.ttf,
 ]{quantantiquaplain.ttf}
+\renewcommand\sutypeface{Литературная}
 }
 \DeclareOption{listbib}{
 \renewcommand{\@biblabel}[1]{#1.}
