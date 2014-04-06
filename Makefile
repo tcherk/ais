@@ -6,11 +6,8 @@ NAME=ais2
 
 all: $(NAME).pdf
 
-%.ps: %.tex FORCE_MAKE
-	BIBINPUTS=$(BIBROOT) latexmk -ps $(NAME)
-
-%.pdf:%.ps
-	BIBINPUTS=$(BIBROOT) latexmk -pdfps $(NAME)
+%.pdf: %.tex FORCE_MAKE
+	BIBINPUTS=$(BIBROOT) latexmk -pdf -e '$$pdflatex=q/lualatex %O %S/' $(NAME)
 
 clean:
 	BIBINPUTS=$(BIBROOT) latexmk -C
