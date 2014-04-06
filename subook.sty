@@ -1,16 +1,16 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{subook}[2014/03/28 State University (Soviet Union) Book]
-
-\RequirePackage[utf8]{inputenc}
+\RequirePackage{fontspec}
+%\RequirePackage[utf8]{inputenc}
 \RequirePackage{amssymb,amsmath,amsfonts}
 \RequirePackage{ntheorem}
 \RequirePackage[paper=a4paper, twoside, includehead,left=2.91cm, right=2.99cm, top=1.7cm, bottom=2.8cm, centering, bindingoffset=0mm]{geometry}
 %\RequirePackage[paper=a4paper, twoside, includehead,left=2.25cm, right=2.25cm, top=1.5cm, bottom=2.33cm, centering, bindingoffset=0mm]{geometry}
 \RequirePackage{longtable}
 \RequirePackage{fancyhdr}
-\RequirePackage{pstricks}
-\RequirePackage{pst-all}
-\RequirePackage{pst-poly}
+%\RequirePackage{pstricks}
+%\RequirePackage{pst-all}
+%\RequirePackage{pst-poly}
 \RequirePackage{indentfirst}
 \RequirePackage{caption}
 \RequirePackage{pageslts}
@@ -22,6 +22,10 @@
 \RequirePackage{hypernat}
 %\RequirePackage{hyphenat}
 %\RequirePackage[11pt]{extsizes}
+
+\defaultfontfeatures{Ligatures={TeX,Required}}
+\newcommand\su@scale{1.0}
+\newcommand\su@LARGE{\LARGE}
 
 \setcitestyle{numbers,square}
 \def\isu@defgeom{\geometry{}}
@@ -63,13 +67,80 @@
 %\def\isu@defgeom{\geometry{papersize={17.5cm,24.75cm}, left=2.25cm, right=2.25cm, top=1.5cm, bottom=2.33cm, centering, bindingoffset=1mm}}
 \def\isu@defgeom{\geometry{}}
 }
+\DeclareOption{14pt}{
+\renewcommand\su@scale{1.1667}
+\renewcommand\baselinestretch{1.3} % WORKAROUND
+}
+
 \DeclareOption{times}{
-\renewcommand{\rmdefault}{ftm}
+%\renewcommand{\rmdefault}{ftm}
+\setmainfont[Scale=\su@scale]{Times New Roman}
+\setmonofont[Ligatures=TeX,Scale=MatchLowercase,Numbers=SlashedZero]{Courier New}
+\setsansfont{Calibri}
+}
+\DeclareOption{lit}{
+\setmainfont[
+Path="./subook/",
+BoldFont=quantantiquabold.ttf,
+ItalicFont=quantantiquaitalic.ttf,
+BoldItalicFont=quantantiquabolditalic.ttf,
+]{quantantiquaplain.ttf}
 }
 \DeclareOption{listbib}{
 \renewcommand{\@biblabel}[1]{#1.}
 }
+\DeclareOption{firamono}{
+\setmonofont[Ligatures=TeX,Scale=MatchLowercase,Numbers=SlashedZero]{Fira Mono OT}
+}
+\DeclareOption{firasans}{
+\setsansfont[Ligatures=TeX,Scale=MatchLowercase]{Fira Sans OT}
+}
+\DeclareOption{inconsolata}{
+\setmonofont[Ligatures=TeX,Scale=MatchLowercase,Numbers=SlashedZero]{Inconsolata LGC}
+}
+
+\DeclareOption{smalltitles}{
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.25ex \@plus -1ex \@minus -.2ex}%
+                                   {1.8ex \@plus.2ex}%
+                                   {\normalfont\large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\renewcommand\su@LARGE{\Large}
+
+}
 \ProcessOptions\relax
+
+\def\@makechapterhead#1{%
+  %\vspace*{30\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \@hangfrom{%
+    \ifnum \c@secnumdepth >\m@ne
+        \su@LARGE\bfseries%
+         %\ifx\@chapapp\empty
+         \setbox0=\hbox{\@chapapp\unskip}%
+         \ifdim\wd0=0pt
+           \relax
+         \else
+           \@chapapp\space
+         \fi
+         \thechapter.\hbox to 0.3em {}  % Trimmed here
+        \nobreak
+    \fi
+    }%
+    {\interlinepenalty\@M
+    \su@LARGE \bfseries #1\par\nobreak
+    }
+    \vskip 15\p@
+    %\thispagestyle{empty}
+  }}
+
 
 
 %microtype, flafter
@@ -83,7 +154,7 @@
 
 %Основные требования для макетов в редакторе Тех
 %Поля: верхнее – 1,8 см, нижнее – 2,8, левое и правое – 2,7
-%Расстояние от края страницы до колонтитула – 2,1 см
+%Риасстояние от края страницы до колонтитула – 2,1 см
 
 %\def\normalsize{\fontsize{15}{18}\selectfont{}}
 
@@ -113,30 +184,6 @@
 \sectiondot{subsection}
 \sectiondot{subsubsection}
 \sectiondot{subsubsubsection}
-
-\def\@makechapterhead#1{%
-  %\vspace*{30\p@}%
-  {\parindent \z@ \raggedright \normalfont
-    \@hangfrom{%
-    \ifnum \c@secnumdepth >\m@ne
-        \LARGE\bfseries%
-         %\ifx\@chapapp\empty
-         \setbox0=\hbox{\@chapapp\unskip}%
-         \ifdim\wd0=0pt
-           \relax
-         \else
-           \@chapapp\space
-         \fi
-         \thechapter.\hbox to 0.3em {}  % Trimmed here
-        \nobreak
-    \fi
-    }%
-    {\interlinepenalty\@M
-    \LARGE \bfseries #1\par\nobreak
-    }
-    \vskip 15\p@
-    %\thispagestyle{empty}
-  }}
 
 \def\@schapter#1{\if@twocolumn
                    \@topnewpage[\@makeschapterhead{#1}]%
@@ -169,7 +216,7 @@
   {\parindent \z@ \raggedright
     \normalfont
     \interlinepenalty\@M
-    \LARGE \bfseries  #1\par\nobreak
+    \su@LARGE \bfseries  #1\par\nobreak
     \vskip 15\p@ %% Here
   }}
 
