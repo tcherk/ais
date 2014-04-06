@@ -183,7 +183,13 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 \renewcommand\cftsecaftersnum{.}
 \renewcommand\cftsubsecaftersnum{.}
 \renewcommand\cftsubsubsecaftersnum{.}
-%\renewcommand\ctfchapfont{\large\bf}
+%% %\renewcommand\ctfchapfont{\large\bf}
+\renewcommand\cftpartnumwidth{3ex}
+\renewcommand\cftchapnumwidth{3ex}
+\renewcommand\cftsecnumwidth{4ex}
+\renewcommand\cftsubsecnumwidth{6ex}
+\renewcommand\cftsubsubsecnumwidth{7ex}
+
 
 \sectiondot{section}
 \sectiondot{subsection}
@@ -251,6 +257,8 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 
 \DeclareCaptionLabelSeparator{dotnewline}{.\\}
 \DeclareCaptionFormat{rightcenter}{\parbox{\linewidth}{{\raggedleft #1#2}\par {\centering #3}}}
+
+%\renewcommand\@tempdima{60px}
 
 \AtBeginDocument{
 \pagenumbering{arabic}
