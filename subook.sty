@@ -20,8 +20,6 @@
 \RequirePackage{hyperref}
 \RequirePackage[sort&compress]{natbib} % Adjusting \cite's
 \RequirePackage{hypernat}
-%\RequirePackage{hyphenat}
-%\RequirePackage[11pt]{extsizes}
 
 \defaultfontfeatures{Ligatures={TeX,Required}}
 \newcommand\su@scale{1.0}
@@ -82,6 +80,15 @@
 \setsansfont{Calibri}
 \renewcommand\sutypeface{Таймс}
 }
+
+\DeclareOption{freetimes}{
+%\renewcommand{\rmdefault}{ftm}
+\setmainfont[Scale=\su@scale]{Free Times}
+\setmonofont[Ligatures=TeX,Scale=MatchLowercase,Numbers=SlashedZero]{Free Courier}
+\setsansfont{Calibri}
+\renewcommand\sutypeface{Таймс}
+}
+
 \DeclareOption{lit}{
 \setmainfont[
 Path="./subook/",
