@@ -22,6 +22,7 @@
 \RequirePackage[sort&compress]{natbib} % Adjusting \cite's
 \RequirePackage{hypernat}
 \RequirePackage{unicode-math}
+\RequirePackage[perpage,marginal,hang]{footmisc}
 
 \RequirePackage[protrusion=true,expansion=true]{microtype}
 % activate={true,nocompatibility} - activate protrusion and expansion
@@ -192,7 +193,7 @@ BoldItalicFont=quantantiquabolditalic.ttf,
   }}
 
 
-\newenvironment{abstract}{}{}
+%\newenvironment{abstract}{}{}
 
 \newcommand\sutitle{%
 \begin{center}%
@@ -315,6 +316,10 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 \DeclareCaptionFormat{rightcenter}{\parbox{\linewidth}{{\raggedleft #1#2}\par {\centering #3}}}
 
 %\renewcommand\@tempdima{60px}
+\setlength{\footnotemargin}{0.5em}
+
+
+%\renewcommand{\thepage}{\tiny\arabic{page}} % Does not work
 
 \AtBeginDocument{
 \setmathfont[Ligatures=TeX,Scale=MatchLowercase]{\su@mathfont}
@@ -343,6 +348,12 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 \let\chaptername=\chapter@su@name
 \selectlanguage{russian}
 }
+
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[C]{\su@colonsize\thepage} % except the center
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
 
 \isu@defgeom{}
 \normalsize
