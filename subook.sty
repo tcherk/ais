@@ -53,8 +53,65 @@
 %\DeclareMicrotypeSet{t2atext}{}
 %\UseMicrotypeSet{t2atext}
 
-\RequirePackage{listigs}
-\lstset{extendedchars=true, commentstyle=\it, stringstyle=\bf} % http://tigro.info/wp/wp-content/uploads/2013/01/LURS.pdf
+\RequirePackage{color}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\RequirePackage{listings}
+%%\lstset{extendedchars=true}
+\lstset{tabsize=4,
+  breaklines,
+  basicstyle={\ttfamily\normalsize},
+  identifierstyle={\bfseries},
+  columns=fixed,
+  keepspaces=true,
+  %numbers=left,
+  %numberstyle={\footnotesize}
+  extendedchars=true,
+  commentstyle={\normalfont\itshape},
+  % commentstyle=\color{mygreen},
+  literate={+++}{{ф}}1,
+  stringstyle=\bf,
+} % http://tigro.info/wp/wp-content/uploads/2013/01/LURS.pdf
+% http://alexanius-blog.blogspot.ru/2012/01/latex-1.html
+
+%% Если нужно привести листинг языка, не включённого в стандартную поставку, можно определить его самостоятельно:
+
+%% \lstdefinelanguage{JavaScript}{
+%%   keywords={typeof, new, true, false, catch, function, return, null, catch,
+%% switch, var, if, in, while, do, else, case, break},
+%%   keywordstyle=\color{blue}\bfseries,
+%%   ndkeywords={class, export, boolean, throw, implements, import, this},
+%%   ndkeywordstyle=\color{darkgray}\bfseries,
+%%   identifierstyle=\color{black},
+%%   sensitive=false,
+%%   comment=[l]{//},
+%%   morecomment=[s]{/*}{*/},
+%%   commentstyle=\color{purple}\ttfamily,
+%%   stringstyle=\color{red}\ttfamily,
+%%   morestring=[b]',
+%%   morestring=[b]"
+%% }
+
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\Large\bfseries\hyphenpenalty\@M\interlinpenalty\@M}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\large\bfseries\hyphenpenalty\@M\interlinpenalty\@M}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries\hyphenpenalty\@M\interlinpenalty\@M}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                    {3.25ex \@plus1ex \@minus.2ex}%
+                                    {-1em}%
+                                    {\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+                                       {3.25ex \@plus1ex \@minus .2ex}%
+                                       {-1em}%
+                                      {\normalfont\normalsize\bfseries}}
+\renewcommand*{\@seccntformat}[1]{\csname the#1\endcsname .~~}
 
 \newfontfeature{Microtype}{protrusion=default;expansion=default;}
 \defaultfontfeatures{Ligatures={TeX,Required}}
@@ -167,7 +224,7 @@ BoldItalicFont=quantantiquabolditalic.ttf,
                                      {1.5ex \@plus .2ex}%
                                      {\normalfont\normalsize\bfseries}}
 \renewcommand\su@LARGE{\Large}
-
+% \hyphenpenalty=10000 % to prevent hyps in headers
 }
 \DeclareOption{listbib}{
 \renewcommand{\@biblabel}[1]{#1.}
@@ -191,15 +248,18 @@ BoldItalicFont=quantantiquabolditalic.ttf,
         \nobreak
     \fi
     }%
-    {\interlinepenalty\@M
+    {\interlinepenalty\@M\hyphenpenalty\@M
     \su@LARGE \bfseries #1\par\nobreak
     }
     \vskip 15\p@
     %\thispagestyle{empty}
   }}
 
-
-%\newenvironment{abstract}{}{}
+\ifcsmacro{abstract}{}{
+  \let\endabstract\undefined%
+  \newenvironment{myenvironment}{Not seen so far.}{End.}
+}
+\newenvironment{abstract}{\normalfont\normalsize}{}
 
 \newcommand\sutitle{%
 \begin{center}%
@@ -253,10 +313,10 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 \renewcommand\cftsubsubsecnumwidth{7ex}
 
 
-\sectiondot{section}
-\sectiondot{subsection}
-\sectiondot{subsubsection}
-\sectiondot{subsubsubsection}
+%\sectiondot{section}
+%\sectiondot{subsection}
+%\sectiondot{subsubsection}
+%\sectiondot{subsubsubsection}
 
 \def\@schapter#1{\if@twocolumn
                    \@topnewpage[\@makeschapterhead{#1}]%
@@ -289,6 +349,7 @@ BoldItalicFont=quantantiquabolditalic.ttf,
   {\parindent \z@ \raggedright
     \normalfont
     \interlinepenalty\@M
+    \hyphenpenalty\@M
     \su@LARGE \bfseries  #1\par\nobreak
     \vskip 15\p@ %% Here
   }}
