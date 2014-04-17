@@ -6,7 +6,7 @@
 \documentclass[14pt, openany, twoside, final]{extbook} % Computer Modern font calls
 %\usepackage[monograph,mag,times]{subook}
 %\usepackage[utf8]{inputenc}
-\usepackage[english,russian]{babel}
+%\usepackage[english,russian]{babel}
 %\usepackage{polyglossia}
 %\usepackage[T1,T2A]{fontenc}
 %\usepackage[T1]{fontenc}
@@ -17,7 +17,7 @@
 \usepackage[handbook,fancybot,times,inconsolata,firasans,smalltitles]{subook}
 %\usepackage[handbook,fancybot,lit,inconsolata,firasans,smalltitles]{subook}
 %  times, palatino, newcent and bookman
-\usepackage{unicode-math}
+%\usepackage{unicode-math}
 %\usepackage{times}
 %\usepackage{pslatex}
 %\usepackage{pscyr}
@@ -27,7 +27,7 @@
 \long\def\rem#1{}
 %\def\AR{{\em Прим.~автора~пособия}}
 \def\emphbib#1{#1}
-\newenvironment{questions}{\subsubsection*{Вопросы для самопроверки}\begin{enumerate}}{\end{enumerate}}
+\newenvironment{questions}{\subsubsection*{\small Вопросы для самопроверки}\begin{enumerate}\small}{\end{enumerate}}
 
 \newtheorem{example}{Пример}[chapter]
 \hypersetup{
@@ -53,42 +53,21 @@
 
 %\renewcommand{\headrulewidth}{1pt}
 
-%\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=false,spacing=false,factor=1100,stretch=10,shrink=10]{microtype}
-\usepackage[protrusion=true,expansion=true]{microtype}
-\SetProtrusion{family=*}{
-    « = {300,     },
-    » = {    , 300},
-    „ = {300,     },
-    “ = {    , 300},
-    ( = {300,     },
-    ) = {    , 300},
-    ! = {    , 300},
-    ? = {    , 300},
-    : = {    , 300},
-    ; = {    , 300},
-    . = {    , 300},
-    - = {    ,  300},
-   {,}= {    , 300}}
-\DeclareMicrotypeSet{t2atext}{}
-\UseMicrotypeSet{t2atext}
-% activate={true,nocompatibility} - activate protrusion and expansion
-% final - enable microtype; use "draft" to disable
-% tracking=true, kerning=true, spacing=true - activate these techniques
-% factor=1100 - add 10% to the protrusion amount (default is 1000)
-% stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
 \clubpenalty=3000
 \widowpenalty=3000
 %\brokenpenalty=10000
 %\floatingpenalty=10000
-%\looseness=1
 
 %% \setdefaultlanguage{russian}
 %% \setmainlanguage{russian}
 %% \setotherlanguage{english}
 
 \renewcommand\baselinestretch{1.1}
-
+\parskip=0pt plus 0.3pt
 \begin{document}
+\renewcommand{\chaptername}{}
+\renewcommand{\refname}{Рекомендуемая литература}
+\renewcommand{\bibname}{\refname}
 \begin{titlepage}
 \thispagestyle{empty}
 \begin{center}{\small{}\sc
@@ -223,20 +202,19 @@
 \begin{tabular}{|p{0.4\linewidth}|p{0.4\linewidth}|}
  \hline
  \begin{raggedright}
-   Системы, которые размышляют, как люди.
+   Системы, которые размышляют, как люди
  \end{raggedright}
  &
  \begin{raggedright}
-   Системы, которые размышляют рационально.
+   Системы, которые размышляют рационально
  \end{raggedright}
  \\\hline
  \begin{raggedright}
-   Системы, которые ведут себя, как
-   люди.
+   Системы, которые ведут себя, как люди
  \end{raggedright}
  &
  \begin{raggedright}
-   Системы, которые ведут себя рационально.
+   Системы, которые ведут себя рационально
  \end{raggedright}
    \\\hline
 \end{tabular}
@@ -1417,7 +1395,9 @@ $$
 
 Одна из причин, по которой системы грамматического разбора вызывают столь большой интерес, заключается в существовании близкой аналогии между \emph{стратегиями грамматического разбора} и \emph{стратегиями решения задач} в целом. В интерпретаторе языка Пролог по умолчанию принята стратегия решения задач с \emph{обратным ходом решения} \foreignlanguage{english}{(backward chaining inference)}. Решение начинается с гипотезы (т.~е. с запроса), которая затем разбивается на субгипотезы (т.~е. подцели правила), далее каждая субгипотеза делится на еще более мелкие составные части и т.~д. Исходная гипотеза будет подтверждена, когда интерпретатор дойдет до субгипотез, которые уже нельзя разделить на составные части (т.~е. до фактов). Альтернативой служит стратегия решения задач с \emph{прямым ходом решения} \foreignlanguage{english}{(forward chaining inference)}. Такая стратегия применяется в языках OPS-5 и CLIPS. Решение начинается с фактов, а затем отыскиваются заключения, вытекающие из них. Далее на основании этих заключений делаются заключения более высокого уровня и т.~д. Это происходит до тех пор, пока не будет достигнуто искомое заключение \cite{Malpas}.
 
-Система нисходящего грамматического разбора базируется (как и Пролог) на стратегии с обратным ходом решения, а система восходящего разбора --- на стратегии с прямым ходом решения (как и язык OPS-5). Вообще говоря, нисходящий грамматический разбор более эффективен, чем восходящий: стратегия с обратным ходом решения вовлекает в процесс фактический материал только при необходимости. В классе задач построения трансляторов существуют некоторые грамматические конструкции, разбор которых можно реализовать только восходящим методом. Поскольку сам Пролог основывается на стратегии с обратным ходом решения, реализация на Прологе систем нисходящего грамматического разбора может быть осуществлена достаточно прямолинейным способом. Реализация восходящего грамматического разбора немного сложнее, так как для применения стратегии с прямым ходом решения требуется процедурная трактовка языка Пролог. Существует также ряд других задач, для которых более предпочтительно использование стратегии с прямым ходом решения.
+Система нисходящего грамматического разбора базируется (как и Пролог) на стратегии с обратным ходом решения, а система восходящего разбора --- на стратегии с прямым ходом решения (как и язык OPS-5). Вообще говоря, нисходящий грамматический разбор более эффективен, чем восходящий: стратегия с обратным ходом решения вовлекает в процесс фактический материал только при необходимости. В классе задач построения трансляторов существуют некоторые грамматические конструкции, разбор которых можно реализовать только восходящим методом. Поскольку сам Пролог основывается на стратегии с обратным ходом решения, реализация на Прологе систем нисходящего грамматического разбора может быть осуществлена достаточно прямолинейным способом. Реализация восходящего грамматического разбора немного сложнее, так как для применения стратегии с прямым ходом решения требуется процедурная трактовка языка Пролог. Существует также ряд других задач, для которых более предпочтительно использование стратегии с прямым ходом решения.{\looseness=-1
+
+}
 
 \subsection{Лексический анализатор}
 

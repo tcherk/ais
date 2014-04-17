@@ -53,15 +53,18 @@
 %\DeclareMicrotypeSet{t2atext}{}
 %\UseMicrotypeSet{t2atext}
 
+\RequirePackage{listigs}
+\lstset{extendedchars=true, commentstyle=\it, stringstyle=\bf} % http://tigro.info/wp/wp-content/uploads/2013/01/LURS.pdf
+
 \newfontfeature{Microtype}{protrusion=default;expansion=default;}
 \defaultfontfeatures{Ligatures={TeX,Required}}
 \def\su@mathfont{latinmodern-math.otf}
 \def\su@colonsize{\small}
 \newcommand\su@scale{1.0}
 \newcommand\su@LARGE{\LARGE}
+\def\su@title@indent{\z@}
 \newcommand\sutypeface{Computer Modern}
 \newcommand\sufontfamily{\sutypeface}
-
 
 \setcitestyle{numbers,square}
 \def\isu@defgeom{\geometry{}}
@@ -147,16 +150,19 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 \setmonofont[Ligatures=TeX,Scale=MatchLowercase,Numbers=SlashedZero]{Inconsolata LGC}
 }
 
+\DeclareOption{indenttitles}{
+\def\su@title@indent{\parindent}
+}
 \DeclareOption{smalltitles}{
-\renewcommand\section{\@startsection {section}{1}{\z@}%
+\renewcommand\section{\@startsection {section}{1}{\su@title@indent}%
                                    {-3.25ex \@plus -1ex \@minus -.2ex}%
                                    {1.8ex \@plus.2ex}%
                                    {\normalfont\large\bfseries}}
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+\renewcommand\subsection{\@startsection{subsection}{2}{\su@title@indent}%
                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
                                      {1.5ex \@plus .2ex}%
                                      {\normalfont\normalsize\bfseries}}
-\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\su@title@indent}%
                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
                                      {1.5ex \@plus .2ex}%
                                      {\normalfont\normalsize\bfseries}}
@@ -322,7 +328,7 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 %\renewcommand{\thepage}{\tiny\arabic{page}} % Does not work
 
 \AtBeginDocument{
-\setmathfont[Ligatures=TeX,Scale=MatchLowercase]{\su@mathfont}
+\setmathfont[Ligatures={TeX},Scale=MatchLowercase]{\su@mathfont}
 \pagenumbering{arabic}
 \normalsize
 \captionsetup[figure]{labelformat=simple,labelsep=period,font=small,labelfont={bf,small},textfont={small,it},format=hang,margin=3ex,justification=justified,singlelinecheck=false}
@@ -348,6 +354,9 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 \let\chaptername=\chapter@su@name
 \selectlanguage{russian}
 }
+\frenchspacing
+\righthyphenmin=2
+\lefthyphenmin=2
 
 \fancypagestyle{plain}{%
 \fancyhf{} % clear all header and footer fields
