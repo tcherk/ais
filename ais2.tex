@@ -14,7 +14,7 @@
 \usepackage[final]{graphicx}
 \usepackage{algorithm}
 %\usepackage[handbook,mag,fancyhdr]{subook}
-\usepackage[handbook,fancybot,pubtype,smalltitles,listbib]{subook}
+\usepackage[handbook,fancybot,times,inconsolata,smalltitles,listbib]{subook}
 %\usepackage[handbook,fancybot,lit,inconsolata,firasans,smalltitles]{subook}
 %  times, palatino, newcent and bookman
 %\usepackage{unicode-math}
@@ -45,10 +45,10 @@
     pdfkeywords={Пролог} {Искусственный интеллект} {Планирование действий}, % list of keywords
     pdfnewwindow=true,      % links in new window
     colorlinks=true,       % false: boxed links; true: colored links
-    linkcolor=black, %[rgb]{0 0.4 0.1},          % color of internal links
-    citecolor=black, %blue,        % color of links to bibliography
+    linkcolor=[rgb]{0 0.4 0.1},          % color of internal links (black)
+    citecolor=blue,        % color of links to bibliography
     filecolor=black,      % color of file links
-    urlcolor=black % [rgb]{0.3 0.0 0.3}           % color of external links
+    urlcolor=[rgb]{0.3 0.0 0.3}           % color of external links
 }
 
 %\renewcommand{\headrulewidth}{1pt}
@@ -85,7 +85,7 @@
 \vfill
 \hbox to \linewidth{\hfill Е.~А.~Черкашин\hfill}
  \vspace{2em}
-{\large\bf Рекурсивно"=логическое программирование}\\
+{\large\bfseries Рекурсивно"=логическое программирование}\\
 {Учебное пособие}
 \vfill
 %\vfill
@@ -93,6 +93,10 @@
  \textbf{Иркутск 2013}
 \end{center}
 \end{titlepage}
+%\newpage
+%\begingroup
+%\normalfont \ttfamily Это \textbf{текст} в \itshape нормальном \bfseries фонте\sffamily етноф\nwshape фонт\rmcpshape тноф\sfcpshape фонт\ttfamily тноф...
+%\endgroup
 
 \newpage
 \begin{mygroup}
@@ -1198,7 +1202,7 @@ $$
 Данному определению соответствует программа:
 
 {\tt\begin{verbatim}
-    get([H | Т], 1, Н). % Граничное условие
+    get([H | Т], 1, Н).   % Граничное условие
     get([Н | Т], N, Y) :- % Рекурсивное условие
         М is N - 1,
         get(Т, М, Y).
@@ -2656,7 +2660,7 @@ Process programming}} \\
 
 
 Темплан 2013\,{}г. Поз.\,{}186.\\[2em]
-Печатается в авторской редакции\\[1em]
+%Печатается в авторской редакции\\[1em]
 
 \end{center}
 \begin{quote}

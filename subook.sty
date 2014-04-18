@@ -68,7 +68,7 @@
   extendedchars=true,
   commentstyle={\normalfont\itshape},
   % commentstyle=\color{mygreen},
-  literate={+++}{{ф}}1,
+  % literate={+++}{{ф}}1,
   stringstyle=\bf,
 } % http://tigro.info/wp/wp-content/uploads/2013/01/LURS.pdf
 % http://alexanius-blog.blogspot.ru/2012/01/latex-1.html
@@ -91,35 +91,18 @@
 %%   morestring=[b]"
 %% }
 
-\renewcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
-                                   {2.3ex \@plus.2ex}%
-                                   {\normalfont\Large\bfseries\hyphenpenalty\@M\interlinpenalty\@M}}
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\large\bfseries\hyphenpenalty\@M\interlinpenalty\@M}}
-\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\normalsize\bfseries\hyphenpenalty\@M\interlinpenalty\@M}}
-\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-                                    {3.25ex \@plus1ex \@minus.2ex}%
-                                    {-1em}%
-                                    {\normalfont\normalsize\bfseries}}
-\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
-                                       {3.25ex \@plus1ex \@minus .2ex}%
-                                       {-1em}%
-                                      {\normalfont\normalsize\bfseries}}
-\renewcommand*{\@seccntformat}[1]{\csname the#1\endcsname .~~}
-
 \newfontfeature{Microtype}{protrusion=default;expansion=default;}
 \defaultfontfeatures{Ligatures={TeX,Required}}
 \def\su@mathfont{latinmodern-math.otf}
 \def\su@colonsize{\small}
 \newcommand\su@scale{1.0}
-\newcommand\su@LARGE{\LARGE}
+\newcommand\su@LARGE{\LARGE} % For Chapter sizes
 \def\su@title@indent{\z@}
+\def\su@sec@title@font{\normalfont}
+\def\su@par@title@font{\normalfont}
+\def\su@sec@size{\Large}
+\def\su@subsec@size{\large}
+\def\su@subsubsec@size{\normalsize}
 \newcommand\sutypeface{Computer Modern}
 \newcommand\sufontfamily{\sutypeface}
 
@@ -178,36 +161,54 @@
 }
 
 \DeclareOption{pubtype}{
-%PTC55F.ttf  PTF55F.ttf  PTF75F.ttf  PT Free Font License_eng_1.3.txt  PTM55F.ttf  PTMono.zip  PTN77F.ttf PTS56F.ttf  PTS76F.ttf  PTSerif.zip  PTZ56F.ttf PTC75F.ttf  PTF56F.ttf  PTF76F.ttf  PTM75F.ttf  PTN57F.ttf  PTS55F.ttf  PTS75F.ttf  PTSans.zip  PTZ55F.ttf
 
 \setmainfont[
-  Path="./subook/",
+  Scale=\su@scale,
+  Path="./subook/Public-Type/",
   BoldFont=PTF75F.ttf,
   ItalicFont=PTF56F.ttf,
-  BoldItalicFont=PTF76F.ttf,
-  %Scale=MatchLowercase,
+  BoldItalicFont=PTF76F.ttf
 ]{PTF55F.ttf}
 
 \setsansfont[
-  Path="./subook/",
+  Path="./subook/Public-Type/",
   BoldFont=PTS75F.ttf,
   ItalicFont=PTS56F.ttf,
   BoldItalicFont=PTS76F.ttf,
-  Scale=MatchLowercase,
+  Scale=MatchLowercase
 ]{PTS55F.ttf}
 
-%Z (Serif Caption) PTZ57F.ttf, PTZ77F.ttf
-%Sans CAPTION PTC57F.ttf, PTC77F.ttf
-%Narrow sans PTN57F.ttf, PTN77F.ttf
-%Serif Caption ? PTM57F.ttf, PTM77F.ttf
+\newfontface\nwshape[ % Narrow Shape for PT Sans
+  Path="./subook/Public-Type/",
+  BoldFont=PTN77F.ttf,
+  Scale=MatchLowercase,
+]{PTN57F.ttf}
+
+\newfontface\sfcpshape[ % Caption Shape for PT Sans
+  Path="./subook/Public-Type/",
+  BoldFont=PTC75F.ttf,
+  Scale=MatchLowercase
+]{PTC55F.ttf}
+
+\newfontface\rmcpshape[ % Caption Shape for PT Sans
+  Path="./subook/Public-Type/",
+  ItalicFont=PTZ56F.ttf,
+  Scale=MatchLowercase
+]{PTZ55F.ttf}
 
 \setmonofont[Ligatures=TeX,Scale=MatchLowercase,Numbers=SlashedZero,
-  Path="./subook/",
-  BoldFont=PTM75F.ttf
+  Path="./subook/Public-Type/",
+  BoldFont=PTM75F.ttf,
+  Scale=MatchLowercase
 ]{PTM55F.ttf}
-%\setsansfont{Calibri}
 \renewcommand\sutypeface{\foreignlanguage{english}{\normalfont Public Type (\copyright{} {\textit{Para}Type})}}
 }
+\DeclareOption{cpcaption}{
+\ExecuteOptions{pubtype}
+\def\su@sec@title@font{\sffamily\sfcpshape}
+\def\su@par@title@font{\sffamily\nwshape}
+}
+
 \DeclareOption{freetimes}{
 %\renewcommand{\rmdefault}{ftm}
 \setmainfont[Scale=\su@scale]{Free Times}
@@ -235,25 +236,25 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 \setsansfont[Ligatures=TeX,Scale=MatchLowercase]{Fira Sans OT}
 }
 \DeclareOption{inconsolata}{
-\setmonofont[Ligatures=TeX,Scale=MatchLowercase,Numbers=SlashedZero]{Inconsolata LGC}
+%\setmonofont[Ligatures=TeX,Scale=MatchLowercase,Numbers=SlashedZero]{Inconsolata LGC}
+\setmonofont[
+  Path="./subook/Inconsolata-LGC/",
+  Scale=MatchLowercase,
+%  Ligatures={TeX},
+  Numbers=SlashedZero,
+  BoldFont="inconsolatalgcbold.ttf",
+  ItalicFont="inconsolatalgcitalic.ttf",
+  BoldItalicFont="inconsolatalgcbolditalic.ttf",
+]{inconsolatalgc.ttf}
 }
 
 \DeclareOption{indenttitles}{
 \def\su@title@indent{\parindent}
 }
 \DeclareOption{smalltitles}{
-\renewcommand\section{\@startsection {section}{1}{\su@title@indent}%
-                                   {-3.25ex \@plus -1ex \@minus -.2ex}%
-                                   {1.8ex \@plus.2ex}%
-                                   {\normalfont\large\bfseries}}
-\renewcommand\subsection{\@startsection{subsection}{2}{\su@title@indent}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\normalsize\bfseries}}
-\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\su@title@indent}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\normalsize\bfseries}}
+\def\su@sec@size{\large}
+\def\su@subsec@size{\normalsize}
+\def\su@subsubsec@size{\normalsize}
 \renewcommand\su@LARGE{\Large}
 % \hyphenpenalty=10000 % to prevent hyps in headers
 }
@@ -264,7 +265,7 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 
 \def\@makechapterhead#1{%
   %\vspace*{30\p@}%
-  {\parindent \z@ \raggedright \normalfont
+  {\parindent \z@ \raggedright \su@sec@title@font
     \@hangfrom{%
     \ifnum \c@secnumdepth >\m@ne
         \su@LARGE\bfseries%
@@ -378,7 +379,7 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 \def\@makeschapterhead#1{%
   %\vspace*{30\p@}%
   {\parindent \z@ \raggedright
-    \normalfont
+    \su@sec@title@font
     \interlinepenalty\@M
     \hyphenpenalty\@M
     \su@LARGE \bfseries  #1\par\nobreak
@@ -446,6 +447,29 @@ BoldItalicFont=quantantiquabolditalic.ttf,
 \let\chaptername=\chapter@su@name
 \selectlanguage{russian}
 }
+
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\su@sec@title@font\su@sec@size\bfseries\hyphenpenalty\@M\interlinepenalty\@M}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\su@sec@title@font\su@subsec@size\bfseries\hyphenpenalty\@M\interlinepenalty\@M}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\su@sec@title@font\su@subsubsec@size\bfseries\hyphenpenalty\@M\interlinepenalty\@M}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                    {3.25ex \@plus1ex \@minus.2ex}%
+                                    {-1em}%
+                                    {\su@par@title@font\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+                                       {3.25ex \@plus1ex \@minus .2ex}%
+                                       {-1em}%
+                                      {\su@par@title@font\normalsize\bfseries}}
+\renewcommand*{\@seccntformat}[1]{\csname the#1\endcsname .~~}
+
 \frenchspacing
 \righthyphenmin=2
 \lefthyphenmin=2
