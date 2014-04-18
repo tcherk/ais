@@ -177,6 +177,37 @@
 \renewcommand\sutypeface{Таймс}
 }
 
+\DeclareOption{pubtype}{
+%PTC55F.ttf  PTF55F.ttf  PTF75F.ttf  PT Free Font License_eng_1.3.txt  PTM55F.ttf  PTMono.zip  PTN77F.ttf PTS56F.ttf  PTS76F.ttf  PTSerif.zip  PTZ56F.ttf PTC75F.ttf  PTF56F.ttf  PTF76F.ttf  PTM75F.ttf  PTN57F.ttf  PTS55F.ttf  PTS75F.ttf  PTSans.zip  PTZ55F.ttf
+
+\setmainfont[
+  Path="./subook/",
+  BoldFont=PTF75F.ttf,
+  ItalicFont=PTF56F.ttf,
+  BoldItalicFont=PTF76F.ttf,
+  %Scale=MatchLowercase,
+]{PTF55F.ttf}
+
+\setsansfont[
+  Path="./subook/",
+  BoldFont=PTS75F.ttf,
+  ItalicFont=PTS56F.ttf,
+  BoldItalicFont=PTS76F.ttf,
+  Scale=MatchLowercase,
+]{PTS55F.ttf}
+
+%Z (Serif Caption) PTZ57F.ttf, PTZ77F.ttf
+%Sans CAPTION PTC57F.ttf, PTC77F.ttf
+%Narrow sans PTN57F.ttf, PTN77F.ttf
+%Serif Caption ? PTM57F.ttf, PTM77F.ttf
+
+\setmonofont[Ligatures=TeX,Scale=MatchLowercase,Numbers=SlashedZero,
+  Path="./subook/",
+  BoldFont=PTM75F.ttf
+]{PTM55F.ttf}
+%\setsansfont{Calibri}
+\renewcommand\sutypeface{\foreignlanguage{english}{\normalfont Public Type (\copyright{} {\textit{Para}Type})}}
+}
 \DeclareOption{freetimes}{
 %\renewcommand{\rmdefault}{ftm}
 \setmainfont[Scale=\su@scale]{Free Times}
