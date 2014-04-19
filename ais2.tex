@@ -14,7 +14,7 @@
 \usepackage[final]{graphicx}
 \usepackage{algorithm}
 %\usepackage[handbook,mag,fancyhdr]{subook}
-\usepackage[handbook,fancybot,times,inconsolata,smalltitles,listbib]{subook}
+\usepackage[handbook,fancybot,times,inconsolata,smalltitles,listbib,microtyping]{subook}
 %\usepackage[handbook,fancybot,lit,inconsolata,firasans,smalltitles]{subook}
 %  times, palatino, newcent and bookman
 %\usepackage{unicode-math}
@@ -45,10 +45,10 @@
     pdfkeywords={Пролог} {Искусственный интеллект} {Планирование действий}, % list of keywords
     pdfnewwindow=true,      % links in new window
     colorlinks=true,       % false: boxed links; true: colored links
-    linkcolor=[rgb]{0 0.4 0.1},          % color of internal links (black)
-    citecolor=blue,        % color of links to bibliography
+    %linkcolor=[rgb]{0 0.4 0.1},          % color of internal links (black)
+    %citecolor=blue,        % color of links to bibliography
     filecolor=black,      % color of file links
-    urlcolor=[rgb]{0.3 0.0 0.3}           % color of external links
+    %urlcolor=[rgb]{0.3 0.0 0.3}           % color of external links
 }
 
 %\renewcommand{\headrulewidth}{1pt}
@@ -71,21 +71,21 @@
 \renewcommand{\bibname}{\refname}
 \begin{titlepage}
 \thispagestyle{empty}
-\begin{center}{\small{}\sc
-МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ \\
-РОССИЙСКОЙ ФЕДЕРАЦИИ \\
-ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ \\
-ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ \\
-ВЫСШЕГО ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ\\
-<<ИРКУТСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ>>\\[1ex]
-    УЧРЕЖДЕНИЕ РОССИЙСКОЙ АКАДЕМИИ НАУК \\
-ИНСТИТУТ ДИНАМИКИ СИСТЕМ И ТЕОРИИ УПРАВЛЕНИЯ \\
-СИБИРСКОГО ОТДЕЛЕНИЯ РАН
+\begin{center}{\small{}
+Министерство образования и науки
+Российской федерации \\
+Федеральное государственное бюджетное образовательное\\
+учреждение высшего профессионального образования\\
+<<Иркутский государственный университет>>\\[2ex]
+    Учреждение Российской академии наук \\
+<<Институт динамики систем и теории управления \\
+Сибирского отделения РАН>>
 }
 \vfill
-\hbox to \linewidth{\hfill Е.~А.~Черкашин\hfill}
+\hbox to \linewidth{\hfill\bfseries Е.~А.~Черкашин\hfill}
  \vspace{2em}
 {\large\bfseries Рекурсивно"=логическое программирование}\\
+ \vspace{2em}
 {Учебное пособие}
 \vfill
 %\vfill
@@ -101,38 +101,58 @@
 \newpage
 \begin{mygroup}
 \thispagestyle{empty}
-\noindent УДК~---681.3.06, 004.89---
+\noindent УДК 681.3.06 (075.8)\\
+\noindent ББК 32.973-01я73\\
+\noindent\mbox{}\hspace{2em}Ч-48
 
-\begin{raggedright}
-\hspace{6em}Печатается по решению ...
-\end{raggedright}
-
-\vfill%\footnotesize
-\noindent Ч-48
-
-{~Е.~А.~Черкашин.} {\bf Рекурсивно"=логическое программирование}: Учеб.~пособие\,/~Е.~А.~Черкашин.~---
-Иркутск\,: Изд-во. ИГУ, 2013.~--- \pageref{LastPage}~c.
-\vspace{1ex}
-\begin{center}
-\textbf{Рецензенты:} \\
-канд.~техн.~наук~В.~С.~Ульянов, канд.~физ.-мат.~наук~А.~А.~Лемперт
+\begin{center}\small
+Печатается по решению ученого совета ИМЭИ\\[2ex]
+\bfseries Издание выходит в рамках Программы\\
+стратегического развития ФГБОУ ВПО <<ИГУ>>\\
+на 2012--2016 гг., проект З121-02-001
 \end{center}
 \vspace{1ex}
-В методическом пособии представлены лекционные материалы и лабораторные работы курса <<Рекурсивно"=логическое программирование>>: базовые термины искусственного интеллекта, задачи, методы и их свойства; основы рекурсивно"=логического программирования на языке Пролог; типичные задачи, решение которых лаконично представляется как рекурсивные и переборные алгоритмы. Пособие содержит задания на лабораторный практикум по темам <<Формализация>>, <<Обработка списков>>, <<Метод Британского музея (отобразить и проверить)>> и <<Базы данных>>.
+\begin{center}\small
+\textbf{Рецензенты:} \\
+канд.~техн.~наук~В.~С.~Ульянов,\\ канд.~физ.-мат.~наук~А.~А.~Лемперт
+\end{center}
+\vfill
+\noindent\begin{minipage}[t]{2em}
+\noindent\mbox{}\\
+Ч-48
+\end{minipage}%
+\begin{minipage}[t]{0.95\linewidth}
+\setlength{\parindent}{5ex}
+\noindent{\bfseries Черкашин~Е.~А.}
 
-    Предназначено для студентов специальности <<инженер"=программист>>, <<инженер\,---\,системный программист>>. Изучение материала будет полезно студентами других специальностей, так или иначе связанных с программированием, формальной логикой и комбинаторикой.
+Рекурсивно"=логическое программирование\,{}: учеб.~пособие\,/~Е.~А.~Черкашин.~--
+Иркутск\,: Изд-во ИГУ, 2013.~-- \pageref{lastpage}~c.
 
-\hfill{}\textbf{УДК}
+{\bfseries ISBN 978-5-9624-0938-2}
+\vspace{2ex}
 
-\hfill{}\textbf{ББК}
+\begingroup\small\parskip0pt
+\vspace{1ex}
+В пособии представлены лекционные материалы и лабораторные работы курса <<Рекурсивно"=логическое программирование>>: базовые термины искусственного интеллекта, задачи, методы и их свойства; основы рекурсивно"=логического программирования на языке Пролог; типичные задачи, решение которых лаконично представляется как рекурсивные и переборные алгоритмы. Пособие содержит задания на лабораторный практикум по темам <<Формализация>>, <<Обработка списков>>, <<Метод Британского музея (отобразить и проверить)>> и <<Базы данных>>.
 
-\vfill\vfill
+    Пособие предназначено для студентов специальности <<инженер"=программист>>, <<инженер\,---\,системный программист>>. Изучение материала будет полезно студентами других специальностей, так или иначе связанных с программированием, формальной логикой и комбинаторикой.
+
+\mbox{}
+\endgroup
+\end{minipage}
+\mbox{}\hspace{0.7\linewidth}
+\begin{minipage}{0.3\linewidth}\small
+\noindent УДК 681.3.06 (075.8)\\
+\noindent ББК 32.973-01я73
+\end{minipage}
 
 \vfill
-\hbox{}\hfill
-\begin{minipage}{0.6\linewidth}
+\noindent\begin{minipage}[t]{0.35\linewidth}\small
+\noindent ISBN 978-5-9624-0938-2
+\end{minipage}
+\begin{minipage}[t]{0.65\linewidth}\small
 \begin{itemize}
-\setlength{\itemsep}{0pt}
+\setlength{\itemsep}{-0.5ex}
 \setlength{\parsep}{0pt}
 \item[\copyright{}] Е.~А.~Черкашин, 2013
 \item[\copyright{}] ФГБОУ ВПО <<ИГУ>>, 2013
@@ -2646,33 +2666,43 @@ Process programming}} \\
 \bibitem{GNUP} \emphbib{\href{http://www.gprolog.org/}{The GNU Prolog web site [Электронный ресурс]\,{}: сайт}}. URL:\url{http://www.gprolog.org/}. (дата обращения: 28.11.2013).
 \bibitem{SWIP} \emphbib{\href{http://www.swi-prolog.org/}{SWI-Prolog's home [Электронный ресурс]\,{}: сайт}}. URL:\url{http://www.swi-prolog.org/}. (дата обращения: 28.11.2013).
 \end{thebibliography}
-
+\label{lastpage}
 \newpage
 \thispagestyle{empty}
-\hbox{}\hfill{}Учебное издание
-\vfill
+\mbox{}
+
+\vfill\vfill\vfill\vfill
+
+\hfill{}{\small\itshape Учебное издание}
+\vspace{4ex}
 \begin{center}
-\textbf{Черкашин} Евгений Александрович\\{}
-\vspace{2em}
-{Рекурсивно"=логическое программирование}\\
-{Учебное пособие}
+{\small\textbf{Черкашин} Евгений Александрович\\[1em]}
+{\bfseries Рекурсивно"=логическое программирование}\\[1em]
+ISBN~978-5-9624-0938-2
+\vfill
+
+\small
+Редактор \textit{Г.~А.~Борисова}\\
+Верстка \textit{Е.~А.~Черкашин}
+
+\vfill{}
+{\small Макет подготовлен при помощи системы \LuaLaTeX\\\mbox{}}
 \vfill{}
 
-
-Темплан 2013\,{}г. Поз.\,{}186.\\[2em]
-%Печатается в авторской редакции\\[1em]
+Темплан 2013\,{}г. Поз.\,{}186
 
 \end{center}
-\begin{quote}
+\begin{center}\small
 \noindent Подписано в печать 28.12.2013.
-Формат~60$\times$84 1/16. Гарнитура \sutypeface{}.
-Верстка \LaTeX~2$\varepsilon$.
-Бумага офсетная. Печать офсетная. Усл.печ.л.
-Уч.-изд.л.\,{}6,4. Тираж~100 экз. Заказ
-\end{quote}
-\begin{center}
+Формат~60$\times$90 1/16.\\  %Гарнитура \sutypeface{}.
+%Верстка \LuaLaTeXe.
+%Бумага офсетная. Печать офсетная. Усл.печ.л.
+Уч.-изд.\,{}л.\,{}6,4. Усл.\,{}печ.\,{}л. 6,8. Тираж~100~экз. Заказ~170
+\end{center}
+\vspace{1           ex}
+\begin{center}\small
 Издательство ИГУ\\{}
-664033, г.\,{}Иркутск, бульвар Гагарина, 36
+664003, г.\,{}Иркутск, бульвар Гагарина, 36
 \end{center}
 \end{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
