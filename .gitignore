@@ -11,4 +11,5 @@ _TZ_*.tex
 *.bak
 *.out
 *.thm
-
+*synctex*
+auto/

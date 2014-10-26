@@ -1,26 +1,34 @@
-%%% Local Variables:
-%%% TeX-parse-self: t
-%%% TeX-auto-save: t
-%%% latex-run-command: lualatex
-%%% End:
 \documentclass[14pt, openany, twoside, final]{extbook} % Computer Modern font calls
-%\usepackage[monograph,mag,times]{subook}
-%\usepackage[utf8]{inputenc}
-%\usepackage[english,russian]{babel}
-%\usepackage{polyglossia}
-%\usepackage[T1,T2A]{fontenc}
-%\usepackage[T1]{fontenc}
-%\usepackage{ae,aecompl}
+%\usepackage[usenames]{color}
+%\usepackage{fancybox}
+%\usepackage{algorithmic} % noend
+%\usepackage[boxed]{algorithm} % boxed, ruled, plain (also)
+%\usepackage{longtable}%длинные таблицы
+
 \usepackage[final]{graphicx}
 \usepackage{algorithm}
-%\usepackage[handbook,mag,fancyhdr]{subook}
-\usepackage[handbook,fancybot,times,inconsolata,smalltitles,listbib,microtyping]{subook}
-%\usepackage[handbook,fancybot,lit,inconsolata,firasans,smalltitles]{subook}
-%  times, palatino, newcent and bookman
-%\usepackage{unicode-math}
-%\usepackage{times}
-%\usepackage{pslatex}
-%\usepackage{pscyr}
+
+% Main style definition
+% ---------------------
+% ISU standard handbook
+% \usepackage[handbook,fancybot,times,inconsolata,smalltitles,listbib,microtyping]{subook}
+% ISU standard monograph (less restrictive and more artistic)
+% \usepackage[monograph,mag,times,smalltitles,fancybot,listbib,ptfonts,microtyping]{subook}
+
+% Some artistism for monograph
+% ----------------------------
+%\makeatletter{}
+%\renewcommand\su@chapter@font{\sffamily\sfcpshape\bfseries}
+%\renewcommand\su@chapter@font@size{\LARGE}
+%\makeatother{}
+%\floatname{algorithm}{Процедура}
+%\renewcommand{\listalgorithmname}{Список процедур}
+%\renewcommand\cftsecnumwidth{5ex}
+%\tolerance=5000
+%\renewcommand{\chaptername}{Глава}
+\usepackage{hyperref}
+
+
 \usepackage{tikz}
 \usetikzlibrary{arrows,arrows.meta,shapes}
 
@@ -65,9 +73,15 @@
 \renewcommand\baselinestretch{1.1}
 \parskip=0pt plus 0.3pt
 \begin{document}
-\lstset{language=Prolog, morecomment=[l]{\%}}
-\renewcommand{\chaptername}{}
-\renewcommand{\refname}{Рекомендуемая литература}
+% \itemsep3pt plus 0pt minus 3pt
+% \widowpenalty=10000
+% \clubpenalty=10000
+% \renewcommand\sutitlefontface{\Large\ptsans\nwshape\bfseries}
+% \theorembodyfont{\rmfamily}
+
+%\lstset{language=Prolog, morecomment=[l]{\%}}
+\renewcommand{\chaptername}{} % for ISU Handbooks
+\newcommand{\refname}{Рекомендуемая литература} % ... also
 \renewcommand{\bibname}{\refname}
 \begin{titlepage}
 \thispagestyle{empty}
@@ -101,8 +115,10 @@
 \newpage
 \begin{mygroup}
 \thispagestyle{empty}
-\noindent УДК 681.3.06 (075.8)\\
+\noindent УДК 681.3.06 (075.8)\\ % (075.8) = Handbook
+% \noindent УДК~165:681.3.06+62-52\\
 \noindent ББК 32.973-01я73\\
+% ББК 87.4:32.973-01+32.813\\ % monograph
 \noindent\mbox{}\hspace{2em}Ч-48
 
 \begin{center}\small
@@ -9519,3 +9535,9 @@ Intelligence Artificielle): Translation from French - Moscow: Mir,
      Например, ПЕРЕВОД([3,4,8],["три","четыре","восемь"])
 
 \end{verbatim}
+
+% Local Variables:
+% TeX-engine: lualatex
+% TeX-parse-self: t
+% TeX-auto-save: t
+% End:

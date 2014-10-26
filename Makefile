@@ -8,7 +8,7 @@ MNAME=ais2
 all: $(NAME).pdf
 
 %.pdf: %.tex FORCE_MAKE
-	BIBINPUTS=$(BIBROOT) latexmk -pdf -e '$$pdflatex=q/lualatex %O %S/' $(MNAME)
+	BIBINPUTS=$(BIBROOT) latexmk -pdf -e '$$pdflatex=q/lualatex --synctex=1 %O %S/' $(MNAME)
 
 clean:
 	BIBINPUTS=$(BIBROOT) latexmk -C
