@@ -1,4 +1,4 @@
-\documentclass[14pt, openany, twoside, final]{extbook} % Computer Modern font calls
+\documentclass[14pt, openany, twoside, draft]{extbook} % Computer Modern font calls
 %\usepackage[usenames]{color}
 %\usepackage{fancybox}
 %\usepackage{algorithmic} % noend
@@ -11,7 +11,7 @@
 % Main style definition
 % ---------------------
 % ISU standard handbook
-% \usepackage[handbook,fancybot,times,inconsolata,smalltitles,listbib,microtyping]{subook}
+ \usepackage[handbook,fancybot,times,inconsolata,smalltitles,listbib,microtyping]{subook}
 % ISU standard monograph (less restrictive and more artistic)
 % \usepackage[monograph,mag,times,smalltitles,fancybot,listbib,ptfonts,microtyping]{subook}
 
@@ -70,6 +70,8 @@
 %% \setmainlanguage{russian}
 %% \setotherlanguage{english}
 
+%\newenvironment{mygroup}{}{}
+
 \renewcommand\baselinestretch{1.1}
 \parskip=0pt plus 0.3pt
 \begin{document}
@@ -81,7 +83,7 @@
 
 %\lstset{language=Prolog, morecomment=[l]{\%}}
 \renewcommand{\chaptername}{} % for ISU Handbooks
-\newcommand{\refname}{Рекомендуемая литература} % ... also
+\renewcommand{\refname}{Рекомендуемая литература} % ... also
 \renewcommand{\bibname}{\refname}
 \begin{titlepage}
 \thispagestyle{empty}
@@ -9537,7 +9539,7 @@ Intelligence Artificielle): Translation from French - Moscow: Mir,
 \end{verbatim}
 
 % Local Variables:
-% TeX-engine: lualatex
 % TeX-parse-self: t
 % TeX-auto-save: t
+% TeX-master: t
 % End:

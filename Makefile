@@ -8,11 +8,11 @@ CNAME=ais-with-cover
 all: $(NAME).pdf $(MNAME).pdf
 
 %.pdf: %.tex FORCE_MAKE
-	BIBINPUTS=$(BIBROOT) latexmk -pdf -e '$$pdflatex=q/lualatex --synctex=1 %O %S/' $<
+	BIBINPUTS=$(BIBROOT) latexmk $<
 
 clean:
 	BIBINPUTS=$(BIBROOT) latexmk -C
-	rm -f $(NAME).{bbl,aux,ps} $(MNAME).{bbl,aux,ps} *~ ~* *.bak
+	rm -f $(NAME).{bbl,aux,ps} $(MNAME).{bbl,aux,ps} *~ ~* *.bak *.synctex.* *.thm *-joined.pdf
 
 view: all
 	evince $(NAME).pdf
