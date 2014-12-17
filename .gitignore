@@ -13,3 +13,6 @@ _TZ_*.tex
 #UMU-poly
 *.wbk
 ~*
+*.thm
+*synctex*
+auto/
