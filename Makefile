@@ -1,18 +1,18 @@
 NAME=ais
-MNAME=ais2
+CNAME=ais-with-cover
 # BIBROOT=$(PWD)/../..
 #	BIBINPUTS=$(BIBROOT) latexmk -pdfps -dvi- -ps- $(NAME)
 
 .PHONY: FORCE_MAKE clean view all emacs edit
 
-all: $(NAME).pdf
+all: $(NAME).pdf $(MNAME).pdf
 
 %.pdf: %.tex FORCE_MAKE
-	BIBINPUTS=$(BIBROOT) latexmk -pdf -e '$$pdflatex=q/lualatex --synctex=1 %O %S/' $(MNAME)
+	BIBINPUTS=$(BIBROOT) latexmk -pdf -e '$$pdflatex=q/lualatex --synctex=1 %O %S/' $<
 
 clean:
 	BIBINPUTS=$(BIBROOT) latexmk -C
-	rm -f $(NAME).{bbl,aux,ps} $(MNAME).{bbl,aux,ps}
+	rm -f $(NAME).{bbl,aux,ps} $(MNAME).{bbl,aux,ps} *~ ~* *.bak
 
 view: all
 	evince $(NAME).pdf
@@ -22,5 +22,7 @@ edit: emacs
 emacs:
 	emacsclient -c $(NAME).tex --alternate-editor emacs  &
 
-$(NAME).pdf: $(MNAME).pdf cover.jpg
-	pdfjoin -o $(NAME).pdf -- $(MNAME).pdf cover.jpg
+$(CNAME).pdf: $(NAME).pdf cover.jpg
+	convert cover.jpg cover.pdf
+	pdfunite $(NAME).pdf cover.pdf $(CNAME).pdf
+	rm cover.pdf
