@@ -13,3 +13,5 @@ _TZ_*.tex
 *.thm
 *synctex*
 auto/
+*.wbk
+
