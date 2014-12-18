@@ -12,7 +12,7 @@ all: $(NAME).pdf $(MNAME).pdf
 
 clean:
 	BIBINPUTS=$(BIBROOT) latexmk -C
-	rm -f $(NAME).{bbl,aux,ps} $(MNAME).{bbl,aux,ps} *~ ~* *.bak *.synctex.* *.thm *-joined.pdf *.wbk
+	rm -f $(NAME).{bbl,aux,ps} $(MNAME).{bbl,aux,ps} *~ ~* *.bak *.synctex.* *.thm *-joined.pdf *.wbk *_latxmk *.fls
 
 view: all
 	evince $(NAME).pdf
