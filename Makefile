@@ -5,14 +5,14 @@ CNAME=ais-with-cover
 
 .PHONY: FORCE_MAKE clean view all emacs edit
 
-all: $(NAME).pdf $(MNAME).pdf
+all: $(NAME).pdf $(CNAME).pdf
 
 %.pdf: %.tex FORCE_MAKE
 	BIBINPUTS=$(BIBROOT) latexmk $<
 
 clean:
 	BIBINPUTS=$(BIBROOT) latexmk -C
-	rm -f $(NAME).{bbl,aux,ps} $(MNAME).{bbl,aux,ps} *~ ~* *.bak *.synctex.* *.thm *-joined.pdf *.wbk *_latxmk *.fls
+	rm -f *.{bbl,aux,ps,dvi,log,toc,out} *~ ~* *.bak *.synctex.* *.thm *-joined.pdf *.wbk *_latexmk *.fls
 
 view: all
 	evince $(NAME).pdf
