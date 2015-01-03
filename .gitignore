@@ -16,3 +16,4 @@ auto/
 *.wbk
 *latexmk
 *.fls
+_region_.tex
