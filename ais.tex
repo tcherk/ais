@@ -6,6 +6,7 @@
 %\usepackage{longtable}%длинные таблицы
 
 \usepackage[final]{graphicx}
+\graphicspath{{pics/}}
 \usepackage{algorithm}
 
 % Main style definition
@@ -13,6 +14,7 @@
 % ISU standard handbook.
 % \usepackage[handbook,fancybot, pubtype, cambriamath,firamono,smalltitles,listbib,microtyping]{subook}
  \usepackage[handbook,fancybot, liberation, cambriamath,firamono,smalltitles,listbib,microtyping]{subook}
+
 
 % ISU standard monograph (less restrictive and more artistic)
 % \usepackage[monograph,mag,times,smalltitles,fancybot,listbib,ptfonts,microtyping]{subook}
@@ -104,6 +106,25 @@
 \textcolor{eclr}{-\ [}\textcolor{#1}{#2}\textcolor{eclr}{]}}
 \newcommand{\nnn}[2][ncolor]{\noindent%
 \textcolor{eclr}{!\ [}\textcolor{#1}{#2}\textcolor{eclr}{]}}
+
+
+\newcommand{\executeiffilenewer}[3]{%
+  \ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+{\pdffilemoddate{#2}}>0%
+{\immediate\write18{#3}}\fi%
+}
+\newcommand{\includesvg}[1]{%
+  \executeiffilenewer{#1.svg}{#1.pdf}%
+{inkscape -z -D --file=#1.svg %
+  --export-pdf=#1.pdf --export-latex}%
+\input{#1.pdf_tex}%
+}
+
+% \begin{figure}
+%   \centering
+%   \def\svgwidth{\columnwidth}
+%   \includesvg{image}
+% \end{figure}
 
 
 \parskip=0pt plus 0.3pt
@@ -488,21 +509,22 @@ true.
 \section{Планирование действий}
 \label{sec:tasksolving}
 
-Рассмотрим задачу поиска выхода из лабиринта, точнее задачу прокладки пути между двумя разными комнатами в лабиринте.  В качестве примера будем использовать карту лабиринта, изображенную на рис.~\ref{fig\,:labyrinth}a.
+Рассмотрим задачу поиска выхода из лабиринта, точнее задачу прокладки пути между двумя разными комнатами в лабиринте.  В качестве примера будем использовать карту лабиринта, изображенную на рис.~\ref{fig:labyrinth}a.
 \begin{figure}[hbt]
   \centering
-
+  \def\svgwidth{\columnwidth} % sets the image width, this is optional
+  \ttfamily\small\input{pics/maze.pdf_tex}
   \caption{Лабиринт}
   \label{fig:labyrinth}
 \end{figure}
 
-Формализуем задачу.  Сначала каждую комнату каким"=нибудь образом обозначим.  Первый вариант обозначения состоит в использовании двоек $\langle x,y\rangle$, где $x$ и $y$~--- координаты комнаты (рис.~\ref{fig\,:labyrinth}b).  Если факт наличия проема или двери (перехода) между двумя комнатами \texttt{A} и \texttt{B} обозначить предикатом \texttt{e(A,B)}, то следующая программа будет представлять структуру нашего лабиринта.  {\tt
+Формализуем задачу.  Сначала каждую комнату каким"=нибудь образом обозначим.  Первый вариант обозначения состоит в использовании двоек $\langle x,y\rangle$, где $x$ и $y$~--- координаты комнаты (рис.~\ref{fig:labyrinth}b).  Если факт наличия проема или двери (перехода) между двумя комнатами \texttt{A} и \texttt{B} обозначить предикатом \texttt{e(A,B)}, то следующая программа будет представлять структуру нашего лабиринта.  {\tt
 \begin{verbatim}
 Программа в e(X1/Y1,X2/Y2)....
 \end{verbatim}%
 }
 
-Другим вариантом обозначения комнат является использование имен (<<гостиная>>, <<логово дракона>>) или просто букв \texttt{a}, \texttt{b}, \texttt{c} и т.~д. (рис.~\ref{fig\,:labyrinth}c).  Тогда программа приобретет более лаконичный вид, но в этом случае мы теряем часть информации об относительном расположении комнат.  Хорошо, что нам эта информация не понадобиться.
+Другим вариантом обозначения комнат является использование имен (<<гостиная>>, <<логово дракона>>) или просто букв \texttt{a}, \texttt{b}, \texttt{c} и т.~д. (рис.~\ref{fig:labyrinth}c).  Тогда программа приобретет более лаконичный вид, но в этом случае мы теряем часть информации об относительном расположении комнат.  Хорошо, что нам эта информация не понадобиться.
 
 {\tt
 \begin{verbatim}
