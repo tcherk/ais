@@ -108,18 +108,6 @@
 \textcolor{eclr}{!\ [}\textcolor{#1}{#2}\textcolor{eclr}{]}}
 
 
-\newcommand{\executeiffilenewer}[3]{%
-  \ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
-{\pdffilemoddate{#2}}>0%
-{\immediate\write18{#3}}\fi%
-}
-\newcommand{\includesvg}[1]{%
-  \executeiffilenewer{#1.svg}{#1.pdf}%
-{inkscape -z -D --file=#1.svg %
-  --export-pdf=#1.pdf --export-latex}%
-\input{#1.pdf_tex}%
-}
-
 % \begin{figure}
 %   \centering
 %   \def\svgwidth{\columnwidth}
@@ -515,7 +503,10 @@ true.
 \begin{figure}[hbt]
   \centering
   \def\svgwidth{\columnwidth} % sets the image width, this is optional
-  \itshape\small\input{pics/maze.pdf_tex}
+  \itshape\small
+  \def\svgwidth{\columnwidth}
+  \input{pics/maze.pdf_tex}
+  %\includesvg{pics/maze}
   \caption{Лабиринт}
   \label{fig:labyrinth}
 \end{figure}

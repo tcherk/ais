@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="maze.pdf">
+   sodipodi:docname="maze.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -48,10 +48,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.7487587"
-     inkscape:cx="231.90015"
-     inkscape:cy="167.62019"
+     inkscape:cx="244.70673"
+     inkscape:cy="178.11025"
      inkscape:document-units="px"
-     inkscape:current-layer="g5143"
+     inkscape:current-layer="layer1"
      showgrid="true"
      fit-margin-top="10"
      fit-margin-left="10"
@@ -85,7 +85,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -628,18 +628,7 @@
            sodipodi:type="arc" />
       </g>
     </g>
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot5445"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:403.99999619%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       transform="translate(27.5,879.86218)"><flowRegion
-         id="flowRegion5447"><rect
-           id="rect5449"
-           width="130.66411"
-           height="152.10789"
-           x="165.83191"
-           y="-11.682566" /></flowRegion><flowPara
-         id="flowPara5451"></flowPara></flowRoot>    <text
+    <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:403.99999619%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
        x="100.69478"
