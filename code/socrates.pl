@@ -13,3 +13,9 @@ path(A,B, [A-C|T]) :- e(A,C), path(C,B,T).
 
 path2(A,B, [A,B]) :- e(A,B).
 path2(A,B, [A|T]) :- e(A,C), path2(C,B,T).
+
+dfs(V, []):-p(V).
+dfs(V, [V-N|T]):- \+ p(V), after(V,N), dfs(N,T).
+
+p(h).
+after(X,Y):-e(X,Y); e(Y,X).
