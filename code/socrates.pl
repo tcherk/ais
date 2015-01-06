@@ -19,3 +19,19 @@ dfs(V, [V-N|T]):- \+ p(V), after(V,N), dfs(N,T).
 
 p(h).
 after(X,Y):-e(X,Y); e(Y,X).
+
+dfsl(V, [], _):-p(V).
+dfsl(V, [V-N|T], D):- D>0, after(V,N), D1 is D-1, dfsl(N,T, D1).
+
+dfsr(V, [], _):-p(V).
+dfsr(V, [V-N|T], Q):- after(V,N), \+ member(N,Q), dfsr(N,T, [N|Q]).
+
+mem(X,[X|_]).
+mem(X,[_|T]):-mem(X,T).
+
+bfs([[X|T]|_],[X|T]):-p(X),!.
+bfs([[X|T]|Ways], S):-
+        findall([Y,X|T],
+                (after(X,Y), \+ member(Y,[X|T])), L),
+        append(Ways,L, NWays),
+        bfs(NWays,S).
