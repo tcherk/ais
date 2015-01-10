@@ -1,6 +1,6 @@
 :- use_module(library(prosqlite)).
 :- use_module(library(pairs)).
-
+:- use_module(library(http/http_open)).
 conn:-
         sqlite_connect(rzd, db,
                        [as_predicates(true),table_as(city,city,arity)]).
@@ -139,3 +139,26 @@ gstation(Guess, Name, Transit):-
                        row(Name)).
 
         % select name from station where name LIKE 'Краснояр%' and transit=1;
+
+
+geocode(Name):-
+        http_open([host('nominatim.openstreetmap.org'),
+                   path('/search.php'),
+                   search([ q=Name,
+                            lang=ru,
+                            format=xml
+                           ])
+                  ],
+                  In,
+                  []
+                 ),
+        copy_stream_data(In, user_output),
+        close(In).
+
+
+% http_open([ host('www.example.com'),
+%             path('/my/path'),
+%             search([ q='Hello world',
+%                      lang=en
+%                    ])
+%           ])
