@@ -1,6 +1,7 @@
 :- use_module(library(prosqlite)).
 :- use_module(library(pairs)).
 :- use_module(library(http/http_open)).
+:- use_module(library(sgml)).
 conn:-
         sqlite_connect(rzd, db,
                        [as_predicates(true),table_as(city,city,arity)]).
@@ -141,7 +142,7 @@ gstation(Guess, Name, Transit):-
         % select name from station where name LIKE 'Краснояр%' and transit=1;
 
 
-geocode(Name):-
+geocode(Name, Lan, Lat, ID):-
         http_open([host('nominatim.openstreetmap.org'),
                    path('/search.php'),
                    search([ q=Name,
@@ -152,8 +153,35 @@ geocode(Name):-
                   In,
                   []
                  ),
-        copy_stream_data(In, user_output),
-        close(In).
+        load_xml(In, S, []),
+        S=[element(searchresults,_,[_|L])],
+        %L=S,
+        %copy_stream_data(In, user_output),
+        close(In),
+        geoplace(L, Lat,Lon,ID).
+
+geoplace(element(place,Attrs,_), Lon, Lat, Id):-
+        geoattr(place_id, Attrs, Id),
+        geoattr(lat, Attrs, Lat),
+        geoattr(lon, Attrs, Lon).
+
+geoplace([X|_], Lon, Lat, Id):-
+        geoplace(X, Lon, Lat, ID).
+geoplace([_|T], Lon, Lat, Id):-
+        geoplace(T, Lon, Lat, ID).
+
+
+% run111:-p([element(searchresults,
+%                    [timestamp=Sat, 10 Jan 15 08:09:40 +0000,attribution=Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright,querystring=Иркутск-Пассажирский,polygon=false,exclude_place_ids=2635309604,2635309603,more_url=http://nominatim.openstreetmap.org/search?format=xml&exclude_place_ids=2635309604,2635309603&q= %D0%98%D1%80%D0%BA%D1%83%D1%82%D1%81%D0%BA-%D0%9F%D0%B0%D1%81%D1%81%D0%B0%D0%B6%D0%B8%D1%80%D1%81%D0%BA%D0%B8%D0%B9
+%                    ],
+%                    [,
+%                     element(place,
+%                             [place_id=2635309604,osm_type=node,osm_id=1500960952,place_rank=30,boundingbox=52.2825847,52.2826847,104.2604838,104.2605838,lat=52.2826347,lon=104.2605338,display_name=Иркутск-Пассажирский, улица Челнокова, Глазково, Иркутск, городской округ Иркутск, Иркутская область, СФО, 664004, Россия,class=railway,type=halt,importance=0.211],
+%                             [])
+%                    ])
+%           ]).
+
+
 
 
 % http_open([ host('www.example.com'),
