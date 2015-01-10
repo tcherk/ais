@@ -2,6 +2,8 @@
 :- use_module(library(pairs)).
 :- use_module(library(http/http_open)).
 :- use_module(library(sgml)).
+:- use_module(library(option)).
+
 conn:-
         sqlite_connect(rzd, db,
                        [as_predicates(true),table_as(city,city,arity)]).
@@ -142,7 +144,9 @@ gstation(Guess, Name, Transit):-
         % select name from station where name LIKE 'Краснояр%' and transit=1;
 
 
-geocode(Name, Lan, Lat, ID):-
+
+
+geocodequery(Name, Lon, Lat, ID):-
         http_open([host('nominatim.openstreetmap.org'),
                    path('/search.php'),
                    search([ q=Name,
@@ -158,17 +162,65 @@ geocode(Name, Lan, Lat, ID):-
         %L=S,
         %copy_stream_data(In, user_output),
         close(In),
-        geoplace(L, Lat,Lon,ID).
+        geoplace(L, Lon,Lat,ID).
 
 geoplace(element(place,Attrs,_), Lon, Lat, Id):-
-        geoattr(place_id, Attrs, Id),
-        geoattr(lat, Attrs, Lat),
-        geoattr(lon, Attrs, Lon).
+        option(lon(Lon1),Attrs), atom_number(Lon1,Lon),
+        option(lat(Lat1),Attrs), atom_number(Lat1,Lat),
+        option(place_id(Id),Attrs).
 
 geoplace([X|_], Lon, Lat, Id):-
-        geoplace(X, Lon, Lat, ID).
+        geoplace(X, Lon, Lat, Id).
 geoplace([_|T], Lon, Lat, Id):-
-        geoplace(T, Lon, Lat, ID).
+        geoplace(T, Lon, Lat, Id).
+
+geocode(Station, Lon, Lat, Id):-
+        \+ number(Station),
+        station(Station, _, Code, _),
+        geocode(Code, Lon, Lat, Id).
+
+geocode(Station, Lon, Lat, Id):-
+        number(Station),
+        geocache(Station, Lon, Lat, Id),!.
+
+geocode(Station, Lon, Lat, Id):-
+        number(Station),
+        station(Name, _, Station, _),
+        geocodequery(Name, Lon, Lat, Id),
+        sqlite_query_f(db,
+                       'INSERT INTO geocache (station, lon, lat, place_id) values (%w,%w,%w,%w)'-[Station,Lon,Lat,Id],
+                       _),!.
+
+create_geocache_table:-
+        sqlite_query(db, 'DROP TABLE IF EXISTS geocache', _),
+        sqlite_query(db, 'CREATE TABLE IF NOT EXISTS geocache (station int REFERENCES station (oid), lon real, lat real, place_id text)', _).
+
+to_radians(Grad,Rad):-
+        Rad is Grad * 3.1415926536/180.0.
+
+geodist(Lon1, Lat1, Lon2, Lat2, Dist):-
+        R=6371.0,
+        to_radians(Lat1,Phi1), to_radians(Lat2,Phi2),
+        DLat is Lat2-Lat1, to_radians(DLat, DPhi),
+        DLon is Lon2-Lon1, to_radians(DLon, DLamb),
+        DPhi2 is DPhi/2.0,
+        DLamb2 is DLamb/2.0,
+        A is sin(DPhi2)^2+cos(Phi1)*cos(Phi2)*sin(DLamb2)^2,
+        C is 2*atan2(sqrt(A),sqrt(1-A)),
+        Dist is R*C.
+
+% var R = 6371; // km
+% var φ1 = lat1.toRadians();
+% var φ2 = lat2.toRadians();
+% var Δφ = (lat2-lat1).toRadians();
+% var Δλ = (lon2-lon1).toRadians();
+
+% var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+%         Math.cos(φ1) * Math.cos(φ2) *
+%         Math.sin(Δλ/2) * Math.sin(Δλ/2);
+% var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+% var d = R * c;
 
 
 % run111:-p([element(searchresults,
