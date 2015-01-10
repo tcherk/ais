@@ -3,7 +3,7 @@ import csv
 
 # Соединение с базой данных. БД будем создавать заново.
 try:
-    conn=sql.connect('rzd.db')
+    conn=sql.connect('rzd.sqlite')
 except sql.OperationalError:
     print ("DB is locked. Terminating.")
     quit()
