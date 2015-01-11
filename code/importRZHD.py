@@ -47,6 +47,12 @@ state=0
 REPLACES={
     "бывш.":"бывший",
     "Пут.":"Путевой",
+    "г-Тов.":"г-Товарный",
+    "Им.":"Имени",
+    "Обг. Пункт":"Обгонный Пункт",
+    "  ":" ",
+    "М. Горького":"Максима Горького",
+    "(эксп)":"(эксп.)",
     }
 
 def appreplace(s):
@@ -76,10 +82,7 @@ def proc(a, complex=False):
         return float(a)
     except ValueError:
         pass
-    if '.' in a:
-        a=appreplace(a)
-        # if '.' in a:
-        #     print (".", a)
+    a=appreplace(a)
     return a
 
 def nameproc(a):

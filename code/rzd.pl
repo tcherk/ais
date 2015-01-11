@@ -127,18 +127,20 @@ fill_route_table:-
         % write('Route: '), write(A), write(' with '), write(B),nl,
         shortest(A,B,_,D),
         addroute(A,B,D),
-        format('Added: ~w with ~w dist: ~w\n', [A,B,D]),
         fail.
 
 fill_route_table.
 
 addroute(A,B,D):-
         \+ route(A,B,_),
-        sqlite_format_query(db, 'INSERT INTO route (a,b,dist) values (~w,~w,~w)'-[A,B,D],_).
+        sqlite_format_query(db, 'INSERT INTO route (a,b,dist) values (~w,~w,~w)'-[A,B,D],_),
+        format('Added: ~w with ~w dist: ~w\n', [A,B,D]).
+
 
 addroute(A,B,D):-
         \+ route(B,A,_),
-        sqlite_format_query(db, 'INSERT INTO route (a,b,dist) values (~w,~w,~w)'-[B,A,D],_).
+        sqlite_format_query(db, 'INSERT INTO route (a,b,dist) values (~w,~w,~w)'-[B,A,D],_),
+        format('Added: ~w with ~w dist: ~w\n', [B,A,D]).
 
 findroute(A,B):-
         station(_,_,A,1),
