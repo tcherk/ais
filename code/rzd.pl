@@ -83,21 +83,37 @@ bfs([[X|T]|Ways], Target, S):-
         append(Ways,L, NWays),
         bfs(NWays,Target,S).
 
-bf1([_-s(G,[Target|T]) |_],Target,s(G,[Target|T])):-!.
-bf1([_-s(G,[X|T])|Ways], Target, S):-
+bf1([_-s(G,[Target|T]) |_],Target-_,s(G,[Target|T])):-!.
+bf1([_-s(G,[X|T])|Ways], Target-GPS, S):-
         Target\=X,
-        findall(F1-s(G1,[Y,X|T]), after([X|T],G, Y,G1,F1), L),
+        findall(F1-s(G1,[Y,X|T]), after([X|T],G,GPS, Y,G1,F1), L),
         append(L, Ways, NWays),
         keysort(NWays,SNWays),
-        bf1(SNWays,Target,S).
+        bf1(SNWays,Target-GPS,S).
 
-after([S|R],SG, T,TG,TG):-
+after([S|R],SG, GPS, T,TG, F):-
         transdist(S,T,D),
         \+ member(T,[S|R]),
-        TG is SG + D.
+        TG is SG + D,
+        geodist(T, GPS, GDist),
+        F is TG + GDist.
+
+bf2(Start, Target, Sol):-
+        geocode(Target, Lon, Lat, _),
+        bf1([0-s(0,[Start])], Target-ll(Lon,Lat), Sol).
 
 bf(Start, Target, Sol):-
-        bf1([0-s(0,[Start])], Target, Sol).
+        station(Start, _, _, 1),
+        station(Target, _, _, 1),
+        writef('Stations found. Routing.'),nl,
+        bf2(Start,Target, Sol).
+
+bf(Start,_,_):-
+        \+ station(Start, _, _, 1),
+        writef('Starting station is not TP.'),nl,fail.
+bf(_,Target,_):-
+        \+ station(Target, _, _, 1),
+        writef('Starting station is not TP.'),nl,fail.
 
 create_route_table:-
         sqlite_query(db, 'DROP TABLE IF EXISTS route', _),
@@ -162,7 +178,9 @@ geocodequery(Name, Lon, Lat, ID):-
         %L=S,
         %copy_stream_data(In, user_output),
         close(In),
-        geoplace(L, Lon,Lat,ID).
+        geoplace(L, Lon,Lat,ID),
+        writef("OSM: %w lon: %w, lat:%w", [Name, Lon, Lat]),nl.
+
 
 geoplace(element(place,Attrs,_), Lon, Lat, Id):-
         option(lon(Lon1),Attrs), atom_number(Lon1,Lon),
@@ -208,6 +226,16 @@ geodist(Lon1, Lat1, Lon2, Lat2, Dist):-
         A is sin(DPhi2)^2+cos(Phi1)*cos(Phi2)*sin(DLamb2)^2,
         C is 2*atan2(sqrt(A),sqrt(1-A)),
         Dist is R*C.
+
+geodist(A,ll(LonB,LatB), Dist):-!,
+        geocode(A, LonA, LatA, _),
+        geodist(LonA, LatA, LonB, LatB, Dist).
+
+geodist(A,B, Dist):-
+        geocode(A, LonA, LatA, _),
+        geocode(B, LonB, LatB, _),
+        geodist(LonA, LatA, LonB, LatB, Dist).
+
 
 % var R = 6371; // km
 % var φ1 = lat1.toRadians();
