@@ -272,3 +272,17 @@ geodist(A,B, Dist):-
 %                      lang=en
 %                    ])
 %           ])
+
+
+ufs([_-s(G,[Target|T]) |_],Target,s(G,[Target|T])):-!.
+ufs([_-s(G,[X|T])|Ways], Target, S):-
+        Target\=X,
+        findall(G1-s(G1,[Y,X|T]), after([X|T],G, Y,G1), L),
+        append(L, Ways, NWays),
+        keysort(NWays,SNWays),
+        ufs(SNWays,Target,S).
+
+after([S|R],SG, T,TG):-
+        transdist(S,T,D),
+        \+ member(T,[S|R]),
+        TG is SG + D.
