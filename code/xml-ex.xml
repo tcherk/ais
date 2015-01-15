@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<searchresults timestamp='Thu, 15 Jan 15 07:54:30 +0000'
+               attribution='Data © OpenStreetMap contributors, ODbL
+                            1.0. http://www.openstreetmap.org/copyright'
+               querystring='Иркутск'
+               oviewbox='-112.15,61.44,112.15,-61.44'
+               polygon='false'
+               exclude_place_ids='158888259'
+               >
+  <place
+      place_id='158888259' osm_type='relation' osm_id='1430614'
+      place_rank='16'
+      boundingbox="52.2094352,52.4217324,104.0579985,104.462928"
+      lat='52.2895979' lon='104.2805843'
+      display_name='Иркутск, городской округ Иркутск, Иркутская
+                    область, Сибирский федеральный округ, Российская
+                    Федерация'
+      class='place' type='city' importance='0.70744217496694'
+      icon='http://nominatim.openstreetmap.org/images/mapicons/poi_place_city.p.20.png'/>
+</searchresults>

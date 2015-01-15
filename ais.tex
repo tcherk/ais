@@ -680,7 +680,7 @@ false.
 
   Можно отделять в голове списка несколько элементов, соответствующая запись выглядит так\,: {\tt L=[H1, H2, H3 | T]}.
 
-\paragraph{Возвращаемся к нашему лабиринту.} \label{par:mazelist} Далее будем использовать списки для хранения пути в лабиринте.  Для этого введем третий параметр в предикат \texttt{path/2}.
+\paragraph{Возвращаемся к лабиринту.} \label{par:mazelist} Далее будем использовать списки для хранения пути в лабиринте.  Для этого введем третий параметр в предикат \texttt{path/2}.
 {\tt%
 \begin{verbatim}
     path(A,B, [A-B]) :- e(A,B).
@@ -1164,7 +1164,7 @@ S = s(1535,[Новосибирск-Главный,Обь,
 
 В результате запроса получается структура, которая содержит решающий путь и его стоимость (длина в км).  В процессе построения решения программа запрашивает данные местоположения станций в интернет.  Результаты запросов выдаются на экран в виде отладочной информации (1).
 
-\aaa{М.б. добавить какие-нибудь сравнения???}
+\aaa{М.б. добавить какие-нибудь сравнения???} \aaa{Игра 15 хотя бы 1-2 примера. Но тогда надо добавлять описание задачи. }
 
 Построенная нами реализация алгоритма $\mathtt{A}^*$ основывается на непереоценивающей функции $h$, т.е. выдает первым оптимальное решение.  Необходимо сделать пару замечаний.
 \begin{enumerate}
@@ -1177,6 +1177,97 @@ S = s(1535,[Новосибирск-Главный,Обь,
 \subsection{Доступ в интернет и обработка XML}
 \label{sec:inetxml}
 
+Язык программирования Prolog представляет собой удобное средство обработки рекурсивных структур.  Использованные нами в разделе~\ref{sec:breadthfirst} списки относятся к таким рекурсивным структурам.  Другой известной рекурсивной структурой является \emph{дерево}, которое лежит в основе структуры формата данных XML (\foreignlanguage{english}{eXtensible Markup Language}) \cite{xml}.  Формат XML позволяет представлять информацию таким образом, чтобы она, с одной стороны, достаточно эффективно обрабатывалась алгоритмически (на компьютере), а с другой~--- была понятна человеку.  Вот, например, ответ с сервера геокодирования \foreignlanguage{latin}{Nominatim} \cite{nominatim}\,:
+{\tt\footnotesize%
+\begin{verbatim}
+<?xml version="1.0" encoding="UTF-8" ?>
+<searchresults timestamp='Thu, 15 Jan 15 07:54:30 +0000'
+               attribution='Data © OpenStreetMap contributors, ODbL
+                            1.0. http://www.openstreetmap.org/copyright'
+               querystring='Иркутск'
+               oviewbox='-112.15,61.44,112.15,-61.44'
+               polygon='false'
+               exclude_place_ids='158888259'
+               >
+  <place
+      place_id='158888259' osm_type='relation' osm_id='1430614'
+      place_rank='16'
+      boundingbox="52.2094352,52.4217324,104.0579985,104.462928"
+      lat='52.2895979' lon='104.2805843'
+      display_name='Иркутск, городской округ Иркутск, Иркутская
+                    область, Сибирский федеральный округ, Российская
+                    Федерация'
+      class='place' type='city' importance='0.70744217496694'/>
+</searchresults>
+\end{verbatim}%
+}
+
+Основные элементы XML~--- это \emph{теги}, \emph{атрибуты} и текст, заполняющий пространство между тегами.  В данном примере тегами выступают \texttt{<searchresults>} и \texttt{<place>}.  Тег \texttt{<place>} расположен <<внутри>> тега \texttt{<searchresults>}.  Корневой тег (\texttt{<searchresults>}) по стандарту XML должен быть только один, остальные могут повторятся.  В нашем примере сервер геокодирования может выдать несколько объектов, соответствующих запросу.  В XML"=ответе сервера это отразится наличием повторений тега \texttt{<place>} для каждого объекта.
+
+Атрибуты ассоциированы с тегами и несут формализованную дополнительную информацию.  В примере тегами \texttt{lat} и \texttt{lon} заданы географические координаты объекта (города Иркутска), полное наименование (\texttt{display\_name}), тип объекта \texttt{type} и т.~д.  Каждый атрибут приравнивается к некоторому значению.  Таким образом тег \texttt{place} со своими атрибутами описывает объекты, а \texttt{<searchresults>}~--- результат обработки запроса, состоящий из одного или нескольких объектов.
+
+Реализация процедур (предикатов) обработки XML, запросы к сайтам интернет, а также обработка списка ключевых слов (атрибутов), реализованы в соответствующих библиотеках.  В нашей программе необходимо импортировать эти библиотеки.
+{\tt%
+\begin{verbatim}
+:- use_module(library(http/http_open)).
+:- use_module(library(sgml)).   % Обработка XML
+:- use_module(library(option)).
+\end{verbatim}%
+}
+
+Предикат \texttt{geocodequery/4} запрашивает на сервере объекты по названию \texttt{Name} и возвращает широту, долготу и идентификатор объекта.  Библиотечная процедура \texttt{http\_open} в качестве первого аргумента принимает список ключевых слов в формате \texttt{<название структуры>(<значение>)}.  Элементы списка позволяют формировать строку URL запроса к серверу из отдельных компонент, что предоставляет удобный сервис для программиста.  Важным элементом этого списка является \texttt{search/1} со списком параметров запроса к скрипту \texttt{search.php}.  Параметр \texttt{format} указывает серверу тот факт, что ответ (перечень объектов) надо возвращать в виде XML.  Остальные значения понятны на интуитивном уровне.
+
+Переменная \texttt{In} получает идентификатор входного потока данных, представляющих собой ответ сервера.  Этот поток передается в процедуру интерпретации XML как текста в XML, представленный в виде дерева (переменная \texttt{S}).  Переменная \texttt{S}, затем, унифицируется со структурой, представляющей собой шаблон внутреннего представления коревого тега.  Унификация помещает в \texttt{L} список тегов \texttt{<place>}.  Этот список анализируется в предикате \texttt{geoplace/4}, где изымается требуемые данные о местоположении найденных объектов.
+{\tt%
+\begin{verbatim}
+geocodequery(Name, Lon, Lat, ID):-
+        http_open([host('nominatim.openstreetmap.org'),
+                   path('/search.php'),
+                   search([ q=Name,
+                            lang=ru,
+                            format=xml ])
+                  ], In, [] ),
+        load_xml(In, S, []),
+        S=[element(searchresults,_,[_|L])],
+        close(In), geoplace(L, Lon,Lat,ID),
+        writef("OSM: %w lon: %w, lat:%w",
+                [Name, Lon, Lat]),nl.
+
+geoplace(element(place,Attrs,_), Lon, Lat, Id):-
+        option(lon(Lon1),Attrs), atom_number(Lon1,Lon),
+        option(lat(Lat1),Attrs), atom_number(Lat1,Lat),
+        option(place_id(Id),Attrs).
+
+geoplace([X|_], Lon, Lat, Id):-
+        geoplace(X, Lon, Lat, Id).
+geoplace([_|T], Lon, Lat, Id):-
+        geoplace(T, Lon, Lat, Id).
+\end{verbatim}%
+}
+
+Предикат \texttt{geoplace} в качестве первого параметра принимает как тег, так и список таких тегов.
+
+
+{\tt%
+\begin{verbatim}
+geocode(Station, Lon, Lat, Id):-
+        \+ number(Station),
+        station(Station, _, Code, _),
+        geocode(Code, Lon, Lat, Id).
+
+geocode(Station, Lon, Lat, Id):-
+        number(Station),
+        geocache(Station, Lon, Lat, Id),!.
+
+geocode(Station, Lon, Lat, Id):-
+        number(Station),
+        station(Name, _, Station, _),
+        geocodequery(Name, Lon, Lat, Id),
+        sqlite_query_f(db,
+                       'INSERT INTO geocache (station, lon, lat, place_id) values (%w,%w,%w,%w)'-[Station,Lon,Lat,Id],
+                       _),!.
+\end{verbatim}%
+}
 
 
 {\tt%
@@ -1475,6 +1566,10 @@ N = 55252
 \bibitem{pythondl} Welcome to Python.org. \url{https://www.python.org/} (дата обращения: 11.01.2015).
 \bibitem{pythondoc} Основы программирования на Python. \url{http://younglinux.info/sites/default/files/python_structured_programming.pdf}.
 \bibitem{pythonbook} М.~Лутц. Изучаем Python, 4-е издание.
+
+\bibitem{xml} Куда сослаться по XML даж уме не приложу.
+\bibitem{http} Что-то о протоколе http и URL.
+\bibitem{nominatim} Nominatim~--- . \url{http://wiki.openstreetmap.org/wiki/Nominatim}.
 
 \end{thebibliography}
 \label{lastpage}
