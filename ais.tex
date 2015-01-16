@@ -1245,9 +1245,9 @@ geoplace([_|T], Lon, Lat, Id):-
 \end{verbatim}%
 }
 
-Предикат \texttt{geoplace} в качестве первого параметра принимает как тег, так и список таких тегов.
+Предикат \texttt{geoplace} в качестве первого параметра принимает структуру \texttt{element(place, <список атрибутов>, [])}, соответствующую тегу \texttt{place}, пред или список таких структур.  Предикат возвращает геоданные об объектах, представленных в списке тегов \texttt{place}.  Предикат \texttt{option(lon(Val),L)} ищет в списке \texttt{L} элемент вида \texttt{lon=Val} или \texttt{lon(Val)} и унифицирует соответствующим значением переменную \texttt{Val}.  Процедура \texttt{atom_number(X,Y)} переводит атомы \texttt{X} (строки) в целые числа \texttt{Y} (и наоборот), если такое возможно.
 
-
+Следующий текст представляет собой программу обеспечения доступа предикату \texttt{after/6} к геоданным по названию станции \texttt{Station}.
 {\tt%
 \begin{verbatim}
 geocode(Station, Lon, Lat, Id):-
@@ -1264,10 +1264,15 @@ geocode(Station, Lon, Lat, Id):-
         station(Name, _, Station, _),
         geocodequery(Name, Lon, Lat, Id),
         sqlite_query_f(db,
-                       'INSERT INTO geocache (station, lon, lat, place_id) values (%w,%w,%w,%w)'-[Station,Lon,Lat,Id],
-                       _),!.
+         'INSERT INTO geocache (station, lon, lat, place_id) values
+             (%w,%w,%w,%w)'-[Station,Lon,Lat,Id],
+        _),!.
 \end{verbatim}%
 }
+
+Сначала \texttt{geocode/4} пытается найти данные в локальной базе данных координат \texttt{geocache/4}.  Если попытка терпит неудачу, то осуществляется запрос к интернет"=сервису \foreignlanguage{latin}{Nominatim} и запись результата в базу данных \texttt{geocache} для дальнейшего использования.  В тексте SQL"=запроса \texttt{INSERT} \texttt{\%w} обозначает место вставки строкового представления очередного значения из списка \texttt{[Station,Lon,\ldots]}.
+
+\nnn{Можно сказать, что среда программирования Prolog вполне себе полноценный инструмент проектирования информационных систем.}
 
 
 {\tt%
