@@ -1221,12 +1221,13 @@ S = s(1535,[Новосибирск-Главный,Обь,
 {\tt%
 \begin{verbatim}
 geocodequery(Name, Lon, Lat, ID):-
-        http_open([host('nominatim.openstreetmap.org'),
-                   path('/search.php'),
-                   search([ q=Name,
-                            lang=ru,
-                            format=xml ])
-                  ], In, [] ),
+        http_open([
+            host('nominatim.openstreetmap.org'),
+            path('/search.php'),
+            search([ q=Name,
+                     lang=ru,
+                     format=xml ])
+            ], In, [] ),
         load_xml(In, S, []),
         S=[element(searchresults,_,[_|L])],
         close(In), geoplace(L, Lon,Lat,ID),
@@ -1234,39 +1235,39 @@ geocodequery(Name, Lon, Lat, ID):-
                 [Name, Lon, Lat]),nl.
 
 geoplace(element(place,Attrs,_), Lon, Lat, Id):-
-        option(lon(Lon1),Attrs), atom_number(Lon1,Lon),
-        option(lat(Lat1),Attrs), atom_number(Lat1,Lat),
-        option(place_id(Id),Attrs).
-
+    option(lon(Lon1),Attrs), atom_number(Lon1,Lon),
+    option(lat(Lat1),Attrs), atom_number(Lat1,Lat),
+    option(place_id(Id),Attrs).
 geoplace([X|_], Lon, Lat, Id):-
-        geoplace(X, Lon, Lat, Id).
+    geoplace(X, Lon, Lat, Id).
 geoplace([_|T], Lon, Lat, Id):-
-        geoplace(T, Lon, Lat, Id).
+    geoplace(T, Lon, Lat, Id).
 \end{verbatim}%
 }
 
-Предикат \texttt{geoplace} в качестве первого параметра принимает структуру \texttt{element(place, <список атрибутов>, [])}, соответствующую тегу \texttt{place}, пред или список таких структур.  Предикат возвращает геоданные об объектах, представленных в списке тегов \texttt{place}.  Предикат \texttt{option(lon(Val),L)} ищет в списке \texttt{L} элемент вида \texttt{lon=Val} или \texttt{lon(Val)} и унифицирует соответствующим значением переменную \texttt{Val}.  Процедура \texttt{atom_number(X,Y)} переводит атомы \texttt{X} (строки) в целые числа \texttt{Y} (и наоборот), если такое возможно.
+Предикат \texttt{geoplace} в качестве первого параметра принимает структуру \texttt{element(place, <список атрибутов>, [])}, соответствующую тегу \texttt{place}, пред или список таких структур.  Предикат возвращает геоданные об объектах, представленных в списке тегов \texttt{place}.  Предикат \texttt{option(lon(Val),L)} ищет в списке \texttt{L} элемент вида \texttt{lon=Val} или \texttt{lon(Val)} и унифицирует соответствующим значением переменную \texttt{Val}.  Процедура \texttt{atom\_number(X,Y)} переводит атомы \texttt{X} (строки) в целые числа \texttt{Y} (и наоборот), если такое возможно.
 
 Следующий текст представляет собой программу обеспечения доступа предикату \texttt{after/6} к геоданным по названию станции \texttt{Station}.
 {\tt%
 \begin{verbatim}
 geocode(Station, Lon, Lat, Id):-
-        \+ number(Station),
-        station(Station, _, Code, _),
-        geocode(Code, Lon, Lat, Id).
+    \+ number(Station),
+    station(Station, _, Code, _),
+    geocode(Code, Lon, Lat, Id).
 
 geocode(Station, Lon, Lat, Id):-
-        number(Station),
-        geocache(Station, Lon, Lat, Id),!.
+    number(Station),
+    geocache(Station, Lon, Lat, Id),!.
 
 geocode(Station, Lon, Lat, Id):-
-        number(Station),
-        station(Name, _, Station, _),
-        geocodequery(Name, Lon, Lat, Id),
-        sqlite_query_f(db,
-         'INSERT INTO geocache (station, lon, lat, place_id) values
-             (%w,%w,%w,%w)'-[Station,Lon,Lat,Id],
-        _),!.
+    number(Station),
+    station(Name, _, Station, _),
+    geocodequery(Name, Lon, Lat, Id),
+    sqlite_query_f(db,
+     'INSERT INTO geocache (station, lon, lat,
+         place_id) values
+         (%w,%w,%w,%w)'-[Station,Lon,Lat,Id],
+    _),!.
 \end{verbatim}%
 }
 
