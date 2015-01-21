@@ -1,12 +1,10 @@
-
+d(Y,X,1):-var(X),var(Y),
+        Y==X,!.
 
 d(Y,X,0):-
-        var(Y),var(X),
-        numbervars(aTerm(Y,X), 0, _),
-        Y\=X,!.
-d(X,X,1):-var(X),!.
-d(C,_,0):-atom(C),!.
-d(N,_,0):-number(N),!.
+        var(Y),var(X),!.
+
+d(C,_,0):-atomic(C),!.
 
 d(U+V,X,DU+DV):-!,
         d(U,X,DU),
