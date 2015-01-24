@@ -42,7 +42,6 @@ sim(X, X):-
 sim(E, R):-
         r(E,E1),!,
         sim(E1,R).
-
 sim(E,E).
 
 r(A+B, A):-B=@=0,!.
@@ -56,36 +55,34 @@ r(A^B, 1):-B=@=0,A\=@=0,!.
 r(A/B, A):-B=@=1,!.
 r(B/A, A^(-1)):-B=@=1,!.
 
-r([],[]):-!.
-r([X|T],[SX|ST]):-!,
-        sim(X,SX),
-        r(T,ST).
+r(A+B, AB):-number(A),number(B),!,AB is A+B.
+r(A*B, AB):-number(A),number(B),!,AB is A*B.
+r(A+B, B+A):-number(B),!.
+r(A*B, B*A):-number(B),!.
+
+r(A+B+C,AB+C):-number(A),number(B),!, AB is A+B.
+r(A*B*C,AB*C):-number(A),number(B),!, AB is A*B.
+r(A+D, A+B+C):- \+ D=@=_, D=(B+C),!.
+r(A*D, A*B*C):- \+ D=@=_, D=(B*C),!.
+
 
 r(E,R):-
         compound(E),
         ground(E),!,
         R is E.
 
-r(E, R):-
-        E=..[Op, A, B],
-        number(B),
-        member(Op, [+,*]),!,
-        R=..[Op,B,A].
-
-r(E, R):-
-        E=..[Op, E2, C],
-        E2=..[Op, A,B],
-        number(A), number(B),
-        member(Op, [+,*]),!,
-        AB is E2,
-        R=..[Op,AB,C].
-
 r(E,R):-
         compound(E),
         E=..[F|Args],!,
         r(Args,SArgs),
         R=..[F|SArgs],
-                                %\+ unify_with_occurs_check(E,R).
         E\=@=R.
 
+r([],[]):-!.
+r([X|T],[SX|ST]):-!,
+        sim(X,SX),
+        r(T,ST).
+
 %r(A*B*C, AB*C):-number(A),number(B),AB is !.
+
+rr(A+0,A):-!.
