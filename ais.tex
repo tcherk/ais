@@ -1,4 +1,4 @@
-\documentclass[14pt, openany, twoside, final]{extbook} % Computer Modern font calls
+\documentclass[a4paper,14pt, openany, twoside, draft]{extbook} % Computer Modern font calls
 \usepackage[usenames]{color}
 %\usepackage{fancybox}
 %\usepackage{algorithmic} % noend
@@ -12,8 +12,8 @@
 % Main style definition
 % ---------------------
 % ISU standard handbook.
-% \usepackage[handbook,fancybot, pubtype, cambriamath,firamono,smalltitles,listbib,microtyping]{subook}
-\usepackage[handbook,fancybot, times, cambriamath,firamono,smalltitles,listbib,microtyping]{subook}
+\usepackage[liberation,fancybot]{subook}
+%\usepackage[times]{subook}
 
 % Заменить в коде кой-что на математические формулы
 % http://www.tug.org/texlive/Contents/live/texmf-dist/doc/latex/base/alltt.pdf
@@ -1427,7 +1427,7 @@ N = 55252
 
 Если не дают пользоваться существующими системами компьютерной алгебры, то предлагается разработать свою.  Заодно повторим базовые преобразование названных оператор\nnn{ов}.  В качестве побочного продукта получим навыки \emph{преобразования символьной информации}.
 
-\section{Символьое дифференцирование}
+\section{Символьное дифференцирование}
 \label{sec:}
 
 
@@ -1435,7 +1435,7 @@ N = 55252
 $$
 f^{\prime}_x,\;f_x,\;\frac{\partial }{\partial x}f,\;\frac{\partial f}{\partial x}, \;\mbox{или}\; \frac{d_x f}{dx}.
 $$
-В языке Prolog обозначим частную производную предикатом \texttt{d(F,X,DF)}, где \texttt{F}~--- функция, производная \texttt{DF} которой <<берется>> по переменно \texttt{X}.  Программу нахождения производных из функций (выражений) начнем писать с самых простых вариантов\,: производной переменной, константы и атома.
+В языке Prolog обозначим частную производную предикатом \texttt{d(F,X,DF)}, где \texttt{F}~--- функция, производная \texttt{DF} которой <<берется>> по переменной \texttt{X}.  Программу нахождения производных из функций (выражений) начнем писать с самых простых вариантов\,: производной переменной, константы и атома.
 {\tt%
 \begin{verbatim}
     d(Y,X,1):-var(X),var(Y),
