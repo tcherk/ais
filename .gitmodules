@@ -1,3 +1,7 @@
 [submodule "subook"]
 	path = subook
 	url = git@github.com:eugeneai/subook.git
+[submodule "paropt"]
+	path = paropt
+	url = https://github.com/eugeneai/paropt.git
+	branch = exp
