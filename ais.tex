@@ -6,7 +6,7 @@
 %\usepackage{longtable}%длинные таблицы
 
 \usepackage[final]{graphicx}
-\graphicspath{{pics/}}
+\graphicspath{{./pics/}{./paropt/pics/}}
 \usepackage{algorithm}
 
 % Main style definition
@@ -1638,7 +1638,7 @@ $$
       \def\thrust{$u_1$} \def\rudder{$u_5$} \def\drag{$x_{15}$}
       \def\flaps{$u_2$} \def\aeleron{$u_3$} \def\engine{}
       \def\elevator{$u_4$} \def\svgwidth{0.85\columnwidth}
-      \input{pics/Cessna-Plane.pdf_tex}
+      \input{paropt/pics/Cessna-Plane.pdf_tex}
   \caption{Фазовые координаты самолета\,: $x_1,x_2,\ldots,x_6$~--- координаты и величины скоростей самолета по осям; $x_7,x_8$~--- угол рыскания и скорость его изменения; далее, аналогично $x_9,x_{10}$~--- угол горизонта; $x_{11},x_{12}$~--- угол крена; $x_{13}$~--- величина подъемной силы; $x_{14}$~--- величина силы тяжести; $x_{15}$~--- величина сил, тормозящих самолет; $u_1$~--- величина силы тяги; $u_1,u_2,\ldots,u_5$~--- величины сил, соответствующих изменению геометрии крыла и хвостового оперения (закрылки, элероны, рули высоты и направления)}
   \label{fig:phasecoords}
 \end{figure}
