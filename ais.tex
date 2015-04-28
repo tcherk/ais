@@ -1728,7 +1728,46 @@ $$
  \item[6.] Иначе, если $I\left(\x^{I},\u^{I}\right)-I\left(\x^{I\!I},\u^{I\!I}\right)>\varepsilon$, то переходим к следующей итерации, начиная с пункта~2. Значение $\varepsilon$ --- параметр точности.
 \end{enumerate}
 
-Шестой ша алгоритма не относится непосредственно к шагу улучшения, но он логичен, т.~к. создает итеративный процесс поиска минимума $I(\x,\u).$
+Шестой шаг алгоритма не относится непосредственно к шагу улучшения, но он логичен, т.~к. создает итеративный процесс поиска минимума $I(\x,\u).$
+
+\subsection{Реализация программы}
+\label{sec:improprog}
+
+Классы и пункции программы будут использовать несколько библиотек и констант, ссылающихся на списковые типы данных.
+\begin{verbatim}
+import math
+import numpy, sympy
+import itertools
+from sympy import symbols, diff, Symbol
+import numpy.linalg
+from sympy.utilities.lambdify import lambdify
+import os
+
+TupleType=type((1,))
+ListType=type([])
+\end{verbatim}
+
+Сначала реализуем абстрактный класс, представляющий модель.
+\begin{verbatim}
+class Model(object):
+
+    def __init__(self, X0, U0):
+        self.X0=array(X0)
+        self.U0=U0
+        self.N=self.X0.shape[0]   # Dimention of X
+        self.M=U0.shape[1]   # Dimention of U
+        print ('X0:', X0)
+        print ('U0:', U0)
+
+    def F(self, x):
+        return 0.0
+
+    def f(self, t, x, U, dt=1):
+        raise RuntimeError("should be implemented by subclass")
+
+    def f0(self, t, x, u, dt=1):
+        return 0.0
+\end{verbatim}
 
 Реализация алгоритма улучшения на языке Python следующая.
 {\tt\begin{verbatim}
@@ -1834,6 +1873,9 @@ class Process(VFCalc):
 
 Класс \texttt{VFCalc}~--- базовый (родительский) класс класса \texttt{Process}.  Класс \texttt{VFCalc} предоставляет сервис поиска производных, компиляции полученных выражений в байт"=код виртуальной машины среды исполнения \texttt{Python}.  Реализация класса следующая\,:
 \begin{verbatim}
+class Helper():
+    pass
+
 class VFCalc(object):
     def __init__(self, N,M):
         self.N=N; self.M=M; self.v=Helper()
@@ -1891,6 +1933,51 @@ class VFCalc(object):
   (4*u1*u2**2*x1**2*x2,
    4*u1**2*u2*x1**2*x2)))
 \end{verbatim}
+
+Теперь протестируем алгоритм улучшения на простой модели:
+\begin{verbatim}
+class LinModel1(Model):
+    def __init__(self):
+        X0=(1.0,)
+        self.h = Ht
+        self.num = int((1.0-0.0) / self.h)
+        self.T = linspace(start=0.0, stop=1.0, num=self.num)
+        self.t = arange(len(self.T))
+        Model.__init__(self, X0=X0, U0=self.start_control())
+
+    def start_control(self):
+        U = [(0.0,) for t in self.t[:-1]]
+        return array(U)
+
+    def F(self, x):
+        return 0.0
+
+    def f(self, t, x, u):
+        x0=x[0]; u0=u[0]
+        return (x0+self.h*u0,)
+
+    def f0(self, t, x, u):
+        x0=x[0]; u0=u[0]
+        return self.h * (x0*x0+u0*u0)
+\end{verbatim}
+
+Собственно оформление и запуск теста:
+\begin{verbatim}
+def test_1():
+    m = LinModel1()
+    p1=Process(m, beta=1.0)
+    iters=2000
+    eps=0.001
+    print ("First-order process:")
+    print ("-"*20)
+    r1=I1, X1, U1, it1, _1 =
+        p1.optimize(m.t, eps=eps,
+            iters=iters)
+    print (I1, "iters:", it1)
+
+test_1()
+\end{verbatim}
+
 
 * * * * * *
 
