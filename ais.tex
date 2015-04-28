@@ -1,14 +1,9 @@
-\documentclass[a4paper,14pt, openany, twoside, draft]{extbook} % Computer Modern font calls
-\usepackage[usenames]{color}
+\documentclass[a4paper,14pt, openany, twoside, draft]{extbook} % computer modern font calls
 %\usepackage{fancybox}
-%\usepackage{algorithmic} % noend
-%\usepackage[boxed]{algorithm} % boxed, ruled, plain (also)
-%\usepackage{longtable}%длинные таблицы
 
 \usepackage[final]{graphicx}
 \graphicspath{{./pics/}{./paropt/pics/}}
-%\usepackage{algorithm}
-\usepackage{xcolor}
+\usepackage[usenames]{xcolor}
 \usepackage{listings}
 
 % Main style definition
@@ -179,7 +174,7 @@
 \vfill
 \hbox to \linewidth{\hfill\bfseries Е.~А.~Черкашин\hfill}
  \vspace{2em}
-{\large\bfseries Рекурсивно"=логическое программирование}\\
+{\large\bfseries Компьютерные науки 4}\\
  \vspace{2em}
 {Учебное пособие}
 \vfill
@@ -1736,7 +1731,7 @@ $$
 Шестой ша алгоритма не относится непосредственно к шагу улучшения, но он логичен, т.~к. создает итеративный процесс поиска минимума $I(\x,\u).$
 
 Реализация алгоритма улучшения на языке Python следующая.
-\begin{lstlisting}
+{\tt\begin{verbatim}
 class Process(VFCalc):
     def __init__(self, model, alpha=1.0):
         VFCalc.__init__(self, model.N, model.M)
@@ -1761,7 +1756,7 @@ class Process(VFCalc):
         Up=self.model.U0
         Xp=self.trajectory(Up)
         Ip=self.I(Xp,Up); it = 1
-\end{lstlisting}
+\end{verbatim}}%
 
 
 * * * * * *
