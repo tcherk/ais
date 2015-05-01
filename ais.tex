@@ -5,6 +5,7 @@
 \graphicspath{{./pics/}{./paropt/pics/}}
 \usepackage[usenames]{xcolor}
 \usepackage[final]{listingsutf8}
+\usepackage{minted}
 
 % Main style definition
 % ---------------------
@@ -47,7 +48,8 @@
   captionpos=b,                    % sets the caption-position to bottom
   commentstyle=\color{mygreen},    % comment style
   escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
-  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  extendedchars=\true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  inputencoding=utf8x,
 %  frame=single,                    % adds a frame around the code
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\bfseries\color{blue},       % keyword style
@@ -69,6 +71,72 @@
   emphstyle=\bfseries\color{black},
   morestring=[b]",
   morestring=[b]',
+literate={а}{{\selectfont\char224}}1
+{б}{{\selectfont\char225}}1
+{в}{{\selectfont\char226}}1
+{г}{{\selectfont\char227}}1
+{д}{{\selectfont\char228}}1
+{е}{{\selectfont\char229}}1
+{ё}{{\"e}}1
+{ж}{{\selectfont\char230}}1
+{з}{{\selectfont\char231}}1
+{и}{{\selectfont\char232}}1
+{й}{{\selectfont\char233}}1
+{к}{{\selectfont\char234}}1
+{л}{{\selectfont\char235}}1
+{м}{{\selectfont\char236}}1
+{н}{{\selectfont\char237}}1
+{о}{{\selectfont\char238}}1
+{п}{{\selectfont\char239}}1
+{р}{{\selectfont\char240}}1
+{с}{{\selectfont\char241}}1
+{т}{{\selectfont\char242}}1
+{у}{{\selectfont\char243}}1
+{ф}{{\selectfont\char244}}1
+{х}{{\selectfont\char245}}1
+{ц}{{\selectfont\char246}}1
+{ч}{{\selectfont\char247}}1
+{ш}{{\selectfont\char248}}1
+{щ}{{\selectfont\char249}}1
+{ъ}{{\selectfont\char250}}1
+{ы}{{\selectfont\char251}}1
+{ь}{{\selectfont\char252}}1
+{э}{{\selectfont\char253}}1
+{ю}{{\selectfont\char254}}1
+{я}{{\selectfont\char255}}1
+{А}{{\selectfont\char192}}1
+{Б}{{\selectfont\char193}}1
+{В}{{\selectfont\char194}}1
+{Г}{{\selectfont\char195}}1
+{Д}{{\selectfont\char196}}1
+{Е}{{\selectfont\char197}}1
+{Ё}{{\"E}}1
+{Ж}{{\selectfont\char198}}1
+{З}{{\selectfont\char199}}1
+{И}{{\selectfont\char200}}1
+{Й}{{\selectfont\char201}}1
+{К}{{\selectfont\char202}}1
+{Л}{{\selectfont\char203}}1
+{М}{{\selectfont\char204}}1
+{Н}{{\selectfont\char205}}1
+{О}{{\selectfont\char206}}1
+{П}{{\selectfont\char207}}1
+{Р}{{\selectfont\char208}}1
+{С}{{\selectfont\char209}}1
+{Т}{{\selectfont\char210}}1
+{У}{{\selectfont\char211}}1
+{Ф}{{\selectfont\char212}}1
+{Х}{{\selectfont\char213}}1
+{Ц}{{\selectfont\char214}}1
+{Ч}{{\selectfont\char215}}1
+{Ш}{{\selectfont\char216}}1
+{Щ}{{\selectfont\char217}}1
+{Ъ}{{\selectfont\char218}}1
+{Ы}{{\selectfont\char219}}1
+{Ь}{{\selectfont\char220}}1
+{Э}{{\selectfont\char221}}1
+{Ю}{{\selectfont\char222}}1
+{Я}{{\selectfont\char223}}1
 }
 
 \usepackage{tikz}
@@ -1032,7 +1100,7 @@ false.
 
 \noindent{}Первый запрос создает соединение с базой данных \texttt{rzd.sqlite}, при этом соединение ассоциируется с атомом \texttt{db}, который далее используется как глобальный идентификатор этого соединения.  Третий аргумент настраивает дополнительные возможности библиотеки\,: представление таблиц базы данных в виде предикатов языка Prolog.  Второй запрос к Prolog является \foreignlanguage{english}{\texttt{SELECT}}"=запросом к таблице данных о существующих станциях \texttt{station}.  Prolog выдал три ответа, затем волнение запроса закончилось <<неудачей>>.  Теперь пользовавшемся дополнительными возможностями библиотеки и спросим перечень станций по"=прологовски, а соответствующий запрос на выборку данных он синтезирует сам.
 %
-\begin{lstlisting}[language=Prolog]
+\begin{minted}{prolog}
 ?- station(Name,Region,Code,TP).
 Name = 'Вентспилс (эксп.)',
 Region = 'Лат',        % Регион
@@ -1042,7 +1110,7 @@ Name = 'Шаблиевская',  % Название станции
 Region = 'С-Кав',
 Code = 518827,
 TP = 0
-\end{lstlisting}%
+\end{minted}
 
 
 \noindent{}Если требуется выдать только транзитные пункты, то надо просто указать значения соответствующих параметров.
@@ -1932,7 +2000,7 @@ return
 \end{lstlisting}
 
 Теперь протестируем алгоритм улучшения на простой модели:
-\begin{lstlisting}
+\begin{minted}{python}
 class LinModel1(Model):
     def __init__(self):
         X0=(1.0,)
@@ -1956,7 +2024,7 @@ class LinModel1(Model):
     def f0(self, t, x, u):
         x0=x[0]; u0=u[0]
         return self.h * (x0*x0+u0*u0)
-\end{lstlisting}
+\end{minted}
 
 Собственно оформление и запуск теста:
 \begin{lstlisting}[language=Python, emph={test_1}]
