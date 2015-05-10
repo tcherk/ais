@@ -1849,7 +1849,7 @@ TupleType=type((1,))
 ListType=type([])
 \end{minted}
 
-Сначала реализуем абстрактный класс, представляющий модель управляемого объекта.  В классе необходимо представить $\x_0$, определить размерности $n$ и $m$ вектор"=функций $\x$ и $\u$.  Вектор \texttt{U0} ($\u^{I\!I}$) необходимо задать как начальное приближение синтезируемого управления.
+Сначала запрограммируем абстрактный класс, представляющий модель управляемого объекта.  В классе необходимо представить $\x_0$, определить размерности $n$ и $m$ вектор"=функций $\x$ и $\u$.  Вектор \texttt{U0} ($\u^{I\!I}$) необходимо задать как начальное приближение синтезируемого управления.
 
 \begin{minted}[texcomments]{python}
 class Model(object):
@@ -1870,7 +1870,9 @@ class Model(object):
         return 0.0              # Заглушка по умолчанию
 \end{minted}
 
-Реализация алгоритма улучшения на языке Python следующая.
+Реализация схемы улучшения представляет собой класс \texttt{Process}, наследующий все свойства класса \texttt{VFCalc}, реализующего компьютерную алгебру над вектор"=функциями.  Реализацию \texttt{VFCalc} рассмотрим далее, а пока сосредоточимся на схеме улучшения.
+
+Схема улучшения получает в качестве входных данных в конструктор \texttt{\_\_init\_\_} два параметра\,: \texttt{model}~--- класс"=потомок класса \texttt{Model} и \texttt{alpha}~--- параметр $\alpha$.  Для вычисления производных \texttt{VFCalc} необходимо знать размерности $\vecx$ и $\vecu$.  Конструктор также сохраняет функции $\vecf,$ $f$ и $F$ в виде специальных структур"=выражений \texttt{sympy}, над которыми можно производить операции дифференцирования.
 
 \begin{minted}{python}
 class Process(VFCalc):
@@ -1878,64 +1880,66 @@ class Process(VFCalc):
         VFCalc.__init__(self, model.N, model.M)
         t,x,u=self.v.t,self.v.x,self.v.u
         self.model=model; self.alpha=alpha
-        self.v.f=model.f(t, x, u)
-        self.v.f0=model.f0(t, x, u)
-        self.v.F=model.F(x)
+        self.v.f=model.f(t, x, u)    # Получить выражение $\vecf$
+        self.v.f0=model.f0(t, x, u)  # Получить выражение $f^0$
+        self.v.F=model.F(x)          # Получить выражение $F$
 
-    def trajectory(self, U):
-        x0=self.model.X0; X = [x0]
-        for t, u in enumerate(U): # (0, u0), (1, u1)
+    def trajectory(self, U):         # Расчет траектории $\vecx(t)$
+        x0=self.model.X0; X = [x0]   # по известному $\vecu$
+        for t, u in enumerate(U):    # (0, u0), (1, u1)
             xn=self.model.f(t, X[t], u); X.append(xn)
         return array(X)
 
-    def I(self, X, U):
+    def I(self, X, U):               # Вычисление $I(\vecx,\vecu)$
         def _a(acc, t):
             return acc + self.model.f0(t, X[t], U[t])
         return reduce(_a, range(len(X)-1), self.model.F(X[-1]))
 
-    def optimize(self, t, eps=0.001, iters=1000):
-        Up=self.model.U0
+    def optimize(self, t, eps=0.001, iters=1000): # Схема
+        Up=self.model.U0             # $(\x^{I},\u^{I})$
         Xp=self.trajectory(Up)
-        Ip=self.I(Xp,Up); it = 1
+        Ip=self.I(Xp,Up); it = 1     # $I(\x^{I},\u^{I})$
         while True:
-            beta = self.beta
-            Psi=self.Psi(t, Xp, Up, self.alpha)
+            alpha = self.alpha
+            Psi=self.Psi(t, Xp, Up, alpha) # $\vecpsi(t)$
             _H_u=self.H((self.v.u,), t[:-1], Xp[:-1], Up, Psi)
             while True:
-                _dU=_H_u*alpha
+                _dU=_H_u*alpha       # $\vecH_\u\alpha$
                 Un = Up + _dU
-                Xn = self.trajectory(Un)
-                In = self.I(Xn, Un)
+                Xn = self.trajectory(Un) # $(\x^{I\!I},\u^{I\!I})$
+                In = self.I(Xn, Un)  # $I(\x^{I\!I},\u^{I\!I})$
                 dI = Ip-In
-                if abs(dI)<eps:
-                    return In, Xn, Un, it, "Opt"
-                if iters<=0:
-                    return In, Xn, Un, it, "Nonoptimal"
+                if abs(dI)<eps:      # Решение найдено
+                    return In, Xn, Un, it, "opt"
+                if iters<=0:         # Решение не найдено
+                    return In, Xn, Un, it, "nonoptimal"
                 iters-=1; it+=1
                 if In>=Ip:
-                    alpha/=2
-                    continue
+                    alpha/=2         # Новый параметр
+                    continue         # шага улучшения
                 else:
                     Xp, Up, Ip = Xn, Un, In
                     break
 \end{minted}
 
-Вычисление $\vecpsi$, $\vecH$ реализуются следующими методами класса \texttt{Process}.
+В предыдущем отрезке программного кода переменные \texttt{X}, \texttt{U} и их аналоги~--- это массивы значений $\vecx(t)$ и $\vecu(t)$ для каждого момента времени $t$ на интервале $[t_0,t_1]$.
+
+Вычисление $\vecpsi$ и нужной производной $\vecH$ реализуются следующими методами класса \texttt{Process}.  Операция \texttt{dot(A,B)} выполняет матричное умножение аргументов.  Если в качестве параметра этой операции передать два вектора"=строки, то второй вектор будет автоматически транспонирован в столбец.  Эта особенность реализации в библиотеке \texttt{numpy} позволяет тривиальные матричные умножения векторов делать без дополнительной явной операции транспонирования.  В результате операции \texttt{X[:-1]} возвращается последний <<\texttt{-1}>> элемент \texttt{X}, т.~е. $\x(t_1)$.
 
 \begin{minted}{python}
     def Psi(self, t, X, U, alpha):
         v=self.v
         psie = -self.fun(v.F,(v.x,), t[-1], X[-1], U[-1])
         psi=[psie]; X=X[:-1]; t=t[:-1]
-        _f0_x=self.fun(v.f0, (v.x,), t, X, U) # Vector context
-        _f_x =self.fun(v.f, (v.x,), t, X, U)  # Vector context
-        j=len(t)-1; p=psie
+        _f0_x=self.fun(v.f0, (v.x,), t, X, U) # $f^0_x$
+        _f_x =self.fun(v.f, (v.x,), t, X, U)  # $\vecf_{\!x}$
+        j=len(t)-1; p=psie   # Начать с конца интервала
         while j>=1:
             i=t[j]; pp=p
             pn = dot(pp, _f_x[i]) - alpha*_f0_x[i]
             psi.append(pn); p=pn; j-=1
         psi=array(psi)
-        return psi[::-1]
+        return psi[::-1]     # Переставить в обратном порядке
 
     def H(self, vars, T, X, U, Psi, alpha = 1.0):
         f=self.fun(self.v.f, vars, T, X, U)
@@ -1946,36 +1950,45 @@ class Process(VFCalc):
         return H
 \end{minted}
 
-Использованная в реализации методов ... функция (метод экземпляров класса \texttt{Process}) \texttt{fun} реализуется следующим образом:
+В приведенном отрезке кода в \texttt{H} передается список векторов переменных, по которым вычисляется производные $\vecH$, значения $\vecx$ и $\vecu$ на всем интервале времени, а также сам интервал времени и параметр $\alpha$.
+
+Функции $\vecf,$ $f$ и $F$, задаваемые пользователем нашей библиотеки решения задач оптимального управления, в программе могут получить как значения в определенный момент времени (например, \texttt{X[:-1]}), так и на всем интервале (\texttt{X}).  Кроме того, формулы производных от $f^i$ могут <<вырождаться>> в константы, т.~е. \texttt{f} может выдать не вектор значений, когда это надо, а просто одно числовое значение.  Для того, чтобы меньше зависеть от этих случаев необходимо реализовать специальную функцию, которая возвращала бы адекватный по типу результат типу переданных ей параметров.  А вот внутри функции должно вычисляться значение нужной нам производной нужной нам функции.  Такой функцией в \texttt{Process} является \texttt{fun}.
 
 \begin{minted}{python}
     def fun(self, f, vars, T, X, U):
-        code,df=self.code(f, *vars)
-        X=numpy.atleast_1d(X)
-        U=numpy.atleast_1d(U)
+        code,df=self.code(f, *vars) # Найти производную и скомпилировать ее.
+        X=numpy.atleast_1d(X)       # Входной параметры X и U
+        U=numpy.atleast_1d(U)       # должны быть векторами.
         if X.ndim>1:
             Xs=[X[:,i:i+1] for i in range(X.shape[1])]
             Us=[U[:,i:i+1] for i in range(U.shape[1])]
-            m,args=True,(T,)+tuple(Xs+Us)
+            args=(T,)+tuple(Xs+Us)
         else:
-            m,args=False,(T,)+tuple(X)+tuple(U)
-        rc=code(*args)
+            args=(T,)+tuple(X)+tuple(U)
+        rc=code(*args)  # Вычислить функцию (производную)
         rct=type(rc)
         rc=numpy.atleast_1d(rc)
         if type(T)==numpy.ndarray:
-            try:
+            try: # Попробовать транспонировать список
                 if rct in [TupleType,ListType]:
                     rc=rc.reshape(rc.shape[:-1])
                     rc=rc.T
                     return rc
-            except ValueError: pass
-            if T.shape[0]!=rc.shape[0]:
+            except ValueError: pass # ... не получилось
+            if T.shape[0]!=rc.shape[0]: # Константа $\to$ вектор
                 nrc=numpy.zeros((len(T),)+rc.shape,dtype=float)
                 nrc[:]=rc; rc=nrc
         return rc
 \end{minted}
 
-Класс \texttt{VFCalc}~--- базовый (родительский) класс класса \texttt{Process}.  Класс \texttt{VFCalc} предоставляет сервис поиска производных, компиляции полученных выражений в байт"=код виртуальной машины среды исполнения \texttt{Python}.  Реализация класса следующая\,:
+\subsection{Дифференцирование вектор"=функций}
+\label{sec:VFdiff}
+
+Теперь рассмотрим подсистему вычисления производных вектор"=функций.  Для этого разработаем специальный класс, экземпляры которого, настроены для поддержки нашей программы, реализующей схему улучшения.
+
+Экземпляры прежде всего должны знать какого размера \texttt{N} фазовый вектор $\vecx$ и вектор управления $\vecu$ (\texttt{M}).  Эти параметры передаются в конструктор класса \texttt{VFCalc} при создании экземпляра.  Далее порождается ряд символов, специальных структур библиотеки \texttt{sympy}, обозначающих идентификаторы в выражениях.  При помощи этих символов записываются функции, из которых будут вычисляться производные.
+
+Класс \texttt{VFCalc} кроме сервиса вычисления производных предоставляет возможности компиляции полученных выражений в байт"=код виртуальной машины среды исполнения \texttt{Python}.  Так как класс \texttt{VFCalc} является базовым для класса \texttt{Process} то его определение в тексте программы должно быть помещено перед определением \texttt{Process}.
 
 \begin{minted}{python}
 class Helper():
@@ -2074,7 +2087,7 @@ class LinModel1(Model):
 \begin{minted}{python}
 def test_1():
     m = LinModel1()
-    p1=Process(m, beta=1.0)
+    p1=Process(m, alpha=1.0)
     iters=2000
     eps=0.001
     print ("First-order process:")
