@@ -1733,44 +1733,68 @@ $$
 Принцип максимума определяется через функцию Гамильтона (Гамильтониан), которая имеет следующий вид:
 \begin{equation}
   \label{eq:7}
-  \vecH(t,\vecx,\vecpsi,\vecu)=f^0(t,\vecx,\vecu)+\vecpsi^T\vecf(t,\vecx,\vecu),
+  H(t,\vecx,\vecpsi,\vecu)=f^0(t,\vecx,\vecu)+\vecpsi^T\vecf(t,\vecx,\vecu).
 \end{equation}
-где $\vecpsi=\vecpsi(t)$~---
 
+Управление $\vecu(t)$ будет оптимальным $\vecu^*(t)$ с соответствующей оптимальной траекторией $\vecx^*(t)$, если выполняется условие
+\begin{equation}
+  \label{eq:7}
+  H(t,\vecx^*,\vecpsi,\vecu^*)\geqslant H(t,\vecx^*,\vecpsi,\vecu)
+\end{equation}
+для любого допустимого $\vecu(t)$.  Если привезти (\ref{eq:4})-(\ref{eq:7}) в одну систему и перепишем все уравнения через $H$, то получим следующую задачу оптимального управления \cite{sethi}:
+\begin{equation}
+  \label{eq:8}
+  \left\{
+    \begin{array}{ll}
+      \dot{\vecx}=\vecH_{\vecpsi}, & \vecx(t_0)=\vecx_0,\\
+      \dot{\vecpsi}=-\vecH_{\vecx}, & \vecpsi(t_1)=F(t_1,\vecx(t_1)).
+    \end{array}
+  \right.
+\end{equation}
+Т.~е. $\vecx(t)$ определяется своим левым $\vecx(t_0)$ концом, а $\vecpsi(t_1)$~--- правым.
 
-Для того, чтобы найти минимум $I(\vecx,\vecu)$ необходимо вычислять ее градиент $I\prime(\vecu)$ (по переменным $\vecu$).  Из \cite{vassVP} (стр.~108, Теорема 1) следует, что
-\begin{align}
-  I\prime(\vecu)&=\vecH_\vecu(t,\vecx(t),\vecpsi(t),\vecu(t)); \nonumber \\
- \vecH(t,\vecx(t),\vecpsi(t),\vecu(t))&=\vecpsi^T(t)\vecf(t,\vecx(t),\vecu(t)) - f^0(t,\vecx(t),\vecu(t)).
-\end{align}
 
 \subsection{Дискретный вариант задачи улучшения управления}
 \label{sec:discrete}
 
-Использование численных расчетов предполагает постановку задачи в дискретном времени.  Для этого разобьем интервал $[t_0,t_1]$ на равные части с шагом $h$ (или $\Delta t$).  Моменты времени будем обозначать следующим образом\,: $t_0,$ $t_0+h$, $t_0+2h,$\ldots, $t_1-h,$ $t_1$.  Функцию $\dot{\vecx}(t)$ в левой части (\ref{eq:4}) заменим на $\vecx(t+h)$ и получим дискретный вариант уравнения движения следующего вида\,:
+Использование численных расчетов предполагает постановку задачи в дискретном времени.  Для этого разобьем интервал $[t_0,t_1]$ на $N$ равных частей с шагом $h=(t_1-t_0)/N$, $N\in\mathbb{N}$.  Дискретные моменты времени можно обозначать $t_0,$ $t_0+h$, $t_0+2h,$\ldots, $t_1-h,$ $t_1$ или, как будет далее использовано в пособии $\t_0,$ $\t_1,$ $\t_2,$\ldots $t_j,$\ldots $\t_N$.  Функцию $\dot{\vecx}(t)$ в левой части (\ref{eq:4}) заменим на $\vecx(t_{j+1})$ и получим дискретный вариант уравнения движения следующего вида\,:
 \begin{align}
   \label{eq:4d}
-  &\vecx(t+h)=\vecg(t,\vecx(t),\vecu(t)),\quad t\in\{t_0,t_0+h,\ldots,t_1\};\\
+  &\vecx(t_{j+1})=\vecg(t_j,\vecx(t_j),\vecu(t_j)),\quad j\in\{0,1,\ldots,N\};\\
   \label{eq:4dcond}
   &\vecx(t_0)=\vecx_0, \quad \vecx(t)\in\mathbb{R}^n,  \quad \vecu(t)\in\mathbb{R}^m.
 \end{align}
 Формула (\ref{eq:4d}) уже не является дифференциальным уравнением, и преобразование из \ref{eq:4} в (\ref{eq:4d}) теперь задача пользователя нашей библиотеки.  Самый простой способ~--- применить простую схему интегрирования Эйлера\,:
 \begin{equation}
   \label{eq:4d1} \nonumber
-  \vecx(t+h)=\vecx(t)+h\vecf(t,\vecx(t),\vecu(t)).
+  \vecx(t_{j+1})=\vecx(t_j)+h\vecf(t_j,\vecx(t_j),\vecu(t_j)).
 \end{equation}
 Далее будем предполагать, что пользователь сам задает (\ref{eq:4d}).  Качество траекторий будем оценивать следующим функционалом\,:
 \begin{equation}
-  I(\vecx,\vecu)=\sum_{t_0}^{t_1-h}f^0(t,\vecx(t),\vecu(t))+F(t_1,\vecx(t_1)) \to \min.
+  I(\vecx,\vecu)=\sum_{j=0}^{N-1}f^0(t_j,\vecx(t_J),\vecu(t_j))+F(t_N,\vecx(t_N)) \to \min.
     \label{eq103}
 \end{equation}
 
-Принцип максимума определяется через функцию Гамильтона (Гамильтониан), которая имеет следующий вид:
-\begin{equation}
-  \label{eq:7}
-  \vecH(t,\vecx,\vecpsi,\vecu)=f^0(t,\vecx,\vecu)+\vecpsi
-\end{equation}
+Принцип максимума в данном дискретном случае определяется при помощи дискретного варианта функции Гамильтона
+\begin{align}
+  H(t_j,\vecx(t_j),\vecu(t_j))=&f^0(t_j,\vecx(t_j),\vecu(t_j))+\nonumber\\
+   &\vecpsi^T(t_{j+1})\vecg(t_j,\vecx(t_j),\vecu(t_j)).   \label{eq:descH}
+\end{align}
 
+Выпишем теперь принцип максимума
+\begin{align}
+  H(t_j,\vecx^*(t_j),\vecpsi(t_{j+1}),\vecu^*(t_j))\geqslant H(t_j,\vecx^*(t_j),\vecpsi(t_{j+1}),\vecu(t_j)) \label{eq:descMax}
+\end{align}
+для всех допустимых $\vecu(t_j)$.  Сопряженная вектор"=функция $\vecpsi(t_j)$ вычисляется по схеме\,:
+\begin{align}
+  \label{eq:startPsi}
+  \vecpsi^T(t_N)&=F_\vecx(t_N,\vecx(t_N)), \nonumber\\ \vecpsi^T(t_j)&=\vecpsi^T(t_{j+1})+\vecH_\vecx(t_j,\vecx^*(t_j),\vecpsi^T(t_{j+1}),\vecu^*(t_j)).
+\end{align}
+
+Так как условиям (\ref{eq:7}) и (\ref{eq:descMax}) соответствует минимум $I(\vecx,\vecu).$  Поиск минимума с использованием численного метода основывается на вычислении градиента $I\prime(\vecu)$ (по переменным $\vecu$).
+\begin{align}
+  I\prime(\vecu)&=\vecH_\vecu(t,\vecx(t),\vecpsi(t),\vecu(t)).
+\end{align}
 
 \subsection{Схема алгоритма улучшения первого порядка}
 \label{sec:improvealg}
@@ -1787,7 +1811,7 @@ $$
  \item[1.] Задается начальное управление $\vecu^I(t)$, из уравнения \eqref{eq:4d} и условий \eqref{eq:4dcond} определяется $\vecx^I(t)$. Вычисляется $I(\vecx^I,\vecu^I).$
  \item[2.] Из системы $\mathbf{\psi}(t)=\vecH_\vecx,\;\bpsi(t_1)=-\F_\x,$ находим $\bpsi(t),$\\ где $\H(t,\x,\bpsi(t+h),\u)=\bpsi^{T}(t+h)\vecg(t,\x,\u)-f^{0}(t,\x,\u),$ производная $\vecH_\u$ находится в точке $\left(t,\x^{I}(t),\bpsi \left(t+h \right),\u^{I}(t)\right)$.
 $$
-\vecH_{\vecu}(t,\x,\bpsi(t+h),\u)=\vecg_{\vecu}(t,\x,\u)\bpsi(t+h)-f^{0}_\vecu(t,\x,\u),\quad\mbox{из (\ref{eq:4dcond})}
+\vecH_{\vecu}(t,\x,\bpsi(t+h),\u)=\vecg_{\vecu}(t,\x,\u)\bpsi(t+h)-f^{0}_\vecu(t,\x,\u),\mbox{из (\ref{eq:4dcond})}
 $$
 Задается параметр $\alpha$.
  \item[3.] Из системы $\x(t+h)=\vecg(t,\x(t),\u^{I\!I}(t)),$ $\x(t_0)=\x_0,$ где $\u^{I\!I}(t)=\u^{I}(t)+\alpha \H_\u,$ вычисляется $\x^{I\!I}(t).$
@@ -2112,6 +2136,7 @@ test_1()
 \bibitem{xml} Куда сослаться по XML даж уме не приложу.
 \bibitem{http} Что-то о протоколе http и URL.
 \bibitem{nominatim} Nominatim~--- . \url{http://wiki.openstreetmap.org/wiki/Nominatim}.
+\bibitem{sethi}
 
 \end{thebibliography}
 \label{lastpage}
