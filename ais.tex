@@ -1764,7 +1764,7 @@ $$
   \label{eq:4dcond}
   &\vecx(t_0)=\vecx_0, \quad \vecx(t)\in\mathbb{R}^n,  \quad \vecu(t)\in\mathbb{R}^m.
 \end{align}
-Формула (\ref{eq:4d}) уже не является дифференциальным уравнением, и преобразование из \ref{eq:4} в (\ref{eq:4d}) теперь задача пользователя нашей библиотеки.  Самый простой способ~--- применить простую схему интегрирования Эйлера\,:
+Формула (\ref{eq:4d}) уже не является дифференциальным уравнением, и преобразование из (\ref{eq:4}) в (\ref{eq:4d}) теперь задача пользователя нашей библиотеки.  Самый простой способ~--- применить простую схему интегрирования Эйлера\,:
 \begin{equation}
   \label{eq:4d1} \nonumber
   \vecx(t_{j+1})=\vecx(t_j)+h\vecf(t_j,\vecx(t_j),\vecu(t_j)).
@@ -1991,9 +1991,9 @@ class VFCalc(object):
         self.N=N; self.M=M; self.v=Helper()
         self.v.x=[Symbol('x'+str(i+1)) for i in range(self.N)]
         self.v.u=[Symbol('u'+str(i+1)) for i in range(self.M)]
-        self.v.t=Symbol('t')
-
-    def diff1(self, f, var):
+        self.v.t=Symbol('t')  # Переменные для представления
+                              #    выражений
+    def diff1(self, f, var):  #
         if type(f) in [TupleType,ListType]:
             df=tuple([self.diff1(fi, var) for fi in f])
         else:
@@ -2046,7 +2046,7 @@ return
    4*u1**2*u2*x1**2*x2)))
 \end{minted}
 
-Теперь протестируем алгоритм улучшения на простой модели:
+Теперь протестируем алгоритм улучшения на простой модели\,:
 
 \begin{minted}{python}
 class LinModel1(Model):
@@ -2074,7 +2074,7 @@ class LinModel1(Model):
         return self.h * (x0*x0+u0*u0)
 \end{minted}
 
-Собственно оформление и запуск теста:
+Собственно оформление и запуск теста\,:
 
 \begin{minted}{python}
 def test_1():
