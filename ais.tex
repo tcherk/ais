@@ -1993,34 +1993,36 @@ class VFCalc(object):
         self.v.u=[Symbol('u'+str(i+1)) for i in range(self.M)]
         self.v.t=Symbol('t')  # Переменные для представления
                               #    выражений
-    def diff1(self, f, var):  #
+    def diff1(self, f, var):  # Шаг вычисления производной
         if type(f) in [TupleType,ListType]:
             df=tuple([self.diff1(fi, var) for fi in f])
         else:
             df=tuple([diff(f, vi) for vi in var])
-        if len(df)==1: df=df[0]
+        if len(df)==1: df=df[0] # Лишние скобки
         return df
 
-    def diff(self, f, *vars):
+    def diff(self, f, *vars): # Производная вектор-функции
         cf=f
-        for v in vars:
+        for v in vars:        # Выполнить пошагово
             cf=self.diff1(cf, v)
-        return cf    def subs(self, f, s):
+        return cf
+
+    def subs(self, f, s):     # Подстановка в вектор-функцию
         if type(f) not in [TupleType,ListType]:
-            return f.subs(s) # common subs
-        return tuple([self.subs(fi,s) for fi in f])#local subs
+            return f.subs(s)
+        return tuple([self.subs(fi,s) for fi in f])
 
-    def lambdify(self, f):
-        l=[self.v.t]
-        l.extend(self.v.x)
+    def lambdify(self, f):    # Компилирование вектор-функции
+        l=[self.v.t]          # Формирование списка
+        l.extend(self.v.x)    #   параметров
         l.extend(self.v.u)
-        fl=lambdify(l, f, "numpy")
-        return fl
+        fl=lambdify(l, f, "numpy") # Использовать арифметику
+        return fl             #  из пакета numpy
 
-    def code(self, f, *vars):
+    def code(self, f, *vars): # Вычислить производную
         df=self.diff(f, *vars)
-        c=self.lambdify(df)
-        return c,df
+        c=self.lambdify(df)   # и скомпилировать ее
+        return c,df           # Возвратить оба результата
 \end{minted}
 
 Тестирование класса произведем при помощи следующего программного кода\;:
@@ -2037,7 +2039,7 @@ pprint (res)
 return
 \end{minted}
 
-\noindent{}Результат выполнения этого фрагмента\;:
+В приведенном коде \texttt{x1} и \texttt{x2}~--- переменные, формирующие вектор переменных $\vecx$, \texttt{u1} и \texttt{u2}~--- переменные, формирующие вектор переменных $\vecu$, функции \texttt{y1} и \texttt{y2} формируют вектор"=функцию $\vecf$, из которой берется производная $\vecf_{\vecx\vecu}$.  В результате получаем следующую матрицу функций\,:
 \begin{minted}[style=bw]{python}
 (((2*x1, 0), (0, 2*u2)),
  ((4*u1*u2**2*x1*x2**2,
@@ -2046,19 +2048,29 @@ return
    4*u1**2*u2*x1**2*x2)))
 \end{minted}
 
-Теперь протестируем алгоритм улучшения на простой модели\,:
+\subsection{Тестирование программы}
+\label{sec:testing}
 
-\begin{minted}{python}
+Тестирование программы проведем на простой модели.
+\begin{align*}
+  &g_1=x_1(t_j)+hu_1(t_j),\quad x_1(t_0)=1.0,\\
+  &f^0=h(x_1^2+u_1^2),\quad F=0.0, \\
+  &h=0.01,\quad t_0=0.0, t_i=t_0+h(i-1), t_N=t_1=1.0,\\
+  &\vecu^I=0.0.
+\end{align*}
+
+Запрограммируем модель в виде класса, унаследовав его от \texttt{Model}.
+\begin{minted}[texcomments]{python}
 class LinModel1(Model):
     def __init__(self):
         X0=(1.0,)
         self.h = Ht
-        self.num = int((1.0-0.0) / self.h)
+        self.num = int((1.0-0.0) / self.h) # num=$N$
         self.T = linspace(start=0.0, stop=1.0, num=self.num)
-        self.t = arange(len(self.T))
+        self.t = arange(len(self.T))  # 0,1,2,3,4,5...
         Model.__init__(self, X0=X0, U0=self.start_control())
 
-    def start_control(self):
+    def start_control(self):  # $\vecu^I$=0.0
         U = [(0.0,) for t in self.t[:-1]]
         return array(U)
 
@@ -2074,23 +2086,22 @@ class LinModel1(Model):
         return self.h * (x0*x0+u0*u0)
 \end{minted}
 
-Собственно оформление и запуск теста\,:
+Теперь создадим экземпляр задачи, передадим его в качестве параметра в процесс улучшения, который тоже экземпляр своего класса.  Проведем тестовый запуск.
 
-\begin{minted}{python}
+\begin{minted}[texcomments]{python}
 def test_1():
-    m = LinModel1()
-    p1=Process(m, alpha=1.0)
-    iters=2000
-    eps=0.001
-    print ("First-order process:")
-    print ("-"*20)
-    r1=I1, X1, U1, it1, _1 =
-        p1.optimize(m.t, eps=eps,
-            iters=iters)
+    m = LinModel1()          # Модель
+    p1=Process(m, alpha=1.0) # Процесс улучшения
+    iters=2000   # Максимальное количество итераций
+    eps=0.001    # Точность аппроксимации минимума $I$
+    rc=I1, X1, U1, it1, rstr =
+        p1.optimize(m.t, eps=eps, iters=iters)
     print (I1, "iters:", it1)
 
-test_1()
+test_1()         # Запуск теста
 \end{minted}
+
+
 
 * * * * * *
 
