@@ -2064,7 +2064,7 @@ return
 class LinModel1(Model):
     def __init__(self):
         X0=(1.0,)
-        self.h = Ht
+        self.h = 0.01
         self.num = int((1.0-0.0) / self.h) # num=$N$
         self.T = linspace(start=0.0, stop=1.0, num=self.num)
         self.t = arange(len(self.T))  # 0,1,2,3,4,5...
@@ -2079,7 +2079,7 @@ class LinModel1(Model):
 
     def g(self, t, x, u):
         x0=x[0]; u0=u[0]
-        return (x0+self.h*u0,)   # Схема Эйлера
+        return (x0+self.h*u0,)   # Схема Эйлера для $\dot{x_1}=u_1$.
 
     def f0(self, t, x, u):
         x0=x[0]; u0=u[0]
@@ -2101,6 +2101,17 @@ def test_1():
 test_1()         # Запуск теста
 \end{minted}
 
+В результате запуска вычислений получим результат следующего вида\,:
+\begin{minted}{text}
+0.776664425757 iters: 47.
+\end{minted}
+Получается, что за 47 итераций получено управление и траектория, оцениваемая минимальным функционалом со значением 0.777.  Траектория и управление выглядят изображены на рис.~\ref{fig:result}.
+\begin{figure}[hb]
+  \centering
+  \includegraphics[width=0.9\linewidth]{}
+  \caption{Результат расчета оптимального управления задачи}
+  \label{fig:result}
+\end{figure}
 
 
 * * * * * *
