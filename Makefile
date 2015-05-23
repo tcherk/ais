@@ -1,11 +1,11 @@
-NAME=ais
-CNAME=ais-with-cover
+NAME=pattern
+CNAME=pattern-with-cover
 # BIBROOT=$(PWD)/../..
 #	BIBINPUTS=$(BIBROOT) latexmk -pdfps -dvi- -ps- $(NAME)
 
 .PHONY: FORCE_MAKE clean view all emacs edit pics
 
-all: $(NAME).pdf $(CNAME).pdf
+all: $(NAME).pdf #$(CNAME).pdf
 
 %.pdf: %.tex pics FORCE_MAKE
 	BIBINPUTS=$(BIBROOT) latexmk $<
