@@ -17,3 +17,4 @@ auto/
 *latexmk
 *.fls
 _region_.tex
+_minted-*
