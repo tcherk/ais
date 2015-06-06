@@ -1,0 +1,110 @@
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'searchdescr.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{437.68220567bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.33775965)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{searchdescr.pdf}}%
+    \put(0.06490497,0.37943621){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.13598908\unitlength}\raggedright \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{searchdescr.pdf}}%
+    \put(0.18877256,0.30004067){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{\zb}}}%
+    \put(0.13527088,0.30921598){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{a}}}%
+    \put(0.17759572,0.26561606){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{e}}}%
+    \put(0.1216675,0.24170146){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{d}}}%
+    \put(0.05659325,0.27101046){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{b}}}%
+    \put(0.05273905,0.2143093){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{c}}}%
+    \put(0.12099953,0.16114573){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{h}}}%
+    \put(0.18096482,0.1942112){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{g}}}%
+    \put(0.23082879,0.22322713){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{i}}}%
+    \put(0.24014891,0.16114573){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{k}}}%
+    \put(0.28721892,0.18041359){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{j}}}%
+    \put(0.18949001,0.12648137){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{l}}}%
+    \put(0.02834908,0.13520675){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{f}}}%
+    \put(0.02514602,0.0660601){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{n}}}%
+    \put(0.18453998,0.0594778){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{p}}}%
+    \put(0.26332279,0.08721982){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{q}}}%
+    \put(0.11683765,0.09347714){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{r}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{searchdescr.pdf}}%
+    \put(0.48489282,0.30921598){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{a}}}%
+    \put(0.52721766,0.26561606){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{e}}}%
+    \put(0.47128944,0.24170146){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{d}}}%
+    \put(0.40621521,0.27101046){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{b}}}%
+    \put(0.40236101,0.2143093){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{c}}}%
+    \put(0.47062147,0.16114573){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{h}}}%
+    \put(0.53058679,0.1942112){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{g}}}%
+    \put(0.58045073,0.22322713){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{i}}}%
+    \put(0.58977085,0.16114573){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{k}}}%
+    \put(0.63684087,0.18041359){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{j}}}%
+    \put(0.53911198,0.12648137){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{l}}}%
+    \put(0.37797105,0.13520675){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{f}}}%
+    \put(0.37476798,0.0660601){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{n}}}%
+    \put(0.53416192,0.0594778){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{p}}}%
+    \put(0.61294473,0.08721982){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{q}}}%
+    \put(0.46645959,0.09347714){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{r}}}%
+%    \put(0,0){\includegraphics[width=\unitlength,page=4]{searchdescr.pdf}}%
+    \put(0.83451479,0.30921598){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{a}}}%
+    \put(0.87683969,0.26561606){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{e}}}%
+    \put(0.82091142,0.24170146){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{d}}}%
+    \put(0.75583718,0.27101046){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{b}}}%
+    \put(0.75198298,0.2143093){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{c}}}%
+    \put(0.8202435,0.16114573){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{h}}}%
+    \put(0.88020882,0.1942112){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{g}}}%
+    \put(0.93007276,0.22322713){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{i}}}%
+    \put(0.93939287,0.16114573){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{k}}}%
+    \put(0.98646289,0.18041359){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{j}}}%
+    \put(0.88873395,0.12648137){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{l}}}%
+    \put(0.72759303,0.13520675){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{f}}}%
+    \put(0.72438995,0.0660601){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{n}}}%
+    \put(0.88378389,0.0594778){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{p}}}%
+    \put(0.96256671,0.08721982){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{q}}}%
+    \put(0.81608162,0.09347714){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{r}}}%
+    \put(0.15114264,0.00576334){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{\ya}}}%
+    \put(0.50582473,0.00576334){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{\yb}}}%
+    \put(0.8554467,0.00576334){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{\yc}}}%
+  \end{picture}%
+\endgroup%
