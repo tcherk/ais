@@ -1,4 +1,5 @@
 NAME=ais
+#NAME=ais_diff
 CNAME=ais-with-cover
 # BIBROOT=$(PWD)/../..
 #	BIBINPUTS=$(BIBROOT) latexmk -pdfps -dvi- -ps- $(NAME)
@@ -8,7 +9,7 @@ CNAME=ais-with-cover
 all: $(NAME).pdf $(CNAME).pdf
 
 %.pdf: %.tex pics FORCE_MAKE
-	BIBINPUTS=$(BIBROOT) latexmk $<
+	BIBINPUTS=$(BIBROOT) latexmk -f $<
 
 clean:
 	BIBINPUTS=$(BIBROOT) latexmk -C
