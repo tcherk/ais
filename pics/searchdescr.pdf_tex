@@ -86,7 +86,7 @@
     \put(0.53416192,0.0594778){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{p}}}%
     \put(0.61294473,0.08721982){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{q}}}%
     \put(0.46645959,0.09347714){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{r}}}%
-%    \put(0,0){\includegraphics[width=\unitlength,page=4]{searchdescr.pdf}}%
+    % \put(0,0){\includegraphics[width=\unitlength,page=4]{searchdescr.pdf}}%
     \put(0.83451479,0.30921598){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{a}}}%
     \put(0.87683969,0.26561606){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{e}}}%
     \put(0.82091142,0.24170146){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{d}}}%
