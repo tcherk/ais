@@ -1,4 +1,3 @@
-% THIS IS PRINTED VERSION
 \documentclass[a4paper,14pt, openany, twoside, final]{extbook} % computer modern font calls
 %\usepackage{fancybox}
 % viktory71@mail.ru виктория
@@ -9,10 +8,10 @@
 \usepackage{enumitem}
 \usepackage[final]{minted}
 %\usemintedstyle{emacs}
-%\usemintedstyle{tango}
+\usemintedstyle{tango}
 %\usemintedstyle{trac} % better (more bold faces}
 %\usemintedstyle{manni} % pastel colors
-\usemintedstyle{bw}
+%\usemintedstyle{bw}
 \definecolor{mintedbg}{rgb}{0.95,0.95,0.95}
 \setminted{breaklines=true,fontsize=\small,funcnamehighlighting=true,python3=true}
 
@@ -97,10 +96,10 @@
       ограничений} {Компьютерная алгебра} {Принцип максимума} {Оптимальное управление}, % list of keywords
     pdfnewwindow=true,      % links in new window
     colorlinks=true,       % false: boxed links; true: colored links
-    linkcolor=black,          % color of internal links (black)
-    citecolor=black,        % color of links to bibliography
+    linkcolor=[rgb]{0 0.4 0.1},          % color of internal links (black)
+    citecolor=blue,        % color of links to bibliography
     filecolor=black,      % color of file links
-    urlcolor=black           % color of external links
+    urlcolor=[rgb]{0.3 0.0 0.3}           % color of external links
 }
 
 %\renewcommand{\headrulewidth}{1pt}
