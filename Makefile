@@ -3,7 +3,7 @@ CNAME=pattern-with-cover
 # BIBROOT=$(PWD)/../..
 #	BIBINPUTS=$(BIBROOT) latexmk -pdfps -dvi- -ps- $(NAME)
 
-.PHONY: FORCE_MAKE clean view all emacs edit pics
+.PHONY: FORCE_MAKE clean view all emacs edit pics pdflatex
 
 all: $(NAME).pdf #$(CNAME).pdf
 
@@ -30,3 +30,6 @@ $(CNAME).pdf: $(NAME).pdf cover.jpg
 
 pics:
 	cd pics && make
+
+pdflatex: $(NAME).tex
+	BIBINPUTS=$(BIBROOT) latexmk -r .pdflatexmkrc $<
