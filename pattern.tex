@@ -3,6 +3,7 @@
 \usepackage[final]{graphicx}
 % \graphicspath{{./pics/}{./paropt/pics/}} % Местонахождение картинок
 \usepackage[usenames]{xcolor}
+\usepackage{siunitx}
 % \usepackage[final]{minted} % Удобный пакет для представления программного кода, требует внешнюю программу и специальные параметры запуска. В отличие от пакета listings поддерживаются русские буквы и utf-8.
 %\usemintedstyle{emacs} % Разные стили цвета текста
 %\usemintedstyle{tango}
@@ -20,6 +21,7 @@
 % ISU standard handbook.
 %\usepackage[times,fancybot,firamono]{subook} % looks less good than inconsolata
 \usepackage[times,fancybot,inconsolata,cambriamath]{subook} % Собственно загрузка стиля.
+%\usepackage[fancybot,inconsolata,cambriamath]{subook} % Собственно загрузка стиля.
 %\usepackage[times]{subook}
 
 % Заменить в коде кой-что на математические формулы
@@ -222,23 +224,23 @@ R_1=C_0e^{-\gamma_1r}=C_0e^{(-{Zr}/{a_0})}.
 \chapter*[Фундаментальные постоянные]{\protect\href{http://physics.nist.gov/cuu/Constants/index.html}{Фундаментальные постоянные}}
 \url{http://physics.nist.gov/cuu/Constants/index.html}
 
-с – скорость света =2.9979 108 м/сек
+$\mathbfit{c}$  скорость света =  \textbf{2.99}79\,$\cdot$\,10\textsuperscript{8} м/сек % 10${}^8$
 
-e – заряд электрона = 1.602 10-19 кулон
+$\mathbfit{e}$  заряд электрона = 1.602\,$\cdot$\,10\textsuperscript{-19} кулон
 
- $m_ec^2$ - энергия массы покоя электрона = 5.110034·105 эВ = 511 кэВ
+$m_ec^2$  энергия массы покоя электрона = \textbf{5.11}0034\,$\cdot$\,10\textsuperscript{5} эВ = 511 кэВ
 
- $r_e{\text{=e}}^2/(m_ec^2)$ - классический радиус электрона = 2.818 10-15 м
+$\mathbfit{b}$  барн = 10\textsuperscript{-28} м\textsuperscript{2} = 10\textsuperscript{-24} см\textsuperscript{2}
 
- $r_{e^2}$ = 7.941 10-30 м2  = 0.0794 b (барн)
+$r_e=e^2/(m_ec^2)$  классический радиус электрона = \textbf{2.81}79380\,$\cdot$\,10\textsuperscript{-15} м $\approx$ 2.82\,$\cdot$\,10\textsuperscript{-5} $\dot A$
 
-b = barn= 10-28 м2 = 10-24 см2
+$\mathbfit{r_{e^2}}$ = \textbf{7.94}0775\,$\cdot$\,10\textsuperscript{-30} м\textsuperscript{2}  = \textbf{0.079}40775 $\mathbfit{b}$ (барн)
 
- =  $2\pi e^2/{\text{hc}}$- постоянная тонкой структуры = 1/137.03604
+$\mathbfit{\sigma_r}$ = $8\pi r_e^2/3$ поперечное сечение для классического томсоновского рассеяния от электрона = \textbf{6.65}2448\,$\cdot$\,10\textsuperscript{-29} м\textsuperscript{2} = 0.66552448 $\mathbfit{b}$
 
- =  $2\pi e^2/{\text{hc}}$
+$\mathbfit{\alpha}$ = $\frac{2\pi e^2}{hc}$ постоянная тонкой структуры = \textbf{7.29}73506\,$\cdot$\,10\textsuperscript{-3} = 1/137.03604 $\approx$ 1/137
 
- $a_0$ - первый Боровский радиус = 0.529 Å
+$\mathbfit{a_0}$  первый Боровский радиус электрона = $r_e/\alpha^2$ = \textbf{5.29}17706 0.529
 
 $\lambda(\dot{A})$ = 12.39852/E (кэВ)
 
@@ -247,32 +249,6 @@ h = 4.1357 10-18 кэВ с
 h (joule, J s) = 6.62E-34 переписать
 
 NA = 6.023 1023 моль-1
-
-% $r_H$ \textasciitilde{} 1  10−15 м
-
-Charge radius = 0.8775(51)~фм
-
-(1 ферми = 1 фм = 1·10-15 м = 1 фемтометр = 1 фм.)  это неправильно
-
-с – скорость света =2.9979 108 м/сек
-
-e – заряд электрона = 1.602 10-19 кулон
-
- $m_ec^2$ - энергия массы покоя электрона = 511 кэВ
-
- $r_e{\text{=e}}^2/(m_ec^2)$ - классический радиус электрона = 2.8179380 10-15 м
-
- $r_{e^2}$ = 7.941 10-30 м2  = 0.0794 b (барн)
-
-b = barn= 10-28 м2
-
- =  $2\pi e^2/{\text{hc}}$- постоянная тонкой структуры = 1/137.03604
-
- $a_0$ - первый Боровский радиус = 0.529 Å
-
-$\lambda(\dot A)$ = 12.39852/E (кэВ)
-
-h = 4.1357 10-18 кэВ с
 
 \end{document}
 
