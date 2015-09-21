@@ -18,3 +18,4 @@ auto/
 *.fls
 _region_.tex
 _minted-*
+import/
